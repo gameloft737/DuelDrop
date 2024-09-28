@@ -26,23 +26,22 @@ public class WeaponManager : MonoBehaviour
             PerformAttack();
         }
     }
-protected void PerformAttack()
-{
-    // Assuming you have a reference to the target PlayerMovement component
-    if (target != null)
-    {
-        // Calculate the direction to knock back
-        Vector3 knockbackDirection = (target.position - transform.position).normalized; // Direction from attacker to target
-        float knockbackStrength = attack.knockBack; // Adjust this value as needed
 
-        // Apply knockback to the opponent
-        PlayerMovement opponentMovement = target.GetComponent<PlayerMovement>();
-        if (opponentMovement != null)
+    protected void PerformAttack()
+    {
+        // Assuming you have a reference to the target PlayerMovement component
+        if (target != null)
         {
-            opponentMovement.Knockback(knockbackDirection, knockbackStrength);
+            float knockbackStrength = attack.knockBack; // Adjust this value as needed
+            float knockbackRange = attack.range;
+            // Apply knockback to the opponent
+            PlayerMovement opponentMovement = target.GetComponent<PlayerMovement>();
+            if (opponentMovement != null)
+            {
+                opponentMovement.Knockback(transform.position, knockbackStrength, knockbackRange);
+            }
         }
     }
-}
 
 
 }

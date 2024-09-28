@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadSpeed: 1
   knockBack: 20
-  range: 10
+  range: 5

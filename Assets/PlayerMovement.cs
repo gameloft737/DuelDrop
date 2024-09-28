@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleJump();
         ApplyCustomGravity();
+        SmoothKnockback();
+
     }
 
     private void CheckGrounded()
@@ -122,19 +124,31 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // New Knockback function
-        [Header("Knockback Settings")]
-        public float upliftModifier = 1f; // Uplift modifier for explosion force
+    [Header("Knockback Settings")]
+    public float smoothFactor = 0.1f; // How quickly the knockback smooths out
+    private Vector3 currentKnockbackForce; // Current force being applied
 
-        public void Knockback(Vector3 direction, float strength)
+    public void Knockback(Vector3 position, float strength, float range)
+    {
+        // Calculate the direction from the player to the explosion position
+        Vector3 direction = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(position.x, 0, position.z)).normalized;
+        
+        // Calculate the explosion force
+        currentKnockbackForce = direction * strength;
+        
+        // Apply the explosion force with a smooth transition
+        _rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
+        
+        // Draw a line in the knockback direction for visualization
+        Debug.DrawLine(transform.position, transform.position + currentKnockbackForce, Color.red, 1f); // Draw for 1 second
+    }
+    private void SmoothKnockback(){
+        // Gradually reduce the knockback force over time for smoothness
+        if (currentKnockbackForce.magnitude > 0.1f)
         {
-            // Normalize the direction and apply force
-            Vector3 knockbackForce = direction.normalized * strength;
-
-            // Apply the knockback force to the rigidbody
-            _rb.AddForce(knockbackForce, ForceMode.Impulse);
-
-            // Draw a line in the knockback direction for visualization
-            Debug.DrawLine(transform.position, transform.position + knockbackForce, Color.red, 1f); // Draw for 1 second
+            currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, smoothFactor);
+            _rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         }
+    }
+
 }
