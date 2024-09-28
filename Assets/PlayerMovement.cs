@@ -4,20 +4,23 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] Transform characterColliderObj;  
+
     [Header("Settings")]
-    public float moveSpeed = 5f;               // Maximum movement speed
-    public float acceleration = 10f;           // Rate of acceleration
-    public float deceleration = 10f;           // Rate of deceleration
-    public float jumpForce = 5f;               // Jump force
-    public float groundedDistance = 0.1f;      // Distance to check if grounded
-    public float gravityMultiplier = 5f;       // Custom gravity multiplier (increased for less float)
-    public float coyoteTime = 0.2f;            // Time after leaving ground the player can still jump
-    public float maxFallSpeed = -10f;          // Maximum falling speed
-    public LayerMask groundLayer;              // Layer to consider as ground
+    public float moveSpeed = 5f;               
+    public float acceleration = 10f;           
+    public float deceleration = 10f;           
+    public float jumpForce = 5f;               
+    public float groundedDistance = 0.1f;      
+    public float gravityMultiplier = 5f;       
+    public float coyoteTime = 0.2f;            
+    public float jumpTimeout = 0.2f;           
+    public float maxFallSpeed = -10f;          
+    public LayerMask groundLayer;              
 
     [Header("Ground Check")]
-    public Transform groundCheck;              // Ground check position
-    public float groundCheckRadius = 0.2f;     // Radius of ground check
+    public Transform groundCheck;              
+    public float groundCheckRadius = 0.2f;     
 
     private Rigidbody _rb;
     private Vector2 _inputDirection;
@@ -25,18 +28,27 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded;
     private bool _jumpRequested;
     private float _lastGroundedTime;
+    private float _jumpRequestTime;
     private Camera _mainCamera;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.constraints = RigidbodyConstraints.FreezeRotation; // Freeze rotation to keep movement in the XY plane
+        _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ; 
         _mainCamera = Camera.main;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         _inputDirection = context.ReadValue<Vector2>();
+        if (_inputDirection.x > 0) 
+        {
+            characterColliderObj.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (_inputDirection.x < 0)
+        {
+            characterColliderObj.transform.localScale = new Vector3(-1, 1, 1);
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -44,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         if (context.performed)
         {
             _jumpRequested = true;
+            _jumpRequestTime = Time.time; 
         }
     }
 
@@ -57,10 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        // Check if the player is grounded by casting a sphere below the player
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Update last grounded time
         if (_isGrounded)
         {
             _lastGroundedTime = Time.time;
@@ -71,45 +81,60 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 targetVelocity = new Vector3(_inputDirection.x, 0, _inputDirection.y) * moveSpeed;
 
-        // Acceleration
         if (_inputDirection.magnitude > 0.1f)
         {
             _velocity = Vector3.MoveTowards(_velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         }
-        // Deceleration
         else
         {
             _velocity = Vector3.MoveTowards(_velocity, Vector3.zero, deceleration * Time.fixedDeltaTime);
         }
 
-        // Apply movement
         _rb.velocity = new Vector3(_velocity.x, _rb.velocity.y, _velocity.z);
     }
 
     private void HandleJump()
     {
-        // Allow jump if grounded or within coyote time
-        if (_jumpRequested && (_isGrounded || Time.time - _lastGroundedTime <= coyoteTime))
+        if (_jumpRequested && Time.time - _jumpRequestTime <= jumpTimeout)
         {
-            _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z); // Reset Y velocity before jumping
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            _jumpRequested = false;
+            if (_isGrounded || Time.time - _lastGroundedTime <= coyoteTime)
+            {
+                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+                _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                _jumpRequested = false;
+            }
+        }
+        else
+        {
+            _jumpRequested = false; 
         }
     }
 
     private void ApplyCustomGravity()
     {
-        // Apply additional gravity when the player is in the air
         if (!_isGrounded)
         {
-            // Apply custom gravity
             _rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
-            
-            // Limit maximum fall speed
             if (_rb.velocity.y < maxFallSpeed)
             {
                 _rb.velocity = new Vector3(_rb.velocity.x, maxFallSpeed, _rb.velocity.z);
             }
         }
     }
+
+    // New Knockback function
+        [Header("Knockback Settings")]
+        public float upliftModifier = 1f; // Uplift modifier for explosion force
+
+        public void Knockback(Vector3 direction, float strength)
+        {
+            // Normalize the direction and apply force
+            Vector3 knockbackForce = direction.normalized * strength;
+
+            // Apply the knockback force to the rigidbody
+            _rb.AddForce(knockbackForce, ForceMode.Impulse);
+
+            // Draw a line in the knockback direction for visualization
+            Debug.DrawLine(transform.position, transform.position + knockbackForce, Color.red, 1f); // Draw for 1 second
+        }
 }
