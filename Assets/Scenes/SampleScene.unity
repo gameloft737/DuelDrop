@@ -167,9 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf5ef13020822d479645cef23d805df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: {fileID: 11400000, guid: 25d7287542367f94cbe675e9574a4607, type: 2}
+  regAttack: {fileID: 0}
   specialAttack: {fileID: 11400000, guid: 25d7287542367f94cbe675e9574a4607, type: 2}
   ultimateAttack: {fileID: 11400000, guid: 25d7287542367f94cbe675e9574a4607, type: 2}
+  _playerMovement: {fileID: 67334196}
   target: {fileID: 1146664358}
 --- !u!1 &67334190
 GameObject:

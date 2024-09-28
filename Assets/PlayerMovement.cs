@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Transform characterColliderObj;  
+    public Transform characterColliderObj;  
 
     [Header("Settings")]
     public float moveSpeed = 5f;               
