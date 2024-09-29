@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class FynManager : WeaponManager
@@ -7,6 +8,7 @@ public class FynManager : WeaponManager
     private bool isShieldActive = false; // Tracks if the shield is active
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
+    private float moveSpeed = 1f;
 
     private Coroutine shieldCoroutine;
 
@@ -26,6 +28,8 @@ public class FynManager : WeaponManager
 
             // Call base PerformSpecialAttack() if needed for additional effects, or omit this line if special attack is only shield
             base.PerformSpecialAttack(attack);
+
+
         }
     }
 
@@ -64,6 +68,16 @@ public class FynManager : WeaponManager
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength);
             }
+        }
+    }
+    protected override void PerformUltimateAttack(AttackData attack)
+    {
+        if(target != null)
+        {
+            Debug.Log("Ultimate Attack Performed");
+            Vector3 currentPosition = transform.position;
+            Vector3 targetPosition = target.position;
+            transform.position = Vector3.MoveTowards(transform.position, currentPosition, moveSpeed * Time.deltaTime);
         }
     }
 }
