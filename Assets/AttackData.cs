@@ -7,6 +7,6 @@ public class AttackData : ScriptableObject
 {
     public GameObject particle;
     public float reloadSpeed = 1f;
-    public float knockBack = 1f;    
+    public float knockback = 1f;    
     public float range = 1f;
 }

@@ -15,5 +15,5 @@ MonoBehaviour:
   particle: {fileID: 4390558217584167717, guid: fbc2d28daddc6ec45bb3acb2a829143a,
     type: 3}
   reloadSpeed: 15
-  knockBack: 0
+  knockback: 0
   range: 0

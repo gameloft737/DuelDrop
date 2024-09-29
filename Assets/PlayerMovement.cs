@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform characterColliderObj;  
-
+    public bool canMove = true;
     [Header("Settings")]
     public float moveSpeed = 5f;               
     public float acceleration = 10f;           
@@ -62,9 +62,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckGrounded();
-        HandleMovement();
-        HandleJump();
+        if(canMove)
+        {
+            CheckGrounded();
+            HandleMovement();
+            HandleJump();
+        }
         ApplyCustomGravity();
         SmoothKnockback();
 
@@ -132,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
     {
         
         // Calculate the direction from the player to the explosion position
-        Vector3 direction = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(position.x, 0, position.z)).normalized;
+        Vector3 direction = (new Vector3(transform.position.x, 0, 0) - new Vector3(position.x, 0, 0)).normalized;
         
         // Calculate the explosion force
         currentKnockbackForce = direction * strength;
@@ -143,6 +146,10 @@ public class PlayerMovement : MonoBehaviour
         // Draw a line in the knockback direction for visualization
         Debug.DrawLine(transform.position, transform.position + currentKnockbackForce, Color.red, 1f); // Draw for 1 second
     }
+    public void Knockup(float strength)
+    {
+        _rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
+    }
     private void SmoothKnockback(){
         // Gradually reduce the knockback force over time for smoothness
         if (currentKnockbackForce.magnitude > 0.1f)
@@ -150,6 +157,10 @@ public class PlayerMovement : MonoBehaviour
             currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, smoothFactor);
             _rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         }
+    }
+    public void Floor()
+    {
+        _rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
 
 }

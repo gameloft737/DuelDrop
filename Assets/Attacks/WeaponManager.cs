@@ -136,10 +136,10 @@ public class WeaponManager : MonoBehaviour
             // Only apply knockback if the target is within range and the player is facing the target
             if (distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0)
             {
-                float knockbackStrength = attack.knockBack;
+                float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength, this);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, this);
                 }
             }
         }
@@ -168,8 +168,11 @@ public class WeaponManager : MonoBehaviour
             ultimateAttackSlider.value = attackCooldowns[ultimateAttack];
         }
     }
-    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, WeaponManager attacker){
+    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, WeaponManager attacker){
         
         _playerMovement.Knockback(attackPosition, knockbackStrength);
+        if(knockupStrength > 0f){ 
+            _playerMovement.Knockup(knockupStrength);
+        }
     }
 }

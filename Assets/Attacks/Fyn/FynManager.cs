@@ -39,14 +39,16 @@ public class FynManager : WeaponManager
     }
 
     // Method to apply knockback when the player is hit
-    public override void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, WeaponManager attacker)
+    public override void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength,WeaponManager attacker)
     {
         if (isShieldActive)
         {
             // Reduce the knockback received by 50% and reflect the rest
             float reducedKnockback = knockbackStrength * knockbackReduction;
             _playerMovement.Knockback(attackPosition, reducedKnockback);
-
+            if(knockupStrength > 0f){ 
+                _playerMovement.Knockup(knockupStrength  * knockbackReduction);
+            }
             // Reflect the remaining knockback to the attacker
             if (attacker != null)
             {
@@ -59,6 +61,9 @@ public class FynManager : WeaponManager
         {
             // No shield active, apply full knockback to the player
             _playerMovement.Knockback(attackPosition, knockbackStrength);
+            if(knockupStrength > 0f){ 
+                _playerMovement.Knockup(knockupStrength);
+            }
         }
     }
 }
