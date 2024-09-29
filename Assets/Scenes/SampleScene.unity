@@ -534,6 +534,7 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 1715261979}
   groundCheckRadius: 0.2
+  rb: {fileID: 0}
   smoothFactor: 0.1
 --- !u!54 &67334197
 Rigidbody:
@@ -2913,6 +2914,7 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 1324890608}
   groundCheckRadius: 0.2
+  rb: {fileID: 0}
   smoothFactor: 0.1
 --- !u!54 &1146664362
 Rigidbody:

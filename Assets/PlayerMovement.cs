@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;              
     public float groundCheckRadius = 0.2f;     
 
-    private Rigidbody _rb;
+    public Rigidbody rb;
     private Vector2 _inputDirection;
     private Vector3 _velocity;
     private bool _isGrounded;
@@ -33,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
-        _rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ; 
+        rb = GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ; 
         _mainCamera = Camera.main;
     }
 
@@ -68,7 +68,9 @@ public class PlayerMovement : MonoBehaviour
             HandleMovement();
             HandleJump();
         }
-        ApplyCustomGravity();
+        if(rb.useGravity){
+            ApplyCustomGravity();
+        }
         SmoothKnockback();
 
     }
@@ -95,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             _velocity = Vector3.MoveTowards(_velocity, Vector3.zero, deceleration * Time.fixedDeltaTime);
         }
 
-        _rb.velocity = new Vector3(_velocity.x, _rb.velocity.y, _velocity.z);
+        rb.velocity = new Vector3(_velocity.x, rb.velocity.y, _velocity.z);
     }
 
     private void HandleJump()
@@ -104,8 +106,8 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_isGrounded || Time.time - _lastGroundedTime <= coyoteTime)
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 _jumpRequested = false;
             }
         }
@@ -119,10 +121,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isGrounded)
         {
-            _rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
-            if (_rb.velocity.y < maxFallSpeed)
+            rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
+            if (rb.velocity.y < maxFallSpeed)
             {
-                _rb.velocity = new Vector3(_rb.velocity.x, maxFallSpeed, _rb.velocity.z);
+                rb.velocity = new Vector3(rb.velocity.x, maxFallSpeed, rb.velocity.z);
             }
         }
     }
@@ -141,26 +143,26 @@ public class PlayerMovement : MonoBehaviour
         currentKnockbackForce = direction * strength;
         
         // Apply the explosion force with a smooth transition
-        _rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
+        rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         
         // Draw a line in the knockback direction for visualization
         Debug.DrawLine(transform.position, transform.position + currentKnockbackForce, Color.red, 1f); // Draw for 1 second
     }
     public void Knockup(float strength)
     {
-        _rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
     }
     private void SmoothKnockback(){
         // Gradually reduce the knockback force over time for smoothness
         if (currentKnockbackForce.magnitude > 0.1f)
         {
             currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, smoothFactor);
-            _rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
+            rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         }
     }
     public void Floor()
     {
-        _rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
 
 }

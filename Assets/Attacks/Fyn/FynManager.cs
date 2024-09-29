@@ -8,7 +8,7 @@ public class FynManager : WeaponManager
     private bool isShieldActive = false; // Tracks if the shield is active
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
-    private float moveSpeed = 1f;
+    private float moveSpeed = 7f;
 
     private Coroutine shieldCoroutine;
 
@@ -72,12 +72,56 @@ public class FynManager : WeaponManager
     }
     protected override void PerformUltimateAttack(AttackData attack)
     {
-        if(target != null)
+        if (target != null)
         {
             Debug.Log("Ultimate Attack Performed");
-            Vector3 currentPosition = transform.position;
-            Vector3 targetPosition = target.position;
-            transform.position = Vector3.MoveTowards(transform.position, currentPosition, moveSpeed * Time.deltaTime);
+
+            // Temporarily disable collisions between this object and other colliders
+            Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
+            Collider[] allColliders = FindObjectsOfType<Collider>();
+            _playerMovement.canMove = false;
+            if (_playerMovement.rb != null)
+            {
+                 _playerMovement.rb.velocity = Vector3.zero;
+                 _playerMovement.rb.angularVelocity = Vector3.zero;
+                 _playerMovement.rb.useGravity = false; // Optional: disable gravity during the attack
+            }
+            foreach (Collider col in allColliders)
+            {
+                if (col != thisCollider)
+                {
+                    Physics.IgnoreCollision(thisCollider, col, true); // Ignore collisions
+                }
+            }
+
+            // Move towards the target
+            StartCoroutine(MoveTowardsTarget(target.position));
         }
     }
+
+    private IEnumerator MoveTowardsTarget(Vector3 targetPosition)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > 1f) // Keep moving until close to target
+        {
+            _playerMovement.gameObject.transform.position = Vector3.MoveTowards(_playerMovement.gameObject.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null; // Wait for the next frame
+        }
+
+        // Re-enable collisions after reaching the target
+        Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
+        Collider[] allColliders = FindObjectsOfType<Collider>();
+
+        foreach (Collider col in allColliders)
+        {
+            if (col != thisCollider)
+            {
+                Physics.IgnoreCollision(thisCollider, col, false); // Re-enable collisions
+            }
+        }
+        _playerMovement.rb.useGravity = true;
+        _playerMovement.rb.isKinematic = false;
+         _playerMovement.canMove = true;
+        Debug.Log("Reached Target!");
+    }
+
 }
