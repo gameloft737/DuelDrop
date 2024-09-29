@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
-  m_Name: Slice
+  m_Name: Charge
   m_EditorClassIdentifier: 
   particle: {fileID: 4390558217584167717, guid: 17445acc84c99154f8fd4d8f76cf4eaa,
     type: 3}
-  reloadSpeed: 1
-  knockBack: 20
-  range: 4
+  reloadSpeed: 25
+  knockBack: 30
+  range: 10

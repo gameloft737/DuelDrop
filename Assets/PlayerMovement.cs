@@ -128,8 +128,9 @@ public class PlayerMovement : MonoBehaviour
     public float smoothFactor = 0.1f; // How quickly the knockback smooths out
     private Vector3 currentKnockbackForce; // Current force being applied
 
-    public void Knockback(Vector3 position, float strength, float range)
+    public void Knockback(Vector3 position, float strength)
     {
+        
         // Calculate the direction from the player to the explosion position
         Vector3 direction = (new Vector3(transform.position.x, 0, transform.position.z) - new Vector3(position.x, 0, position.z)).normalized;
         

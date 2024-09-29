@@ -6,18 +6,20 @@ using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] AttackData regAttack;
-    [SerializeField] AttackData specialAttack;
-    [SerializeField] AttackData ultimateAttack;
+    [SerializeField] protected AttackData regAttack;
+    [SerializeField] protected AttackData specialAttack;
+    [SerializeField] protected AttackData ultimateAttack;
 
 
     // References to the sliders in the UI
-    [SerializeField] private Slider regAttackSlider;
-    [SerializeField] private Slider specialAttackSlider;
-    [SerializeField] private Slider ultimateAttackSlider;
+    [SerializeField] protected Slider regAttackSlider;
+    [SerializeField] protected Slider specialAttackSlider;
+    [SerializeField] protected Slider ultimateAttackSlider;
 
-    [SerializeField] private PlayerMovement _playerMovement; // Reference to the PlayerMovement script
-    [SerializeField] private Transform target; // Reference to the target (opponent)
+    public PlayerMovement _playerMovement; // Reference to the PlayerMovement script
+    [SerializeField] protected Transform target; // Reference to the target (opponent)
+    
+    [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)
 
     private Dictionary<AttackData, float> attackCooldowns = new Dictionary<AttackData, float>();
 
@@ -36,6 +38,9 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateCooldowns();
+    }
+    protected virtual void UpdateCooldowns(){
         // Update cooldown timers
         List<AttackData> keys = new List<AttackData>(attackCooldowns.Keys);
         foreach (AttackData attack in keys)
@@ -47,7 +52,6 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
-
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -55,8 +59,22 @@ public class WeaponManager : MonoBehaviour
             TryPerformAttack(regAttack);
         }
     }
+    public void OnSpecialAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            TryPerformSpecialAttack(specialAttack);
+        }
+    }
+    public void OnUltimateAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            TryPerformUltimateAttack(ultimateAttack);
+        }
+    }
 
-    private void TryPerformAttack(AttackData attack)
+    protected virtual void TryPerformAttack(AttackData attack)
     {
         if (attackCooldowns[attack] <= 0f)
         {
@@ -69,15 +87,41 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    protected void PerformAttack(AttackData attack)
+    protected virtual void TryPerformSpecialAttack(AttackData attack)
+    {
+        if (attackCooldowns[attack] <= 0f)
+        {
+            PerformSpecialAttack(attack);
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+        }
+        else
+        {
+            Debug.Log("SpecialAttack on cooldown!");
+        }
+    }
+
+    protected virtual void TryPerformUltimateAttack(AttackData attack)
+    {
+        if (attackCooldowns[attack] <= 0f)
+        {
+            PerformUltimateAttack(attack);
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+        }
+        else
+        {
+            Debug.Log("UltimateAttack on cooldown!");
+        }
+    }
+
+    protected virtual void PerformAttack(AttackData attack)
     {
         if (target != null)
         {
             // Instantiate the claw effect at the player's position
-            GameObject clawEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
+            GameObject particleEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
 
             // Schedule destruction of the claw effect just before the attack reloads
-            StartCoroutine(DestroyClawEffect(clawEffect, attack.reloadSpeed));
+            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 
             // Calculate the direction from the player to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;
@@ -93,25 +137,22 @@ public class WeaponManager : MonoBehaviour
             if (distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0)
             {
                 float knockbackStrength = attack.knockBack;
-                PlayerMovement opponentMovement = target.GetComponent<PlayerMovement>();
-                if (opponentMovement != null)
+                if (targetManager != null)
                 {
-                    opponentMovement.Knockback(transform.position, knockbackStrength, knockbackRange);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength, this);
                 }
             }
         }
     }
 
-    private IEnumerator DestroyClawEffect(GameObject clawEffect, float delay)
+    protected virtual void PerformSpecialAttack(AttackData attack){}
+    protected virtual void PerformUltimateAttack(AttackData attack){}
+    protected IEnumerator DestroyParticleEffect(GameObject particleEffect, float delay)
     {
         // Wait for the delay (time until the next attack can be performed)
         yield return new WaitForSeconds(delay);
-        Destroy(clawEffect);
+        Destroy(particleEffect);
     }
-
-
-
-
     private void UpdateSlider(AttackData attack)
     {
         if (attack == regAttack)
@@ -126,5 +167,9 @@ public class WeaponManager : MonoBehaviour
         {
             ultimateAttackSlider.value = attackCooldowns[ultimateAttack];
         }
+    }
+    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, WeaponManager attacker){
+        
+        _playerMovement.Knockback(attackPosition, knockbackStrength);
     }
 }
