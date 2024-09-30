@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class FynManager : WeaponManager
 {
     private bool isShieldActive = false; // Tracks if the shield is active
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
-    private float moveSpeed = 7f;
+    private float moveSpeed = 50;
+    private float ultimateKnockbackStrenght = 10f;
+    private float ultimateKnockupStrenght = 10f;
 
     private Coroutine shieldCoroutine;
 
@@ -101,8 +104,10 @@ public class FynManager : WeaponManager
 
     private IEnumerator MoveTowardsTarget(Vector3 targetPosition)
     {
+        Vector3 attackPlayerPosition = _playerMovement.gameObject.transform.position;
         while (Vector3.Distance(transform.position, targetPosition) > 1f) // Keep moving until close to target
         {
+            Vector3 playerPosition = _playerMovement.gameObject.transform.position;
             _playerMovement.gameObject.transform.position = Vector3.MoveTowards(_playerMovement.gameObject.transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null; // Wait for the next frame
         }
@@ -118,9 +123,11 @@ public class FynManager : WeaponManager
                 Physics.IgnoreCollision(thisCollider, col, false); // Re-enable collisions
             }
         }
+        
         _playerMovement.rb.useGravity = true;
+        ApplyKnockback(attackPlayerPosition, ultimateKnockbackStrenght,ultimateKnockupStrenght,this);
         _playerMovement.rb.isKinematic = false;
-         _playerMovement.canMove = true;
+        _playerMovement.canMove = true;
         Debug.Log("Reached Target!");
     }
 
