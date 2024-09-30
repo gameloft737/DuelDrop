@@ -177,6 +177,7 @@ MonoBehaviour:
   target: {fileID: 1146664358}
   targetManager: {fileID: 1527577438}
   shieldDuration: 7
+  moveSpeed: 50
 --- !u!1 &35976797
 GameObject:
   m_ObjectHideFlags: 0
