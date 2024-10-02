@@ -119,7 +119,7 @@ public class WeaponManager : MonoBehaviour
         {
             // Instantiate the claw effect at the player's position
             GameObject particleEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
-
+            particleEffect.transform.localScale = Vector3.one;
             // Schedule destruction of the claw effect just before the attack reloads
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 

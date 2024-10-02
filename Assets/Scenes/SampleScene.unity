@@ -5503,6 +5503,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slash VFX
       objectReference: {fileID: 0}
+    - target: {fileID: 7728814943453678774, guid: 4547d1348c7798547a1ba13fa394f8ff,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8516866113674005868, guid: 4547d1348c7798547a1ba13fa394f8ff,
         type: 3}
       propertyPath: m_LocalPosition.x

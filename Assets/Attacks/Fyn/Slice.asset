@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
   m_Name: Slice
   m_EditorClassIdentifier: 
-  particle: {fileID: 4390558217584167717, guid: 17445acc84c99154f8fd4d8f76cf4eaa,
+  particle: {fileID: 4252356840046184218, guid: 4547d1348c7798547a1ba13fa394f8ff,
     type: 3}
-  reloadSpeed: 0.2
+  reloadSpeed: 1
   knockback: 2
   range: 4
