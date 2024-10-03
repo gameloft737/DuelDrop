@@ -174,11 +174,12 @@ MonoBehaviour:
   specialAttackSlider: {fileID: 1184180286}
   ultimateAttackSlider: {fileID: 1596035215}
   _playerMovement: {fileID: 67334196}
-  healthSystem: {fileID: 0}
+  healthSystem: {fileID: 207456061}
   target: {fileID: 1146664358}
   targetManager: {fileID: 1527577438}
   shieldDuration: 7
   moveSpeed: 50
+  healthSystem: {fileID: 0}
 --- !u!1 &35976797
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ GameObject:
   - component: {fileID: 67334191}
   - component: {fileID: 67334197}
   - component: {fileID: 67334196}
+  - component: {fileID: 67334198}
   m_Layer: 0
   m_Name: ArrowKeysPlayer
   m_TagString: Untagged
@@ -565,6 +567,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!114 &67334198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67334190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 207456060}
 --- !u!1 &76926332
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,6 +3076,7 @@ GameObject:
   - component: {fileID: 1146664360}
   - component: {fileID: 1146664362}
   - component: {fileID: 1146664361}
+  - component: {fileID: 1146664363}
   m_Layer: 0
   m_Name: WASDPlayer
   m_TagString: Untagged
@@ -3273,6 +3289,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &1146664363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146664355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBar: {fileID: 1347621682}
 --- !u!1 &1184180284
 GameObject:
   m_ObjectHideFlags: 0
@@ -4581,7 +4610,7 @@ MonoBehaviour:
   specialAttackSlider: {fileID: 1388352028}
   ultimateAttackSlider: {fileID: 35976799}
   _playerMovement: {fileID: 1146664361}
-  healthSystem: {fileID: 0}
+  healthSystem: {fileID: 1347621683}
   target: {fileID: 67334194}
   targetManager: {fileID: 17932448}
 --- !u!1 &1543474122

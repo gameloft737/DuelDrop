@@ -16,7 +16,7 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] protected Slider specialAttackSlider;
     [SerializeField] protected Slider ultimateAttackSlider;
     public PlayerMovement _playerMovement; // Reference to the PlayerMovement script
-    [SerializeField] protected HealthSystem healthSystem;
+    public HealthSystem healthSystem;
     [SerializeField] protected Transform target; // Reference to the target (opponent)
     
     [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)

@@ -10,7 +10,7 @@ public class FynManager : WeaponManager
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
-    [SerializeField] protected HealthSystem healthSystem;
+    public  HealthSystem healthSystem;
     private Coroutine shieldCoroutine;
 
     // Override the special attack method to activate the shield
@@ -46,11 +46,10 @@ public class FynManager : WeaponManager
     // Method to apply knockback when the player is hit
     public override void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength,WeaponManager attacker)
     {
-
         if (isShieldActive)
         {
             // Reduce the knockback received by 50% and reflect the rest
-            
+            healthSystem.Damage(knockbackStrength * knockbackReduction);
             float reducedKnockback = knockbackStrength * knockbackReduction;
             _playerMovement.Knockback(attackPosition, reducedKnockback);
             if(knockupStrength > 0f){ 
@@ -60,6 +59,7 @@ public class FynManager : WeaponManager
             if (attacker != null)
             {
                 float reflectedKnockback = knockbackStrength * (1 - knockbackReduction);
+                attacker.healthSystem.Damage(reflectedKnockback);
                 attacker._playerMovement.Knockback(transform.position, reflectedKnockback);
                 Debug.Log(attacker._playerMovement);
             }
