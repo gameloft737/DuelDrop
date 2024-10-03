@@ -15,8 +15,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] protected Slider regAttackSlider;
     [SerializeField] protected Slider specialAttackSlider;
     [SerializeField] protected Slider ultimateAttackSlider;
-
     public PlayerMovement _playerMovement; // Reference to the PlayerMovement script
+    [SerializeField] protected HealthSystem healthSystem;
     [SerializeField] protected Transform target; // Reference to the target (opponent)
     
     [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)
@@ -29,7 +29,6 @@ public class WeaponManager : MonoBehaviour
         attackCooldowns[regAttack] = 0f;
         attackCooldowns[specialAttack] = 0f;
         attackCooldowns[ultimateAttack] = 0f;
-
         regAttackSlider.value = regAttack.reloadSpeed;
         specialAttackSlider.value = specialAttack.reloadSpeed;
         ultimateAttackSlider.value = ultimateAttack.reloadSpeed;
@@ -169,7 +168,8 @@ public class WeaponManager : MonoBehaviour
         }
     }
     public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, WeaponManager attacker){
-        
+
+        healthSystem.Damage(knockbackStrength);
         _playerMovement.Knockback(attackPosition, knockbackStrength);
         if(knockupStrength > 0f){ 
             _playerMovement.Knockup(knockupStrength);
