@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 3271498098396517338}
   - component: {fileID: 8397027091844705342}
   m_Layer: 7
-  m_Name: FynArrow
+  m_Name: ArrowKeysPlayer
   m_TagString: ArrowKeysPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,5 +515,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
   maximum: 500

@@ -25,4 +25,9 @@ public class CameraFollow : MonoBehaviour
         // Optionally make the camera look at the midpoint
         transform.LookAt(midpoint);
     }
+    public void Start()
+    {
+        player2 = GameObject.FindGameObjectsWithTag("ArrowKeysPlayer")[0].transform;
+        player1 = GameObject.FindGameObjectsWithTag("WASDPlayer")[0].transform;
+    }
 }
