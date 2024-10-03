@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +7,15 @@ using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] String currentTag;
+    [SerializeField] String targetTag;
+
+    [Header("Attacks")]
     [SerializeField] protected AttackData regAttack;
     [SerializeField] protected AttackData specialAttack;
     [SerializeField] protected AttackData ultimateAttack;
 
 
-    // References to the sliders in the UI
-    [SerializeField] protected Slider regAttackSlider;
-    [SerializeField] protected Slider specialAttackSlider;
-    [SerializeField] protected Slider ultimateAttackSlider;
     public PlayerMovement _playerMovement; // Reference to the PlayerMovement script
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target; // Reference to the target (opponent)
@@ -29,10 +30,10 @@ public class WeaponManager : MonoBehaviour
         attackCooldowns[regAttack] = 0f;
         attackCooldowns[specialAttack] = 0f;
         attackCooldowns[ultimateAttack] = 0f;
-        regAttackSlider.value = regAttack.reloadSpeed;
-        specialAttackSlider.value = specialAttack.reloadSpeed;
-        ultimateAttackSlider.value = ultimateAttack.reloadSpeed;
-    
+
+        target = GameObject.FindGameObjectsWithTag(targetTag + "Player")[0].transform;
+        
+        targetManager = GameObject.FindGameObjectsWithTag(targetTag + "Manager")[0].GetComponent<WeaponManager>();
     }
 
     private void Update()
@@ -138,7 +139,7 @@ public class WeaponManager : MonoBehaviour
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, this);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, attack.damage);
                 }
             }
         }
@@ -154,22 +155,12 @@ public class WeaponManager : MonoBehaviour
     }
     private void UpdateSlider(AttackData attack)
     {
-        if (attack == regAttack)
-        {
-            regAttackSlider.value = attackCooldowns[regAttack];
-        }
-        else if (attack == specialAttack)
-        {
-            specialAttackSlider.value = attackCooldowns[specialAttack];
-        }
-        else if (attack == ultimateAttack)
-        {
-            ultimateAttackSlider.value = attackCooldowns[ultimateAttack];
-        }
+        //add logic for sliders
+        return;
     }
-    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, WeaponManager attacker){
+    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage ){
 
-        healthSystem.Damage(knockbackStrength);
+        healthSystem.Damage(damage);
         _playerMovement.Knockback(attackPosition, knockbackStrength);
         if(knockupStrength > 0f){ 
             _playerMovement.Knockup(knockupStrength);

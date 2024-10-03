@@ -10,7 +10,6 @@ public class FynManager : WeaponManager
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
-    public  HealthSystem healthSystem;
     private Coroutine shieldCoroutine;
 
     // Override the special attack method to activate the shield
@@ -44,29 +43,30 @@ public class FynManager : WeaponManager
     }
 
     // Method to apply knockback when the player is hit
-    public override void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength,WeaponManager attacker)
+    public override void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage)
     {
         if (isShieldActive)
         {
             // Reduce the knockback received by 50% and reflect the rest
-            healthSystem.Damage(knockbackStrength * knockbackReduction);
             float reducedKnockback = knockbackStrength * knockbackReduction;
+            healthSystem.Damage(damage * knockbackReduction);
             _playerMovement.Knockback(attackPosition, reducedKnockback);
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength  * knockbackReduction);
             }
             // Reflect the remaining knockback to the attacker
-            if (attacker != null)
+            if (targetManager != null)
             {
                 float reflectedKnockback = knockbackStrength * (1 - knockbackReduction);
-                attacker.healthSystem.Damage(reflectedKnockback);
-                attacker._playerMovement.Knockback(transform.position, reflectedKnockback);
-                Debug.Log(attacker._playerMovement);
+                targetManager.healthSystem.Damage(damage * (1 - knockbackReduction));
+                targetManager._playerMovement.Knockback(transform.position, reflectedKnockback);
             }
         }
         else
         {
             // No shield active, apply full knockback to the player
+            
+            healthSystem.Damage(knockbackStrength);
             _playerMovement.Knockback(attackPosition, knockbackStrength);
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength);
@@ -123,7 +123,7 @@ public class FynManager : WeaponManager
         }
         
         _playerMovement.rb.useGravity = true;
-        targetManager.ApplyKnockback(transform.position, attack.knockback,attack.knockback * 0.4f,this);
+        targetManager.ApplyKnockback(transform.position, attack.knockback,attack.knockback * 0.4f, attack.damage);
         _playerMovement.canMove = true;
         Debug.Log("Reached Target!");
     }
