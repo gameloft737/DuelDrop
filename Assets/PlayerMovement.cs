@@ -72,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
                 animHorizontal -= Time.deltaTime * animSmoothingSpeed;
             }
             animator.SetFloat("horizontal", animHorizontal);
-            animator.SetBool("isGrounded", _isGrounded);
+            bool isAnimGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckRadius * 7f, groundLayer);
+            animator.SetBool("isGrounded", isAnimGrounded || _isGrounded);
             animator.SetBool("isMoving", _inputDirection.x != 0);
             
             
