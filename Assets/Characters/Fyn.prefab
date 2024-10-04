@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 3271498098396517338}
   - component: {fileID: 8397027091844705342}
   m_Layer: 7
-  m_Name: ArrowKeysPlayer
+  m_Name: Fyn
   m_TagString: ArrowKeysPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

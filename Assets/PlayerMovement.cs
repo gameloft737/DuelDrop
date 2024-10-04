@@ -1,9 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    public Animator animator;
+    private float animHorizontal;
+    private float animVertical;
+    [SerializeField] float animSmoothingSpeed;
     public Transform characterColliderObj;  
     public bool canMove = true;
     [Header("Settings")]
@@ -25,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     private Vector2 _inputDirection;
     private Vector3 _velocity;
-    private bool _isGrounded;
+    [SerializeField]private bool _isGrounded;
     private bool _jumpRequested;
     private float _lastGroundedTime;
     private float _jumpRequestTime;
@@ -50,7 +55,30 @@ public class PlayerMovement : MonoBehaviour
             characterColliderObj.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
+    private void Animate(){
+        if(animator != null)
+        {
+            float targetHorizontal = Math.Abs(_inputDirection.x);
+            if (Mathf.Abs(animHorizontal - targetHorizontal) < 0.05f)
+            {
+                animHorizontal = targetHorizontal;
+            }
+            if (animHorizontal < targetHorizontal)
+            {
+                animHorizontal += Time.deltaTime * animSmoothingSpeed;
+            }
+            else if (animHorizontal > targetHorizontal)
+            {
+                animHorizontal -= Time.deltaTime * animSmoothingSpeed;
+            }
+            animator.SetFloat("horizontal", animHorizontal);
+            animator.SetBool("isGrounded", _isGrounded);
+            animator.SetBool("isMoving", _inputDirection.x != 0);
+            
+            
+        }
 
+    }
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -58,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
             _jumpRequested = true;
             _jumpRequestTime = Time.time; 
         }
+    }
+    private void Update(){
+        Animate();
     }
 
     private void FixedUpdate()
@@ -107,7 +138,9 @@ public class PlayerMovement : MonoBehaviour
             if (_isGrounded || Time.time - _lastGroundedTime <= coyoteTime)
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
+                Debug.Log("JUMP");
+                animator.SetTrigger("jump");
                 _jumpRequested = false;
             }
         }
