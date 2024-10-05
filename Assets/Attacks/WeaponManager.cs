@@ -162,7 +162,7 @@ public class WeaponManager : MonoBehaviour
     }
     public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage ){
 
-        healthSystem.Damage(damage);
+        healthSystem.Damage(damage, 0);
         _playerMovement.Knockback(attackPosition, knockbackStrength);
         if(knockupStrength > 0f){ 
             _playerMovement.Knockup(knockupStrength);

@@ -27,8 +27,6 @@ public class FynManager : WeaponManager
             shieldCoroutine = StartCoroutine(DeactivateShieldAfterDuration(shieldDuration));
 
             // Call base PerformSpecialAttack() if needed for additional effects, or omit this line if special attack is only shield
-            base.PerformSpecialAttack(attack);
-
 
         }
     }
@@ -49,7 +47,7 @@ public class FynManager : WeaponManager
         {
             // Reduce the knockback received by 50% and reflect the rest
             float reducedKnockback = knockbackStrength * knockbackReduction;
-            healthSystem.Damage(damage * knockbackReduction);
+            healthSystem.Damage((damage * knockbackReduction), 0);
             _playerMovement.Knockback(attackPosition, reducedKnockback);
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength  * knockbackReduction);
@@ -58,7 +56,7 @@ public class FynManager : WeaponManager
             if (targetManager != null)
             {
                 float reflectedKnockback = knockbackStrength * (1 - knockbackReduction);
-                targetManager.healthSystem.Damage(damage * (1 - knockbackReduction));
+                targetManager.healthSystem.Damage((damage * (1 - knockbackReduction)),0);
                 targetManager._playerMovement.Knockback(transform.position, reflectedKnockback);
             }
         }
@@ -66,7 +64,7 @@ public class FynManager : WeaponManager
         {
             // No shield active, apply full knockback to the player
             
-            healthSystem.Damage(knockbackStrength);
+            healthSystem.Damage(knockbackStrength,0);
             _playerMovement.Knockback(attackPosition, knockbackStrength);
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength);
