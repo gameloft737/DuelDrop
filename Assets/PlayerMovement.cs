@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
-                Debug.Log("JUMP");
                 animator.SetTrigger("jump");
                 _jumpRequested = false;
             }
