@@ -117,7 +117,8 @@ public class WeaponManager : MonoBehaviour
     {
         if (target != null)
         {
-            _playerMovement.animator.SetTrigger("attack");
+            int randomNumber = UnityEngine.Random.Range(1, 3);
+            _playerMovement.animator.SetTrigger("attack" + randomNumber);
             // Instantiate the claw effect at the player's position
             GameObject particleEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;

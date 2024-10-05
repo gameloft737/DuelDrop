@@ -83,6 +83,7 @@ public class FynManager : WeaponManager
             Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
             Collider[] allColliders = FindObjectsOfType<Collider>();
             _playerMovement.canMove = false;
+            _playerMovement.animator.SetBool("isUltimate", true);
             if (_playerMovement.rb != null)
             {
                  _playerMovement.rb.velocity = Vector3.zero;
@@ -125,7 +126,7 @@ public class FynManager : WeaponManager
         _playerMovement.rb.useGravity = true;
         targetManager.ApplyKnockback(transform.position, attack.knockback,attack.knockback * 0.4f, attack.damage);
         _playerMovement.canMove = true;
-        Debug.Log("Reached Target!");
+        _playerMovement.animator.SetBool("isUltimate", false);
     }
 
 }
