@@ -11,7 +11,39 @@ public class FynManager : WeaponManager
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
     private Coroutine shieldCoroutine;
+    protected override void PerformAttack(AttackData attack)
+    {
+        if (target != null)
+        {
+            int randomNumber = UnityEngine.Random.Range(1, 3);
+            _playerMovement.animator.SetTrigger("attack" + randomNumber);
+            // Instantiate the claw effect at the player's position
+            GameObject particleEffect = Instantiate(attack.getParticle(randomNumber), transform.position, Quaternion.identity, transform);
+            particleEffect.transform.localScale = Vector3.one;
+            // Schedule destruction of the claw effect just before the attack reloads
+            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 
+            // Calculate the direction from the player to the target
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+            // Check if the target is within the knockback range
+            float knockbackRange = attack.range;
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+            // Calculate the player's facing direction based on the character's local scale
+            Vector3 facingDirection = _playerMovement.characterColliderObj.localScale.x > 0 ? transform.right : -transform.right;
+
+            // Only apply knockback if the target is within range and the player is facing the target
+            if (distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0)
+            {
+                float knockbackStrength = attack.knockback;
+                if (targetManager != null)
+                {
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, attack.damage);
+                }
+            }
+        }
+    }
     // Override the special attack method to activate the shield
     protected override void PerformSpecialAttack(AttackData attack)
     {
@@ -19,7 +51,7 @@ public class FynManager : WeaponManager
         {
             Debug.Log("Shield activated!");
             isShieldActive = true;
-            GameObject particleEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
+            GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
 
             // Schedule destruction of the claw effect just before the attack reloads
             StartCoroutine(DestroyParticleEffect(particleEffect, shieldDuration));

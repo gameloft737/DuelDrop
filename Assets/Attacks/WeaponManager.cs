@@ -117,10 +117,8 @@ public class WeaponManager : MonoBehaviour
     {
         if (target != null)
         {
-            int randomNumber = UnityEngine.Random.Range(1, 3);
-            _playerMovement.animator.SetTrigger("attack" + randomNumber);
             // Instantiate the claw effect at the player's position
-            GameObject particleEffect = Instantiate(attack.particle, transform.position, Quaternion.identity, transform);
+            GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;
             // Schedule destruction of the claw effect just before the attack reloads
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
