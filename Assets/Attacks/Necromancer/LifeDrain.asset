@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LifeDrain
   m_EditorClassIdentifier: 
   particle: {fileID: 0}
-  reloadSpeed: 1
+  reloadSpeed: 15
   knockback: 1
-  damage: 1
-  range: 1
+  damage: 100
+  range: 100

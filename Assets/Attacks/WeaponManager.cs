@@ -14,9 +14,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] protected AttackData regAttack;
     [SerializeField] protected AttackData specialAttack;
     [SerializeField] protected AttackData ultimateAttack;
-
-
     public PlayerMovement _playerMovement; // Reference to the PlayerMovement script
+    public float knockbackModifier = 1.0f;
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target; // Reference to the target (opponent)
     
@@ -158,10 +157,14 @@ public class WeaponManager : MonoBehaviour
         //add logic for sliders
         return;
     }
+    public void KnockBackModifer(float modifierValue)
+    {
+        modifierValue = knockbackModifier;
+    }
     public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage ){
 
         healthSystem.Damage(damage, 0);
-        _playerMovement.Knockback(attackPosition, knockbackStrength);
+        _playerMovement.Knockback(attackPosition, knockbackStrength*knockbackModifier);
         if(knockupStrength > 0f){ 
             _playerMovement.Knockup(knockupStrength);
         }

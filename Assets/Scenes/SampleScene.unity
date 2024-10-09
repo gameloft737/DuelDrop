@@ -6380,11 +6380,13 @@ MonoBehaviour:
   specialAttack: {fileID: 11400000, guid: a83ff8a585e06dd488b5586201f1d456, type: 2}
   ultimateAttack: {fileID: 11400000, guid: 8e59861f0cc2dae4bb82d140d6abd590, type: 2}
   _playerMovement: {fileID: 3271498098081225803}
+  knockbackModifier: 1
   healthSystem: {fileID: 8397027091656811439}
   target: {fileID: 0}
   targetManager: {fileID: 0}
   shieldDuration: 7
   moveSpeed: 50
+  buffStrenght: 3
 --- !u!4 &1964447905942763052
 Transform:
   m_ObjectHideFlags: 0
@@ -6775,9 +6777,11 @@ MonoBehaviour:
   specialAttack: {fileID: 11400000, guid: e789a567d69f66549922970fc53bf206, type: 2}
   ultimateAttack: {fileID: 11400000, guid: ccf32f8b09b331e479a3584f67ab4557, type: 2}
   _playerMovement: {fileID: 3271498097550506378}
+  knockbackModifier: 1
   healthSystem: {fileID: 8397027092187530862}
   target: {fileID: 0}
   targetManager: {fileID: 0}
+  lifeDrainTime: 4
 --- !u!4 &5666176150321721550
 Transform:
   m_ObjectHideFlags: 0
@@ -6846,6 +6850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximum: 500
+  healthBar: {fileID: 1347621682}
 --- !u!114 &8397027092187530862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6859,6 +6864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximum: 500
+  healthBar: {fileID: 207456060}
 --- !u!33 &8840633750688426666
 MeshFilter:
   m_ObjectHideFlags: 0

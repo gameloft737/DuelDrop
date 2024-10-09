@@ -11,6 +11,7 @@ public class HealthSystem : MonoBehaviour
     //[SerializeField] Slider healthBar;
 
     [SerializeField] private float maximum;
+    [SerializeField] private Slider healthBar;
     private float health;
     private Coroutine Healing;
     private float remainingHealing = 0f;
@@ -19,6 +20,7 @@ public class HealthSystem : MonoBehaviour
     public void Start()
     {
         health = maximum;
+        healthBar.maxValue = maximum;
         //healthBar.value = health;
     }
     public void Damage(float damage,float duration)
@@ -41,27 +43,7 @@ public class HealthSystem : MonoBehaviour
             return;
         }
         health = health - damage;
-    }
-    public void HealthGain(float healAmount)
-    {
-        if (health >= maximum)
-        {
-            health = maximum;
-            StopCoroutine(Healing); Healing = null;
-            return;
-        }
-        health = health + healAmount;
-    }
-    public void Heal(float healAmount, float duration)
-    {
-        // If a healing coroutine is already running, apply the remaining health instantly
-        if (Healing != null)
-        {
-            StopCoroutine(Healing);
-            HealthGain(remainingHealing);  // Apply the remaining healing instantly
-        }
-        // Start the new healing coroutine
-        Healing = StartCoroutine(SmoothHeal(healAmount, duration));
+        healthBar.value = health;
     }
     private IEnumerator SmoothDamage(float damageamount, float duration)
     {
@@ -90,6 +72,28 @@ public class HealthSystem : MonoBehaviour
         // Reset remaining damage after coroutine finishes
         remainingDamage = 0f;
     }
+    public void HealthGain(float healAmount)
+    {
+        if (health >= maximum)
+        {
+            health = maximum;
+            StopCoroutine(Healing); Healing = null;
+            return;
+        }
+        health = health + healAmount;
+        healthBar.value = health;
+    }
+    public void Heal(float healAmount, float duration)
+    {
+        // If a healing coroutine is already running, apply the remaining health instantly
+        if (Healing != null)
+        {
+            StopCoroutine(Healing);
+            HealthGain(remainingHealing);  // Apply the remaining healing instantly
+        }
+        // Start the new healing coroutine
+        Healing = StartCoroutine(SmoothHeal(healAmount, duration));
+    }
     private IEnumerator SmoothHeal(float healAmount, float duration)
     {
         if (duration == 0f)
@@ -107,7 +111,6 @@ public class HealthSystem : MonoBehaviour
 
             // Apply heal for this frame
             HealthGain(frameHeal);
-
             // Update the remaining healing in case the coroutine gets interrupted
             remainingHealing = (healAmount - (healPerSecond * elapsedTime));
 

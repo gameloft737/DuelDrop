@@ -10,6 +10,9 @@ public class FynManager : WeaponManager
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
+    [SerializeField] private float buffStrenght = 3f;
+    private float normalBuffStrenght = 1f;
+    private float buffTime = 3f;
     private Coroutine shieldCoroutine;
     protected override void PerformAttack(AttackData attack)
     {
@@ -108,7 +111,6 @@ public class FynManager : WeaponManager
         if (target != null)
         {
             Debug.Log("Ultimate Attack Performed");
-
             // Temporarily disable collisions between this object and other colliders
             Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
             Collider[] allColliders = FindObjectsOfType<Collider>();
@@ -130,9 +132,15 @@ public class FynManager : WeaponManager
 
             // Move towards the target
             StartCoroutine(MoveTowardsTarget(target.position, attack));
+            StartCoroutine(KnockBackBuff(buffTime, buffStrenght));
         }
     }
-
+    private IEnumerator KnockBackBuff(float duration,float knockBackBuff)
+    {
+        KnockBackModifer(knockBackBuff);
+        yield return new WaitForSeconds(duration);
+        KnockBackModifer(normalBuffStrenght);
+    }
     private IEnumerator MoveTowardsTarget(Vector3 targetPosition, AttackData attack)
     {
         while (Vector3.Distance(transform.position, targetPosition) > 2f) // Keep moving until close to target
