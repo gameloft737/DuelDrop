@@ -5,8 +5,7 @@ public class ParticleLine : MonoBehaviour
     public ParticleSystem pSystem;  // Particle system reference
     public Transform startPoint;     // Starting point of the particles
     public Transform endPoint;       // End point of the particles
-    public string targetTag = "Player"; // Tag to check for collisions
-
+    [SerializeField] float killRadius;
     private ParticleSystem.ShapeModule shapeModule;
     private ParticleSystem.MainModule mainModule;
     private ParticleSystem.CollisionModule collisionModule;
@@ -52,35 +51,37 @@ public class ParticleLine : MonoBehaviour
         }
 
         // Check for overlapping particles with the target collider
-        CheckParticleTriggers();
+        CheckParticlesForProximity();
     }
 
-    void CheckParticleTriggers()
+    void CheckParticlesForProximity()
+{
+    ParticleSystem.Particle[] particles = new ParticleSystem.Particle[pSystem.particleCount];
+    int numParticlesAlive = pSystem.GetParticles(particles);
+
+    // Get the particle system's transform for local-to-world space conversion
+    Transform particleSystemTransform = pSystem.transform;
+
+    // Loop through each particle and check if it’s within the killRadius of the endPoint
+    for (int i = 0; i < numParticlesAlive; i++)
     {
-        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[pSystem.particleCount];
-        int numParticles = pSystem.GetParticles(particles);
+        // Convert the particle's local position to world space
+        Vector3 particleWorldPos = particleSystemTransform.TransformPoint(particles[i].position);
 
-        for (int i = 0; i < numParticles; i++)
+        // Check the distance between the particle's world position and the end point
+        float distanceToEndPoint = Vector3.Distance(particleWorldPos, endPoint.position);
+
+
+        // If the particle is within the kill radius, set its lifetime to 0
+        if (distanceToEndPoint < killRadius)
         {
-            // Create a sphere at the particle's position to check for overlaps
-            Collider[] hitColliders = Physics.OverlapSphere(particles[i].position, 0.1f); // Adjust the radius as needed
-
-            foreach (var hitCollider in hitColliders)
-            {
-                // Check if the colliding object has the specified tag
-                if(hitCollider.transform.parent != null){
-                    if (hitCollider.transform.parent.CompareTag(targetTag + "Player"))
-                    {
-                        // Set the particle's lifetime to 0 to make it "die"
-                        particles[i].remainingLifetime = 0;
-                        Debug.Log("Particle triggered on: " + hitCollider.name);
-                    }
-                }
-                
-            }
+            particles[i].remainingLifetime = 0;  // Make the particle die
         }
-
-        // Update the particle system with the modified particles
-        pSystem.SetParticles(particles, numParticles);
+        
     }
+
+    // Update the particle system with the modified particles
+    pSystem.SetParticles(particles, numParticlesAlive);
+}
+
 }
