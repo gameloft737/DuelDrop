@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         _inputDirection = context.ReadValue<Vector2>();
+        Debug.Log(_inputDirection);
         if (_inputDirection.x > 0) 
         {
             characterColliderObj.transform.localScale = new Vector3(1, 1, 1);
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         {
             characterColliderObj.transform.localScale = new Vector3(-1, 1, 1);
         }
+        
     }
     private void Animate(){
         if(animator != null)
@@ -90,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update(){
         Animate();
+        
     }
 
     private void FixedUpdate()

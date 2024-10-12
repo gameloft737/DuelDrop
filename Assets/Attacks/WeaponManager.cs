@@ -138,7 +138,7 @@ public class WeaponManager : MonoBehaviour
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, attack.damage);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier ,0.1f, attack.damage);
                 }
             }
         }
@@ -157,14 +157,14 @@ public class WeaponManager : MonoBehaviour
         //add logic for sliders
         return;
     }
-    public void KnockBackModifer(float modifierValue)
+    public void SetKnockbackModifer(float modifierValue)
     {
-        modifierValue = knockbackModifier;
+        knockbackModifier = modifierValue;
     }
     public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage ){
 
         healthSystem.Damage(damage, 0);
-        _playerMovement.Knockback(attackPosition, knockbackStrength*knockbackModifier);
+        _playerMovement.Knockback(attackPosition, knockbackStrength);
         if(knockupStrength > 0f){ 
             _playerMovement.Knockup(knockupStrength);
         }

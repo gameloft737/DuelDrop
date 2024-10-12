@@ -10,9 +10,8 @@ public class FynManager : WeaponManager
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
     private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
-    [SerializeField] private float buffStrenght = 3f;
-    private float normalBuffStrenght = 1f;
-    private float buffTime = 3f;
+    [SerializeField] private float buffStrength = 3f;
+    [SerializeField]private float buffTime = 3f;
     private Coroutine shieldCoroutine;
     protected override void PerformAttack(AttackData attack)
     {
@@ -42,7 +41,7 @@ public class FynManager : WeaponManager
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength,0.1f, attack.damage);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier,0.1f, attack.damage);
                 }
             }
         }
@@ -91,8 +90,8 @@ public class FynManager : WeaponManager
             if (targetManager != null)
             {
                 float reflectedKnockback = knockbackStrength * (1 - knockbackReduction);
-                targetManager.healthSystem.Damage((damage * (1 - knockbackReduction)),0);
-                targetManager._playerMovement.Knockback(transform.position, reflectedKnockback);
+                targetManager.healthSystem.Damage(damage * (1 - knockbackReduction),0);
+                targetManager._playerMovement.Knockback(transform.position, reflectedKnockback * knockbackModifier);
             }
         }
         else
@@ -110,12 +109,13 @@ public class FynManager : WeaponManager
     {
         if (target != null)
         {
+            
+            _playerMovement.animator.SetBool("isUltimate", true);
             Debug.Log("Ultimate Attack Performed");
             // Temporarily disable collisions between this object and other colliders
             Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
             Collider[] allColliders = FindObjectsOfType<Collider>();
             _playerMovement.canMove = false;
-            _playerMovement.animator.SetBool("isUltimate", true);
             if (_playerMovement.rb != null)
             {
                  _playerMovement.rb.velocity = Vector3.zero;
@@ -132,17 +132,29 @@ public class FynManager : WeaponManager
 
             // Move towards the target
             StartCoroutine(MoveTowardsTarget(target.position, attack));
-            StartCoroutine(KnockBackBuff(buffTime, buffStrenght));
         }
     }
-    private IEnumerator KnockBackBuff(float duration,float knockBackBuff)
+    private IEnumerator KnockBackBuff(float duration)
     {
-        KnockBackModifer(knockBackBuff);
+        SetKnockbackModifer(buffStrength);
+        Debug.Log(buffStrength);
         yield return new WaitForSeconds(duration);
-        KnockBackModifer(normalBuffStrenght);
+        SetKnockbackModifer(1f);
     }
     private IEnumerator MoveTowardsTarget(Vector3 targetPosition, AttackData attack)
     {
+        Vector3 directionToTarget = targetPosition - _playerMovement.gameObject.transform.position;
+
+        // Flip the character's scale based on the direction of movement (left or right)
+        if (directionToTarget.x > 0)
+        {
+            _playerMovement.characterColliderObj.transform.localScale = new Vector3(1, 1, 1); // Facing right
+        }
+        else if (directionToTarget.x < 0)
+        {
+            _playerMovement.characterColliderObj.transform.localScale = new Vector3(-1, 1, 1); // Facing left
+        }
+
         while (Vector3.Distance(transform.position, targetPosition) > 2f) // Keep moving until close to target
         {
             _playerMovement.gameObject.transform.position = Vector3.MoveTowards(_playerMovement.gameObject.transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -162,9 +174,10 @@ public class FynManager : WeaponManager
         }
         
         _playerMovement.rb.useGravity = true;
-        targetManager.ApplyKnockback(transform.position, attack.knockback,attack.knockback * 0.4f, attack.damage);
+        targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier,attack.knockback * 0.4f, attack.damage);
         _playerMovement.canMove = true;
         _playerMovement.animator.SetBool("isUltimate", false);
+        StartCoroutine(KnockBackBuff(buffTime));
     }
 
 }

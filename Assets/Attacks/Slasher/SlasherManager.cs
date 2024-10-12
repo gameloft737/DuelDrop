@@ -37,7 +37,7 @@ public class SlasherManager : WeaponManager
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength,knockbackStrength*0.2f, attack.damage);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier ,knockbackStrength*0.2f, attack.damage);
                 }
             }
         }
