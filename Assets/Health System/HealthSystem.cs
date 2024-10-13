@@ -38,7 +38,8 @@ public class HealthSystem : MonoBehaviour
     {
         if (health <= 0)
         {
-            StopCoroutine(Damaging); Damaging = null;
+            if (Healing != null){StopCoroutine(Healing);}
+            Damaging = null;
             Debug.Log("You Died");
             return;
         }
@@ -77,7 +78,8 @@ public class HealthSystem : MonoBehaviour
         if (health >= maximum)
         {
             health = maximum;
-            StopCoroutine(Healing); Healing = null;
+            if (Healing != null){StopCoroutine(Healing);}
+            Healing = null;
             return;
         }
         health = health + healAmount;

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
-  m_Name: LifeDrain
+  m_Name: LifeSteal
   m_EditorClassIdentifier: 
-  particle: {fileID: 0}
+  particle: {fileID: 2910740363891528006, guid: f016d392e21a5bc48a083ce7ea71b703,
+    type: 3}
   reloadSpeed: 15
-  knockback: 1
-  damage: 100
-  range: 100
+  knockback: 0
+  damage: 80
+  range: 0

@@ -23,7 +23,7 @@ public class FynManager : WeaponManager
             GameObject particleEffect = Instantiate(attack.getParticle(randomNumber), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;
             // Schedule destruction of the claw effect just before the attack reloads
-            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed *2f));
 
             // Calculate the direction from the player to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;

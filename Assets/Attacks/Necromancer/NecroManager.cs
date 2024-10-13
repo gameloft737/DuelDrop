@@ -10,5 +10,11 @@ public class NecroManager : WeaponManager
     {
         targetManager.healthSystem.Damage(attack.damage,lifeDrainTime);
         healthSystem.Heal(attack.damage, lifeDrainTime);
+        
+        GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+        particleEffect.transform.localScale = Vector3.one;
+        particleEffect.GetComponentInChildren<ParticleLine>().startPoint = target;
+        particleEffect.GetComponentInChildren<ParticleLine>().endPoint = transform;
+        StartCoroutine(DestroyParticleEffect(particleEffect,lifeDrainTime));
     }
 }

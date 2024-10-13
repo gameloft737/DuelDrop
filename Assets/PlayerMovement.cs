@@ -91,8 +91,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     private void Update(){
-        Animate();
-        
+        if(animator != null){      
+            Animate();
+        }   
     }
 
     private void FixedUpdate()
@@ -143,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
-                animator.SetTrigger("jump");
+                if(animator != null){animator.SetTrigger("jump");}
                 _jumpRequested = false;
             }
         }
