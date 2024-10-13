@@ -134,11 +134,14 @@ public class FynManager : WeaponManager
             StartCoroutine(MoveTowardsTarget(target.position, attack));
         }
     }
-    private IEnumerator KnockBackBuff(float duration)
+    private IEnumerator KnockBackBuff(float duration, AttackData attack)
     {
+        GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+        particleEffect.transform.localScale = Vector3.one;
         SetKnockbackModifer(buffStrength);
         Debug.Log(buffStrength);
         yield return new WaitForSeconds(duration);
+        Destroy(particleEffect);
         SetKnockbackModifer(1f);
     }
     private IEnumerator MoveTowardsTarget(Vector3 targetPosition, AttackData attack)
@@ -155,7 +158,7 @@ public class FynManager : WeaponManager
             _playerMovement.characterColliderObj.transform.localScale = new Vector3(-1, 1, 1); // Facing left
         }
 
-        while (Vector3.Distance(transform.position, targetPosition) > 2f) // Keep moving until close to target
+        while (Vector3.Distance(transform.position, targetPosition) > 1f) // Keep moving until close to target
         {
             _playerMovement.gameObject.transform.position = Vector3.MoveTowards(_playerMovement.gameObject.transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null; // Wait for the next frame
@@ -177,7 +180,7 @@ public class FynManager : WeaponManager
         targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier,attack.knockback * 0.4f, attack.damage);
         _playerMovement.canMove = true;
         _playerMovement.animator.SetBool("isUltimate", false);
-        StartCoroutine(KnockBackBuff(buffTime));
+        StartCoroutine(KnockBackBuff(buffTime, attack));
     }
 
 }
