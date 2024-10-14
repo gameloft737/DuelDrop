@@ -1,27 +1,57 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AgentTracker : MonoBehaviour
 {
-    public Transform target; // Target to move towards
+    public Transform target;
     private NavMeshAgent agent;
-    [SerializeField] private LayerMask groundLayer; // Layer mask for ground
+    
+    [SerializeField] private bool isFloored = false; // Determines if we should use ground position
+    [SerializeField] private float duration = 5f; // Duration for tracking the target
+    [SerializeField] private LayerMask groundLayer; // Layer mask for the ground
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false; // Disable automatic rotation
+        agent.updateRotation = false; 
+        StartCoroutine(TrackTarget()); // Start tracking the target
     }
 
-    void Update()
+    private IEnumerator TrackTarget()
     {
-        if (target)
+        float elapsed = 0f;
+
+        // Track the target for the specified duration
+        while (elapsed < duration || duration == 0)
         {
-            // Calculate the direction to the target
-            Vector3 direction = target.position - transform.position;
-            agent.SetDestination(target.position);
+            if (target)
+            {
+                Vector3 targetPosition;
+
+                if (isFloored)
+                {
+                    // Cast a ray downwards from the target's position to find the ground
+                    RaycastHit hit;
+                    if (Physics.Raycast(target.position, Vector3.down, out hit, Mathf.Infinity, groundLayer))
+                    {
+                        targetPosition = hit.point; // Use the point where the ray hits the ground
+                    }
+                    else
+                    {
+                        targetPosition = target.position; // Fallback to target's original position if no ground found
+                    }
+                }
+                else
+                {
+                    targetPosition = target.position; // Use the target's position directly
+                }
+
+                agent.SetDestination(targetPosition); // Keep moving toward the target (or the ground position)
+            }
+            elapsed += Time.deltaTime;
+            yield return null; // Wait for the next frame
         }
+        Destroy(gameObject); // Destroy the agent after the duration
     }
 }
