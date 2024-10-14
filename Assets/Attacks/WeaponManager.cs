@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] String currentTag;
-    [SerializeField] String targetTag;
+    [SerializeField] private string currentTag;
+    [SerializeField] private string targetTag;
 
     [Header("Attacks")]
     [SerializeField] protected AttackData regAttack;
@@ -39,7 +38,9 @@ public class WeaponManager : MonoBehaviour
     {
         UpdateCooldowns();
     }
-    protected virtual void UpdateCooldowns(){
+
+    protected virtual void UpdateCooldowns()
+    {
         // Update cooldown timers
         List<AttackData> keys = new List<AttackData>(attackCooldowns.Keys);
         foreach (AttackData attack in keys)
@@ -51,32 +52,36 @@ public class WeaponManager : MonoBehaviour
             }
         }
     }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            TryPerformAttack(regAttack);
+            StartCoroutine(TryPerformAttack(regAttack));
         }
     }
+
     public void OnSpecialAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            TryPerformSpecialAttack(specialAttack);
+            StartCoroutine(TryPerformSpecialAttack(specialAttack));
         }
     }
+
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            TryPerformUltimateAttack(ultimateAttack);
+            StartCoroutine(TryPerformUltimateAttack(ultimateAttack));
         }
     }
 
-    protected virtual void TryPerformAttack(AttackData attack)
+    protected virtual IEnumerator TryPerformAttack(AttackData attack)
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            yield return new WaitForSeconds(attack.delay);
             PerformAttack(attack);
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
@@ -84,12 +89,15 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.Log("Attack on cooldown!");
         }
+
+        yield return null; // Wait for the next frame
     }
 
-    protected virtual void TryPerformSpecialAttack(AttackData attack)
+    protected virtual IEnumerator TryPerformSpecialAttack(AttackData attack)
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            yield return new WaitForSeconds(attack.delay);
             PerformSpecialAttack(attack);
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
@@ -97,12 +105,15 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.Log("SpecialAttack on cooldown!");
         }
+
+        yield return null; // Wait for the next frame
     }
 
-    protected virtual void TryPerformUltimateAttack(AttackData attack)
+    protected virtual IEnumerator TryPerformUltimateAttack(AttackData attack)
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            yield return new WaitForSeconds(attack.delay);
             PerformUltimateAttack(attack);
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
@@ -110,6 +121,8 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.Log("UltimateAttack on cooldown!");
         }
+
+        yield return null; // Wait for the next frame
     }
 
     protected virtual void PerformAttack(AttackData attack)
@@ -138,34 +151,39 @@ public class WeaponManager : MonoBehaviour
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
-                    targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier ,0.1f, attack.damage);
+                    targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier, 0.1f, attack.damage);
                 }
             }
         }
     }
 
-    protected virtual void PerformSpecialAttack(AttackData attack){}
-    protected virtual void PerformUltimateAttack(AttackData attack){}
+    protected virtual void PerformSpecialAttack(AttackData attack) { }
+    protected virtual void PerformUltimateAttack(AttackData attack) { }
+
     protected IEnumerator DestroyParticleEffect(GameObject particleEffect, float delay)
     {
         // Wait for the delay (time until the next attack can be performed)
         yield return new WaitForSeconds(delay);
         Destroy(particleEffect);
     }
+
     private void UpdateSlider(AttackData attack)
     {
-        //add logic for sliders
+        // Add logic for sliders
         return;
     }
-    public void SetKnockbackModifer(float modifierValue)
+
+    public void SetKnockbackModifier(float modifierValue)
     {
         knockbackModifier = modifierValue;
     }
-    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage ){
 
+    public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage)
+    {
         healthSystem.Damage(damage, 0);
         _playerMovement.Knockback(attackPosition, knockbackStrength);
-        if(knockupStrength > 0f){ 
+        if (knockupStrength > 0f)
+        {
             _playerMovement.Knockup(knockupStrength);
         }
     }

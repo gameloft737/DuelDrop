@@ -13,6 +13,7 @@ public class FynManager : WeaponManager
     [SerializeField] private float buffStrength = 3f;
     [SerializeField]private float buffTime = 3f;
     private Coroutine shieldCoroutine;
+    
     protected override void PerformAttack(AttackData attack)
     {
         if (target != null)
@@ -138,11 +139,11 @@ public class FynManager : WeaponManager
     {
         GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
         particleEffect.transform.localScale = Vector3.one;
-        SetKnockbackModifer(buffStrength);
+        SetKnockbackModifier(buffStrength);
         Debug.Log(buffStrength);
         yield return new WaitForSeconds(duration);
         Destroy(particleEffect);
-        SetKnockbackModifer(1f);
+        SetKnockbackModifier(1f);
     }
     private IEnumerator MoveTowardsTarget(Vector3 targetPosition, AttackData attack)
     {
