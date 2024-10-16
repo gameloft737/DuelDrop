@@ -159,7 +159,6 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual void PerformSpecialAttack(AttackData attack) { }
     protected virtual void PerformUltimateAttack(AttackData attack) { }
-
     protected IEnumerator DestroyParticleEffect(GameObject particleEffect, float delay)
     {
         // Wait for the delay (time until the next attack can be performed)
