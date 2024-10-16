@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EventCreation : MonoBehaviour
+public class EventCreation : RandomEventsManager
 {
-    [SerializeField] private RandomPowerUp randomPowerUp;
-    [SerializeField] private RandomTeleportation randomTeleportation;
-    [SerializeField] private LandDeletion landDeletion; 
-    [SerializeField] private BombEvent bombEvent;
-    [SerializeField] private  Text EventLabel;
+    private RandomPowerUp randomPowerUp;
+    private RandomTeleportation randomTeleportation;
+    private LandDeletion landDeletion;
+    private BombEvent bombEvent;
+    private Text EventLabel;
     private float countDownTime = 20f;
     private bool isNextEventTime = false;
     private float countDownTimer;
-    private RandomEventsManager RandomEventsManager;
-    public RandomEventsManager[] RandomEvent;
+    public RandomEventsManager[] RandomEvents;
     private RandomEventsManager nextEvent;
     private void Start()
     {
@@ -30,11 +29,7 @@ public class EventCreation : MonoBehaviour
         nextEvent = GetRandomEvent();
         if( EventLabel != null)
         {
-            EventLabel.text = "Upcoming:" + nextEvent.eventName;
-        }
-        if(eventIconIMage != null && nextEvent.eventIcon != null)
-        {
-            eventIconImage.sprite  = nextEvent.eventIcon;
+            EventLabel.text = "Upcoming:" + nextEvent.name;
         }
     }
     private void CountDownTimer()
@@ -45,24 +40,24 @@ public class EventCreation : MonoBehaviour
         }
         else
         {
-            TriggerEvent();
+            //TriggerEvent();
             StartNewCountDown();
         }
     }
     private RandomEvent GetRandomEvent()
     {
-        if(RandomEvents.Lenght == 0)
+        if(RandomEvents.Length == 0)
         {
             return null;
         }
-        int randomIndex = Random.Range(0, randomEvents.Lenght);
-        return randomEvents[randomIndex];
+        int randomIndex = Random.Range(0, RandomEvents.Length);
+        return RandomEvents[randomIndex];
     }
     private void TriggerEvent()
     {
         if(nextEvent != null && nextEvent.eventPrefab != null)
         {
-            Instantiate(isNextEventTime.eventPrefab,transform.position,Quaternion.identity);
+            nextEvent.Action;
         }
     }
 }
