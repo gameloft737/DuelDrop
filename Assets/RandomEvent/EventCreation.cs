@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EventCreation : RandomEventsManager
+public class EventCreation : MonoBehaviour
 {
     private RandomPowerUp randomPowerUp;
     private RandomTeleportation randomTeleportation;
@@ -13,8 +13,8 @@ public class EventCreation : RandomEventsManager
     private float countDownTime = 20f;
     private bool isNextEventTime = false;
     private float countDownTimer;
-    public RandomEventsManager[] RandomEvents;
-    private RandomEventsManager nextEvent;
+    public RandomEvent[] randomEvents;
+    private RandomEvent nextEvent;
     private void Start()
     {
         StartNewCountDown();
@@ -40,25 +40,22 @@ public class EventCreation : RandomEventsManager
         }
         else
         {
-            //TriggerEvent();
+            TriggerEvent();
             StartNewCountDown();
         }
     }
     private RandomEvent GetRandomEvent()
     {
-        if(RandomEvents.Length == 0)
+        if(randomEvents.Length == 0)
         {
             return null;
         }
-        int randomIndex = Random.Range(0, RandomEvents.Length);
-        return RandomEvents[randomIndex];
+        int randomIndex = Random.Range(0, randomEvents.Length);
+        return randomEvents[randomIndex];
     }
     private void TriggerEvent()
     {
-        if(nextEvent != null && nextEvent.eventPrefab != null)
-        {
-            nextEvent.Action;
-        }
+       
     }
 }
 

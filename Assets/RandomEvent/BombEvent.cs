@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 
-public class BombEvent : RandomEventsManager
+public class BombEvent : RandomEvent
 {
     // Start is called before the first frame update
     void Start()

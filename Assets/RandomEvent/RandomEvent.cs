@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RandomEventsManager : MonoBehaviour
+public class RandomEvent : MonoBehaviour
 {
     protected virtual void Name() { }
     protected virtual void Icon() { }

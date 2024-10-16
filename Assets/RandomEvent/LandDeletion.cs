@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 
-public class LandDeletion : RandomEventsManager
+public class LandDeletion : RandomEvent
 {
     // Start is called before the first frame update
     void Start()
