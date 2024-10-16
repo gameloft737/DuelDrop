@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   reloadSpeed: 0.3
   knockback: 20
-  delay: 0.15
+  delay: 0
   damage: 20
   range: 2.5
   particle2: {fileID: 4252356840046184218, guid: d407e96ddbe0a4143a5ced23b9752a9f,
