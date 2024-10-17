@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
   m_Name: Charge
   m_EditorClassIdentifier: 
-  particle: {fileID: 4390558217584167717, guid: 17445acc84c99154f8fd4d8f76cf4eaa,
-    type: 3}
+  particle: {fileID: 919132149155446097, guid: 9b070b1b446bd0f45b356f1bf631f2fe, type: 3}
   reloadSpeed: 25
-  knockBack: 30
+  knockback: 1
+  delay: 0
+  damage: 1
   range: 10

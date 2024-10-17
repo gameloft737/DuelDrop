@@ -129,6 +129,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (target != null)
         {
+            if (_playerMovement.animator != null) {
+            _playerMovement.animator.SetTrigger("attack");
+            }
             // Instantiate the claw effect at the player's position
             GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;

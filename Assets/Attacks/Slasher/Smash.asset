@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
   m_Name: Smash
   m_EditorClassIdentifier: 
-  particle: {fileID: 4390558217584167717, guid: 17445acc84c99154f8fd4d8f76cf4eaa,
+  particle: {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d,
     type: 3}
   reloadSpeed: 15
   knockback: 70
+  delay: 0
   damage: 100
   range: 6
