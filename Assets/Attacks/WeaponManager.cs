@@ -20,7 +20,7 @@ public class WeaponManager : MonoBehaviour
     
     [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)
 
-    private Dictionary<AttackData, float> attackCooldowns = new Dictionary<AttackData, float>();
+    protected Dictionary<AttackData, float> attackCooldowns = new Dictionary<AttackData, float>();
 
     private void Start()
     {
@@ -81,9 +81,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             yield return new WaitForSeconds(attack.delay);
             PerformAttack(attack);
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
         else
         {
@@ -97,9 +97,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             yield return new WaitForSeconds(attack.delay);
             PerformSpecialAttack(attack);
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
         else
         {
@@ -113,9 +113,9 @@ public class WeaponManager : MonoBehaviour
     {
         if (attackCooldowns[attack] <= 0f)
         {
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             yield return new WaitForSeconds(attack.delay);
             PerformUltimateAttack(attack);
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
         }
         else
         {

@@ -11,7 +11,6 @@ public class EventCreation : MonoBehaviour
     private BombEvent bombEvent;
     private Text EventLabel;
     private float countDownTime = 20f;
-    private bool isNextEventTime = false;
     private float countDownTimer;
     public RandomEvent[] randomEvents;
     private RandomEvent nextEvent;

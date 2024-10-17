@@ -13,15 +13,29 @@ public class FynManager : WeaponManager
     [SerializeField] private float buffStrength = 3f;
     [SerializeField]private float buffTime = 3f;
     private Coroutine shieldCoroutine;
-    
+    int randomNum = 1;
+    protected override IEnumerator TryPerformAttack(AttackData attack){
+        if (attackCooldowns[attack] <= 0f)
+        {    
+            randomNum = UnityEngine.Random.Range(1, 3);
+            _playerMovement.animator.SetTrigger("attack" + randomNum);
+            yield return new WaitForSeconds(attack.delay);
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+            PerformAttack(attack);
+        }
+        else
+        {
+            Debug.Log("Attack on cooldown!");
+        }
+
+        yield return null; // Wait for the next frame
+    }
     protected override void PerformAttack(AttackData attack)
     {
         if (target != null)
         {
-            int randomNumber = UnityEngine.Random.Range(1, 3);
-            _playerMovement.animator.SetTrigger("attack" + randomNumber);
             // Instantiate the claw effect at the player's position
-            GameObject particleEffect = Instantiate(attack.getParticle(randomNumber), transform.position, Quaternion.identity, transform);
+            GameObject particleEffect = Instantiate(attack.getParticle(randomNum), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;
             // Schedule destruction of the claw effect just before the attack reloads
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed *2f));
