@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlasherManager : WeaponManager
 {
     int randomNum = 1;
+    [SerializeField] GameObject swordParticles;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (attackCooldowns[attack] <= 0f)
         {    
@@ -92,5 +93,18 @@ public class SlasherManager : WeaponManager
             }
             _playerMovement.animator.SetBool("isSpecial", false);
         }
+    }
+    protected override void PerformUltimateAttack(AttackData attack)
+    {
+         _playerMovement.animator.SetTrigger("ultimate");
+         swordParticles.SetActive(true);
+        if (target != null)
+        {
+            StartCoroutine(SetSwordParticles(2.5f, false));
+        }
+    }
+    protected IEnumerator SetSwordParticles(float delay, bool value){
+        yield return new WaitForSeconds(delay);
+        swordParticles.SetActive(value);
     }
 }
