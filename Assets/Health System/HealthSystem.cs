@@ -34,7 +34,7 @@ public class HealthSystem : MonoBehaviour
         if (timeSinceLastHit <= comboTimeWindow)
         {
             comboCount++;
-            comboMultiplier = 1f + (comboCount * 0.5f); // Adjust the multiplier as desired
+            comboMultiplier = 1f + (comboCount * 0.5f); // Adjust the multiplier as desired 
         }
         else
         {
