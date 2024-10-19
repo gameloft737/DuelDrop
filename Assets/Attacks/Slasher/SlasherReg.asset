@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: deb197121bed95e4b8b9fbbacbe672b6, type: 3}
-  m_Name: Cut
+  m_Name: SlasherReg
   m_EditorClassIdentifier: 
-  particle: {fileID: 158789456559184324, guid: 87167b19fb4a32a4e8e4f2c5f40a40b3, type: 3}
+  particle: {fileID: 8092880991646039622, guid: d5e3331443a14f846bf10ea480b1dfff,
+    type: 3}
   reloadSpeed: 1.4
   knockback: 50
   delay: 0.3
   damage: 60
   range: 6
-  particle2: {fileID: 158789456559184324, guid: 87167b19fb4a32a4e8e4f2c5f40a40b3,
+  particle2: {fileID: 7655080057993589646, guid: d7b03cbd261b9874c975f977d69490dd,
     type: 3}
