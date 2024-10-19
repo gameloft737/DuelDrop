@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
   m_Name: SlasherSpecial
   m_EditorClassIdentifier: 
-  particle: {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d,
+  particle: {fileID: 2676358641105348807, guid: 766e1cb4def4bfd46a2a30045e0613ca,
     type: 3}
-  reloadSpeed: 15
+  reloadSpeed: 1
   knockback: 70
   delay: 0
   damage: 100

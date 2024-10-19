@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb197121bed95e4b8b9fbbacbe672b6, type: 3}
   m_Name: SlasherReg
   m_EditorClassIdentifier: 
-  particle: {fileID: 8092880991646039622, guid: d5e3331443a14f846bf10ea480b1dfff,
+  particle: {fileID: 9145204843635168753, guid: d5e3331443a14f846bf10ea480b1dfff,
     type: 3}
   reloadSpeed: 1.4
   knockback: 50
