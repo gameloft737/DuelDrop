@@ -1,107 +1,137 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using Unity.PlasticSCM.Editor.WebApi;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
-    //[SerializeField] Slider healthBar;
-
     [SerializeField] private float maximum;
     [SerializeField] private Slider healthBar;
+    [SerializeField] GameObject damagePrefab;
+    [SerializeField] GameObject comboTextPrefab; // Prefab for combo text
+    [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits in seconds
     private float health;
     private Coroutine Healing;
     private float remainingHealing = 0f;
     private float remainingDamage = 0f;
     private Coroutine Damaging;
+
+    private int comboCount = 0; // Tracks the number of consecutive hits
+    private float comboMultiplier = 1f; // Multiplier for combo damage
+    private float lastHitTime = 0f; // Tracks the time of the last hit
+
     public void Start()
     {
         health = maximum;
         healthBar.maxValue = maximum;
-        //healthBar.value = health;
     }
-    public void Damage(float damage,float duration)
+
+    public void Damage(float damage, float duration)
     {
-        // If a Damaging coroutine is already running, apply the remaining health instantly
+        // Calculate time since last hit for combo logic
+        float timeSinceLastHit = Time.time - lastHitTime;
+
+        // If within the combo time window, increase the combo count
+        if (timeSinceLastHit <= comboTimeWindow)
+        {
+            comboCount++;
+            comboMultiplier = 1f + (comboCount * 0.5f); // Adjust the multiplier as desired
+        }
+        else
+        {
+            // Reset the combo if time window exceeded
+            comboCount = 0;
+            comboMultiplier = 1f;
+        }
+        CreateComboText(comboCount,damage);
+
+        // Apply the combo multiplier to the damage
+        float comboDamage = damage * comboMultiplier;
+
+        // Update the last hit time
+        lastHitTime = Time.time;
+
+        // If a damaging coroutine is already running, apply the remaining damage instantly
         if (Damaging != null)
         {
             StopCoroutine(Damaging);
-            DamageSubstraction(remainingDamage);  // Apply the remaining healing instantly
+            DamageSubtraction(remainingDamage);
         }
-        // Start the new healing coroutine
-        Damaging = StartCoroutine(SmoothDamage(damage, duration));
+
+        // Start the new damaging coroutine
+        Damaging = StartCoroutine(SmoothDamage(comboDamage, duration));
     }
-    public void DamageSubstraction(float damage)
+
+    public void DamageSubtraction(float damage)
     {
         if (health <= 0)
         {
-            if (Healing != null){StopCoroutine(Healing);}
+            if (Healing != null) { StopCoroutine(Healing); }
             Damaging = null;
             Debug.Log("You Died");
             return;
         }
-        health = health - damage;
+
+        health -= damage;
         healthBar.value = health;
     }
-    private IEnumerator SmoothDamage(float damageamount, float duration)
+
+    private IEnumerator SmoothDamage(float damageAmount, float duration)
     {
         if (duration == 0f)
         {
-            DamageSubstraction(damageamount);
+            DamageSubtraction(damageAmount);
             yield break;  // Exit immediately for instant damage
         }
 
         float elapsedTime = 0f;
-        float damagePerSecond = damageamount / duration;
+        float damagePerSecond = damageAmount / duration;
 
         while (elapsedTime < duration)
         {
             float frameDamage = damagePerSecond * Time.deltaTime;
 
             // Apply damage for this frame
-            DamageSubstraction(frameDamage);
-            // Update the remaining damage in case the coroutine gets interrupted
-            remainingDamage = (damageamount - (damagePerSecond * elapsedTime));
+            DamageSubtraction(frameDamage);
+            remainingDamage = (damageAmount - (damagePerSecond * elapsedTime));
 
             elapsedTime += Time.deltaTime;
-            yield return null;  // Wait for the next frame
+            yield return null;
         }
 
-        // Reset remaining damage after coroutine finishes
         remainingDamage = 0f;
     }
+
     public void HealthGain(float healAmount)
     {
         if (health >= maximum)
         {
             health = maximum;
-            if (Healing != null){StopCoroutine(Healing);}
+            if (Healing != null) { StopCoroutine(Healing); }
             Healing = null;
             return;
         }
-        health = health + healAmount;
+
+        health += healAmount;
         healthBar.value = health;
     }
+
     public void Heal(float healAmount, float duration)
     {
-        // If a healing coroutine is already running, apply the remaining health instantly
         if (Healing != null)
         {
             StopCoroutine(Healing);
-            HealthGain(remainingHealing);  // Apply the remaining healing instantly
+            HealthGain(remainingHealing);
         }
-        // Start the new healing coroutine
+
         Healing = StartCoroutine(SmoothHeal(healAmount, duration));
     }
+
     private IEnumerator SmoothHeal(float healAmount, float duration)
     {
         if (duration == 0f)
         {
             HealthGain(healAmount);
-            yield break;  // Exit immediately for instant heal
+            yield break;
         }
 
         float elapsedTime = 0f;
@@ -110,17 +140,33 @@ public class HealthSystem : MonoBehaviour
         while (elapsedTime < duration)
         {
             float frameHeal = healPerSecond * Time.deltaTime;
-
-            // Apply heal for this frame
             HealthGain(frameHeal);
-            // Update the remaining healing in case the coroutine gets interrupted
             remainingHealing = (healAmount - (healPerSecond * elapsedTime));
 
             elapsedTime += Time.deltaTime;
-            yield return null;  // Wait for the next frame
+            yield return null;
         }
 
-        // Reset remaining health after coroutine finishes
         remainingHealing = 0f;
+    }
+
+    void CreateDamageText(float damage)
+    {
+        GameObject dmg = Instantiate(damagePrefab, transform.position, Quaternion.identity, transform);
+        dmg.GetComponent<TMPro.TextMeshPro>().SetText(damage.ToString());
+        Debug.Log(damage);
+    }
+
+    void CreateComboText(int comboCount, float damageAmount)
+    {
+        // Only show combo text if combo count is greater than 1 (i.e., when a combo is active)
+        if (comboCount > 1)
+        {
+            GameObject comboText = Instantiate(comboTextPrefab, transform.position, Quaternion.identity, transform);
+            comboText.GetComponent<TMPro.TextMeshPro>().SetText("Combo x" + comboCount);
+        }
+        else{
+            CreateDamageText(damageAmount);
+        }
     }
 }

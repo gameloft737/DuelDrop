@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private float _lastGroundedTime;
     private float _jumpRequestTime;
     private Camera _mainCamera;
+    [SerializeField] private float stunTime = 0.1f;
 
     private void Awake()
     {
@@ -99,15 +103,15 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if(canMove)
-        {
-            CheckGrounded();
-            HandleMovement();
+        { 
             HandleJump();
         }
         if(rb.useGravity){
             ApplyCustomGravity();
         }
+        CheckGrounded(); 
         SmoothKnockback();
+        HandleMovement();
 
     }
 
@@ -124,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 targetVelocity = new Vector3(_inputDirection.x, 0, _inputDirection.y) * moveSpeed;
 
-        if (_inputDirection.magnitude > 0.1f)
+        if (_inputDirection.magnitude > 0.1f && canMove)
         {
             _velocity = Vector3.MoveTowards(_velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         }
@@ -179,11 +183,18 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the explosion force
         currentKnockbackForce = direction * strength;
         
+        
         // Apply the explosion force with a smooth transition
         rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
+        canMove = false;
+        StartCoroutine(SetStun(stunTime));
         
         // Draw a line in the knockback direction for visualization
         Debug.DrawLine(transform.position, transform.position + currentKnockbackForce, Color.red, 1f); // Draw for 1 second
+    }
+    private IEnumerator SetStun(float length){
+        yield return new WaitForSeconds(length);
+        canMove = true;
     }
     public void Knockup(float strength)
     {
