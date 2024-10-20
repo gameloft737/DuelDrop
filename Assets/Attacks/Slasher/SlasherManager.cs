@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine;
 
 public class SlasherManager : WeaponManager
 {
     int randomNum = 1;
     [SerializeField] GameObject swordParticles;
+    [SerializeField] GameObject arrows;
+    [SerializeField] GameObject arrowsVert;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (attackCooldowns[attack] <= 0f)
         {    
@@ -96,15 +99,41 @@ public class SlasherManager : WeaponManager
     }
     protected override void PerformUltimateAttack(AttackData attack)
     {
-         _playerMovement.animator.SetTrigger("ultimate");
-         swordParticles.SetActive(true);
+        _playerMovement.animator.SetTrigger("ultimate");
+        
         if (target != null)
         {
-            StartCoroutine(SetSwordParticles(2.5f, false));
+            StartCoroutine(ArrowAttack(2.5f, attack));
         }
     }
-    protected IEnumerator SetSwordParticles(float delay, bool value){
+    protected IEnumerator ArrowAttack(float delay, AttackData attack){
+        swordParticles.SetActive(true);
+        yield return new WaitForSeconds(delay/3);
+        GameObject arrowsObj = Instantiate(arrows, new Vector3(-20, transform.position.y, 0), Quaternion.identity);
+        foreach (Transform child in arrowsObj.transform)
+        {
+            InstantKnockback knockback = child.GetComponent<InstantKnockback>();
+            if (knockback != null)
+            {
+                knockback.targetManager = targetManager;
+                knockback.attackData = attack;
+            }
+        }
+        GameObject arrowsVertObj = Instantiate(arrowsVert, new Vector3(target.position.x, 20, 0), Quaternion.Euler(0, 0, -90));
+
+        foreach (Transform child in arrowsVertObj.transform)
+        {
+            InstantKnockback knockback = child.GetComponent<InstantKnockback>();
+            if (knockback != null)
+            {
+                knockback.targetManager = targetManager;
+                knockback.attackData = attack;
+            }
+        }
+
         yield return new WaitForSeconds(delay);
-        swordParticles.SetActive(value);
+        swordParticles.SetActive(false);
+        Destroy(arrowsVertObj, delay);
+        Destroy(arrowsObj, delay);
     }
 }
