@@ -60,7 +60,7 @@ public class SlasherManager : WeaponManager
             _playerMovement.animator.SetBool("isSpecial", true);
             _playerMovement.canMove = false;
             _playerMovement.Floor();
-            StartCoroutine(Smash(1.5f, attack));
+            StartCoroutine(Smash(1.2f, attack));
             
         }
     }
