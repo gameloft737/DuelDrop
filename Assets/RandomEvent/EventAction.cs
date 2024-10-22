@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
-public class RandomTeleportation : RandomEvent
-{
 
+public class EventAction : MonoBehaviour
+{
+   public void EventTrigger(){
+
+   }
+    
 }

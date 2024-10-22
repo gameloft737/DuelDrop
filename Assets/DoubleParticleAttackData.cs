@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AttackData", menuName = "Attacks/DoubleParticleAttackData")]
+[CreateAssetMenu(fileName = "AttackData", menuName = "Custom/DoubleParticleAttackData")]
 public class DoubleParticleAttackData : AttackData
 {
     [SerializeField]protected GameObject particle2;

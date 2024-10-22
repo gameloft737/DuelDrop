@@ -1,60 +1,67 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EventCreation : MonoBehaviour
 {
-    private RandomPowerUp randomPowerUp;
-    private RandomTeleportation randomTeleportation;
-    private LandDeletion landDeletion;
-    private BombEvent bombEvent;
-    private Text EventLabel;
-    private float countDownTime = 20f;
-    private float countDownTimer;
-    public RandomEvent[] randomEvents;
+    public List<RandomEvent> randomEvents; // List of possible random events as ScriptableObjects
+    public Text eventNameText; // UI Text to display the next event name
+    public Image eventIconImage; // UI Image to display the next event icon
+    public Text timerText; // UI Text to display the timer
+
+    public float timeBetweenEvents = 10f; // Time in seconds between events
+    private float currentTimer;
     private RandomEvent nextEvent;
-    private void Start()
+
+    void Start()
     {
-        StartNewCountDown();
+        currentTimer = timeBetweenEvents;
+        SelectRandomEvent();
+        UpdateUI();
     }
-    private void Update()
+
+    void Update()
     {
-        CountDownTimer();
-    }
-    private void StartNewCountDown()
-    {
-        countDownTimer = countDownTime;
-        nextEvent = GetRandomEvent();
-        if( EventLabel != null)
+        currentTimer -= Time.deltaTime;
+        UpdateTimerUI();
+
+        if (currentTimer <= 0)
         {
-            EventLabel.text = "Upcoming:" + nextEvent.name;
+            TriggerNextEvent();
+            currentTimer = timeBetweenEvents; // Reset timer
+            SelectRandomEvent(); // Select the next random event
+            UpdateUI(); // Update the UI with new event info
         }
     }
-    private void CountDownTimer()
+
+    private void SelectRandomEvent()
     {
-        if(countDownTimer > 0)
+        if (randomEvents.Count > 0)
         {
-            countDownTimer -= Time.deltaTime;
-        }
-        else
-        {
-            TriggerEvent();
-            StartNewCountDown();
+            int randomIndex = UnityEngine.Random.Range(0, randomEvents.Count);
+            nextEvent = randomEvents[randomIndex];
         }
     }
-    private RandomEvent GetRandomEvent()
+
+    private void TriggerNextEvent()
     {
-        if(randomEvents.Length == 0)
+        if (nextEvent != null)
         {
-            return null;
+            nextEvent.Trigger();
         }
-        int randomIndex = Random.Range(0, randomEvents.Length);
-        return randomEvents[randomIndex];
     }
-    private void TriggerEvent()
+
+    private void UpdateUI()
     {
-       
+        if (nextEvent != null)
+        {
+            eventNameText.text = nextEvent.eventName;
+            eventIconImage.sprite = nextEvent.eventIcon;
+        }
+    }
+
+    private void UpdateTimerUI()
+    {
+        timerText.text = "Time Left: " + Mathf.CeilToInt(currentTimer).ToString() + "s";
     }
 }
-

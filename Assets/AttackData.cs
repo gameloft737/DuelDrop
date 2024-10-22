@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AttackData", menuName = "Attacks/AttackData")]
+[CreateAssetMenu(fileName = "AttackData", menuName = "Custom/AttackData")]
 public class AttackData : ScriptableObject
 {
     [SerializeField]protected GameObject particle;
