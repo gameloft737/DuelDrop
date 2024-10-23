@@ -8,7 +8,7 @@ public class FynManager : WeaponManager
 {
     private bool isShieldActive = false; // Tracks if the shield is active
     [SerializeField]private float shieldDuration = 3f; // Example shield duration (you can adjust this)
-    private float knockbackReduction = 0.5f; // 50% reduction in knockback when the shield is active
+    private float knockbackReduction = 1f; // 50% reduction in knockback when the shield is active
     [SerializeField]private float moveSpeed = 50;
     [SerializeField] private float buffStrength = 3f;
     [SerializeField]private float buffTime = 3f;
@@ -113,7 +113,7 @@ public class FynManager : WeaponManager
         {
             // No shield active, apply full knockback to the player
             
-            healthSystem.Damage(knockbackStrength,0);
+            healthSystem.Damage(damage,0);
             _playerMovement.Knockback(attackPosition, knockbackStrength);
             if(knockupStrength > 0f){ 
                 _playerMovement.Knockup(knockupStrength);

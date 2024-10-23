@@ -152,6 +152,7 @@ public class HealthSystem : MonoBehaviour
 
     void CreateDamageText(float damage)
     {
+        Debug.Log(damage);
         GameObject dmg = Instantiate(damagePrefab, transform.position, Quaternion.identity, transform);
         dmg.GetComponent<TMPro.TextMeshPro>().SetText(damage.ToString());
         Debug.Log(damage);
