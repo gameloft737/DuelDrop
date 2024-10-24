@@ -129,7 +129,6 @@ public class FynManager : WeaponManager
             Debug.Log("Ultimate Attack Performed");
             // Temporarily disable collisions between this object and other colliders
             Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
-            Collider[] allColliders = FindObjectsOfType<Collider>();
             _playerMovement.canMove = false;
             if (_playerMovement.rb != null)
             {
@@ -137,13 +136,7 @@ public class FynManager : WeaponManager
                  _playerMovement.rb.angularVelocity = Vector3.zero;
                  _playerMovement.rb.useGravity = false; // Optional: disable gravity during the attack
             }
-            foreach (Collider col in allColliders)
-            {
-                if (col != thisCollider)
-                {
-                    Physics.IgnoreCollision(thisCollider, col, true); // Ignore collisions
-                }
-            }
+            thisCollider.enabled = false;
 
             // Move towards the target
             StartCoroutine(MoveTowardsTarget(target.position, attack));
@@ -181,15 +174,7 @@ public class FynManager : WeaponManager
 
         // Re-enable collisions after reaching the target
         Collider thisCollider = _playerMovement.characterColliderObj.GetComponent<Collider>();
-        Collider[] allColliders = FindObjectsOfType<Collider>();
-
-        foreach (Collider col in allColliders)
-        {
-            if (col != thisCollider)
-            {
-                Physics.IgnoreCollision(thisCollider, col, false); // Re-enable collisions
-            }
-        }
+        thisCollider.enabled = true;
         
         _playerMovement.rb.useGravity = true;
         targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier,attack.knockback * 0.4f, attack.damage);

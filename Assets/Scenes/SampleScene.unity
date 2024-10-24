@@ -8682,7 +8682,7 @@ MonoBehaviour:
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
-  timeBetweenEvents: 10
+  timeBetweenEvents: 3
 --- !u!1 &1591885870
 GameObject:
   m_ObjectHideFlags: 0

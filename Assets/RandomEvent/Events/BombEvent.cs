@@ -1,20 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BombEvent : EventAction
 {
     [SerializeField]private float radius;
     [SerializeField]private float damage;
-    [SerializeField]private float maxKnockback; 
+    [SerializeField]private float maxKnockback;
+    [SerializeField]private LayerMask groundLayer; 
+    [SerializeField] private Collider objectCollider;
     public override void EventTrigger()
     {
-        // Generate a random position between the specified ranges
-        float randomX = Random.Range(-15f, 15f);
-        Vector3 newPosition = new Vector3(randomX, 20f, 0);
-        transform.position= newPosition;
-        // Teleport the bombObject to the new position
-        StartCoroutine(ApplyKnockbackAfterDelay());
+        Vector3 randomPoint = new Vector3(Random.Range(-20, 20), 7.5f, 0);
+
+        // Step 2: Ensure the point is on the NavMesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomPoint, out hit, 20f, NavMesh.AllAreas))
+        {
+            // Get the exact position on the NavMesh
+            Vector3 navMeshPoint = hit.position;
+            Vector3 newPosition = new Vector3(navMeshPoint.x, 20f, 0);
+            
+            RaycastHit groundHit;
+            if (Physics.Raycast(navMeshPoint + Vector3.up * 1f, Vector3.down, out groundHit, 20f, groundLayer))
+            {
+                // Store the specific ground collider directly below the NavMesh point
+                Collider specificGroundCollider = groundHit.collider;
+            }
+            transform.position= newPosition;
+            // Teleport the bombObject to the new position
+            StartCoroutine(ApplyKnockbackAfterDelay());
+        }
     }
 
     private IEnumerator ApplyKnockbackAfterDelay()
