@@ -1820,7 +1820,7 @@ GameObject:
   - component: {fileID: 511067375}
   m_Layer: 0
   m_Name: Environment
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8679,10 +8679,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEvents:
   - {fileID: 11400000, guid: fe4973a768abecb42bb142fc176dc339, type: 2}
+  - {fileID: 11400000, guid: 5456b415ff189404abb773451da4a4b6, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
-  timeBetweenEvents: 3
+  timeBetweenEvents: 10
 --- !u!1 &1591885870
 GameObject:
   m_ObjectHideFlags: 0
@@ -9574,6 +9575,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
         type: 3}
+    - target: {fileID: 6157119823471669911, guid: 037eabe5f6215554aafb854ab0cf6b38,
+        type: 3}
+      propertyPath: maxFallSpeed
+      value: -15
+      objectReference: {fileID: 0}
     - target: {fileID: 6923081812129419876, guid: 037eabe5f6215554aafb854ab0cf6b38,
         type: 3}
       propertyPath: m_LocalPosition.x

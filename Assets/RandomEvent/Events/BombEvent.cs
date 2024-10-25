@@ -1,57 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class BombEvent : EventAction
 {
     [SerializeField]private float radius;
     [SerializeField]private float damage;
     [SerializeField]private float maxKnockback;
-    [SerializeField]private LayerMask groundLayer; 
+    [SerializeField] Transform environment;
     [SerializeField] private Collider objectCollider;
+    [SerializeField] private Collider specificGroundCollider;
     public override void EventTrigger()
     {
-        Vector3 randomPoint = new Vector3(Random.Range(-20, 20), 7.5f, 0);
+        
+        environment = GameObject.FindGameObjectWithTag("Environment").transform;
 
-        // Step 2: Ensure the point is on the NavMesh
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomPoint, out hit, 20f, NavMesh.AllAreas))
+        // Select a random child (platform) from the environment
+        GameObject selectedPlatform = environment.GetChild(UnityEngine.Random.Range(0, environment.childCount)).gameObject;
+
+        // Get the BoxCollider of the selected platform
+        BoxCollider platformCollider = selectedPlatform.GetComponent<BoxCollider>();
+
+        if (platformCollider != null)
         {
-            // Get the exact position on the NavMesh
-            Vector3 navMeshPoint = hit.position;
-            Vector3 newPosition = new Vector3(navMeshPoint.x, 20f, 0);
-            
-            RaycastHit groundHit;
-            if (Physics.Raycast(navMeshPoint + Vector3.up * 1f, Vector3.down, out groundHit, 20f, groundLayer))
-            {
-                // Store the specific ground collider directly below the NavMesh point
-                Collider specificGroundCollider = groundHit.collider;
-            }
-            transform.position= newPosition;
-            // Teleport the bombObject to the new position
-            StartCoroutine(ApplyKnockbackAfterDelay());
+            // Get the bounds of the BoxCollider
+            Bounds platformBounds = platformCollider.bounds;
+
+            // Generate a random X position within the platform's bounds
+            float randomX = UnityEngine.Random.Range(platformBounds.min.x, platformBounds.max.x);
+
+            // Define the new position with the random X, specified Y, and a Z value of 0
+            Vector3 newPosition = new Vector3(randomX, 20f, 0);
+
+            // Set the position of the object
+            transform.position = newPosition;
         }
+        specificGroundCollider = selectedPlatform.GetComponent<Collider>();
+            
+        // Teleport the bombObject to the new position
+        StartCoroutine(ApplyKnockbackAfterDelay());
+        
+    }
+    public void FixedUpdate(){
+        float yDistance = Mathf.Abs(transform.position.y - specificGroundCollider.transform.position.y);
+        if (yDistance < 2f)
+        {
+            objectCollider.enabled = true;
+        }
+
     }
 
     private IEnumerator ApplyKnockbackAfterDelay()
     {
-        // Wait for 3 seconds
-        yield return new WaitForSeconds(3f);
+        // Wait for 5 seconds
+        yield return new WaitForSeconds(5f);
 
         // Check the distance between the bomb and manager1
         if (arrowKeysManager != null)
         {
-            float distanceToManager1 = Vector3.Distance(transform.position, arrowKeysManager.transform.position)+ 10f;
+            float distanceToManager1 = Vector3.Distance(transform.position, arrowKeysManager.transform.position);
             ApplyKnockbackBasedOnDistance(arrowKeysManager, distanceToManager1);
         }
 
         // Check the distance between the bomb and manager2
         if (wasdManager != null)
         {
-            float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position) + 10f;
+            float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position) ;
             ApplyKnockbackBasedOnDistance(wasdManager, distanceToManager2);
         }
+       
         Destroy(gameObject);
     }
 
@@ -64,7 +81,7 @@ public class BombEvent : EventAction
             float knockbackForce = maxKnockback * knockbackPercentage;
 
             // Apply knockback to the target manager
-            targetManager.ApplyKnockback(transform.position, knockbackForce, 0.1f, damage);
+            targetManager.ApplyKnockback(transform.position, knockbackForce + 5f, knockbackForce* 0.3f, damage);
         }
     }
 
