@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BombEvent : EventAction
@@ -9,6 +11,7 @@ public class BombEvent : EventAction
     [SerializeField]private float maxKnockback;
     [SerializeField] Transform environment;
     [SerializeField] private Collider objectCollider;
+    [SerializeField] private GameObject explosion;
     [SerializeField] private Collider specificGroundCollider;
     [SerializeField] private float bombRange;
     public override void EventTrigger()
@@ -55,6 +58,7 @@ public class BombEvent : EventAction
     {
         // Wait for 5 seconds
         yield return new WaitForSeconds(5f);
+        Instantiate(explosion, transform.position, quaternion.identity);
 
         // Check the distance between the bomb and manager1
         if (arrowKeysManager != null)
@@ -63,6 +67,8 @@ public class BombEvent : EventAction
             if (distanceToManager1 < bombRange)
             {
                 ApplyKnockbackBasedOnDistance(arrowKeysManager, distanceToManager1);
+                
+                CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
             }
         }
 
@@ -73,6 +79,8 @@ public class BombEvent : EventAction
             if (distanceToManager2 < bombRange)
             {
                 ApplyKnockbackBasedOnDistance(wasdManager, distanceToManager2);
+                
+                CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
 
             }
             Destroy(gameObject);

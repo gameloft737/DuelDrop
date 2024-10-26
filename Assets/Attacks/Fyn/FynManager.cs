@@ -178,6 +178,7 @@ public class FynManager : WeaponManager
         
         _playerMovement.rb.useGravity = true;
         targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier,attack.knockback * 0.4f, attack.damage);
+        CameraShakeManager.instance.CameraShake(impulseSource);
         _playerMovement.canMove = true;
         _playerMovement.animator.SetBool("isUltimate", false);
         StartCoroutine(KnockBackBuff(buffTime, attack));

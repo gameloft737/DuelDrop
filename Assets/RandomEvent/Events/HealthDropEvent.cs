@@ -8,7 +8,6 @@ public class HealthDropEvent : EventAction
     [SerializeField] private Collider objectCollider;
     [SerializeField] private Collider specificGroundCollider;
     [SerializeField] private Collider groundCollider;
-    private bool isActivated = false;
     public override void EventTrigger()
     {
         environment = GameObject.FindGameObjectWithTag("Environment").transform;
@@ -34,30 +33,20 @@ public class HealthDropEvent : EventAction
             transform.position = newPosition;
         }
         specificGroundCollider = selectedPlatform.GetComponent<Collider>();
-        StartCoroutine(PlayerChecking());
+        Destroy(gameObject, 10f);
     }
-    private IEnumerator PlayerChecking()
-    {
-        while(isActivated == false)
-        {
-            PlayerCheck();
-            yield return null;
+    private void OnTriggerEnter(Collider other){
+        if(other.transform.parent == null){
+            return;
         }
-        isActivated = false;
-    }
-    private void PlayerCheck()
-    {
-        float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position);
-        if (distanceToManager2 < 0.5) 
-        {
-            isActivated = true;
-            wasdManager.healthSystem.Heal(80,5);
+        if(other.transform.parent.tag.Equals("WASDPlayer")){
+            wasdManager.healthSystem.Heal(80,2);
+            Destroy(gameObject);
         }
-        float distanceToManager1 = Vector3.Distance(transform.position, arrowKeysManager.transform.position);
-        if (distanceToManager1 < 0.5)
-        {
-            isActivated = true;
-            arrowKeysManager.healthSystem.Heal(80, 5);
+        else if(other.transform.parent.tag.Equals("ArrowKeysPlayer")){
+            arrowKeysManager.healthSystem.Heal(80,2);
+            Destroy(gameObject);
         }
     }
+   
 }

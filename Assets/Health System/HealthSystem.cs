@@ -19,7 +19,7 @@ public class HealthSystem : MonoBehaviour
     private float comboMultiplier = 1f; // Multiplier for combo damage
     private float lastHitTime = 0f; // Tracks the time of the last hit
 
-    public void Start()
+    private void Start()
     {
         health = maximum;
         healthBar.maxValue = maximum;
@@ -155,7 +155,6 @@ public class HealthSystem : MonoBehaviour
         Debug.Log(damage);
         GameObject dmg = Instantiate(damagePrefab, transform.position, Quaternion.identity, transform);
         dmg.GetComponent<TMPro.TextMeshPro>().SetText(damage.ToString());
-        Debug.Log(damage);
     }
 
     void CreateComboText(int comboCount, float damageAmount)

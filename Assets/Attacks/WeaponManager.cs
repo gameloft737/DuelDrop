@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,15 +20,17 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] protected Transform target; // Reference to the target (opponent)
     
     [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)
+    protected CinemachineImpulseSource impulseSource;
 
     protected Dictionary<AttackData, float> attackCooldowns = new Dictionary<AttackData, float>();
 
     private void Start()
     {
         // Initialize cooldowns for each attack
-        attackCooldowns[regAttack] = 0f;
-        attackCooldowns[specialAttack] = 0f;
-        attackCooldowns[ultimateAttack] = 0f;
+        attackCooldowns[regAttack] = regAttack.reloadSpeed;
+        attackCooldowns[specialAttack] = regAttack.reloadSpeed;
+        attackCooldowns[ultimateAttack] = regAttack.reloadSpeed;
+        impulseSource = GetComponent<CinemachineImpulseSource>();
 
         target = GameObject.FindGameObjectsWithTag(targetTag + "Player")[0].transform;
         

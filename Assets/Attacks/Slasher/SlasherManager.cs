@@ -73,9 +73,10 @@ public class SlasherManager : WeaponManager
         _playerMovement.canMove = true;
         if (target != null)
         {
+            CameraShakeManager.instance.CameraShake(impulseSource);
             // Instantiate the claw effect at the player's position
             GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
-
+            
             // Schedule destruction of the claw effect just before the attack reloads
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 
