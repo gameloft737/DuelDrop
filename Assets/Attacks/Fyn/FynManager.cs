@@ -19,6 +19,7 @@ public class FynManager : WeaponManager
         {    
             randomNum = UnityEngine.Random.Range(1, 3);
             _playerMovement.animator.SetTrigger("attack" + randomNum);
+            AudioManager.instance.Play("FynAttack");
             yield return new WaitForSeconds(attack.delay);
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             PerformAttack(attack);
@@ -66,7 +67,7 @@ public class FynManager : WeaponManager
     {
         if (shieldCoroutine == null)
         {
-            Debug.Log("Shield activated!");
+            AudioManager.instance.Play("FynSpecialAttack");
             isShieldActive = true;
             GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
 
@@ -125,6 +126,7 @@ public class FynManager : WeaponManager
         if (target != null)
         {
             
+            AudioManager.instance.Play("FynUltimateAttack");
             _playerMovement.animator.SetBool("isUltimate", true);
             Debug.Log("Ultimate Attack Performed");
             // Temporarily disable collisions between this object and other colliders

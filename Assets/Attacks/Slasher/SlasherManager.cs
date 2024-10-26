@@ -14,6 +14,7 @@ public class SlasherManager : WeaponManager
         {    
             randomNum = UnityEngine.Random.Range(1, 3);
             _playerMovement.animator.SetTrigger("attack" + randomNum);
+            AudioManager.instance.Play("SlasherAttack");
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             yield return new WaitForSeconds(attack.delay);
             PerformAttack(attack);
@@ -95,6 +96,8 @@ public class SlasherManager : WeaponManager
                     
                 }
             }
+            
+            AudioManager.instance.Play("SlasherSpecialAttack");
             _playerMovement.animator.SetBool("isSpecial", false);
         }
     }
@@ -111,6 +114,7 @@ public class SlasherManager : WeaponManager
         swordParticles.SetActive(true);
         yield return new WaitForSeconds(delay/3);
         GameObject arrowsObj = Instantiate(arrows, new Vector3(-20, transform.position.y, 0), Quaternion.identity);
+        AudioManager.instance.Play("SlasherUltimateAttack");
         foreach (Transform child in arrowsObj.transform)
         {
             InstantKnockback knockback = child.GetComponent<InstantKnockback>();
@@ -121,7 +125,7 @@ public class SlasherManager : WeaponManager
             }
         }
         GameObject arrowsVertObj = Instantiate(arrowsVert, new Vector3(target.position.x, 20, 0), Quaternion.Euler(0, 0, -90));
-
+        AudioManager.instance.Play("SlasherUltimateAttack");
         foreach (Transform child in arrowsVertObj.transform)
         {
             InstantKnockback knockback = child.GetComponent<InstantKnockback>();

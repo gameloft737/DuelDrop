@@ -13,6 +13,11 @@ public class CameraShakeManager : MonoBehaviour
         if(instance == null){
             instance = this;
         }
+        else{
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
