@@ -10,6 +10,7 @@ public class BombEvent : EventAction
     [SerializeField] Transform environment;
     [SerializeField] private Collider objectCollider;
     [SerializeField] private Collider specificGroundCollider;
+    [SerializeField] private float bombRange;
     public override void EventTrigger()
     {
         
@@ -59,19 +60,24 @@ public class BombEvent : EventAction
         if (arrowKeysManager != null)
         {
             float distanceToManager1 = Vector3.Distance(transform.position, arrowKeysManager.transform.position);
-            ApplyKnockbackBasedOnDistance(arrowKeysManager, distanceToManager1);
+            if (distanceToManager1 < bombRange)
+            {
+                ApplyKnockbackBasedOnDistance(arrowKeysManager, distanceToManager1);
+            }
         }
 
         // Check the distance between the bomb and manager2
         if (wasdManager != null)
         {
-            float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position) ;
-            ApplyKnockbackBasedOnDistance(wasdManager, distanceToManager2);
-        }
-       
-        Destroy(gameObject);
-    }
+            float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position);
+            if (distanceToManager2 < bombRange)
+            {
+                ApplyKnockbackBasedOnDistance(wasdManager, distanceToManager2);
 
+            }
+            Destroy(gameObject);
+        }
+    }
     private void ApplyKnockbackBasedOnDistance(WeaponManager targetManager, float distance)
     {
         // If the distance is within the radius, calculate the knockback percentage

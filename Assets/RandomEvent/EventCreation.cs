@@ -12,6 +12,7 @@ public class EventCreation : MonoBehaviour
     public float timeBetweenEvents = 10f; // Time in seconds between events
     private float currentTimer;
     private RandomEvent nextEvent;
+    private RandomEvent prevEvent;
 
     void Start()
     {
@@ -36,13 +37,18 @@ public class EventCreation : MonoBehaviour
 
     private void SelectRandomEvent()
     {
+        prevEvent = nextEvent;
         if (randomEvents.Count > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, randomEvents.Count);
             nextEvent = randomEvents[randomIndex];
         }
+        if (prevEvent == nextEvent)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, randomEvents.Count);
+            nextEvent = randomEvents[randomIndex];
+        }
     }
-
     private void TriggerNextEvent()
     {
         if (nextEvent != null)

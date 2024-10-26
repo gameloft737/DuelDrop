@@ -50,11 +50,10 @@ MonoBehaviour:
   radius: 10
   damage: 15
   maxKnockback: 90
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  environment: {fileID: 0}
   objectCollider: {fileID: 990449183623573314}
   specificGroundCollider: {fileID: 0}
+  bombRange: 7
 --- !u!54 &820236897163182949
 Rigidbody:
   m_ObjectHideFlags: 0

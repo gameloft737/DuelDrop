@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effect: {fileID: 2485055657272261138, guid: 9bf320bbf62e50a4686df49e65f514d2, type: 3}
   environment: {fileID: 0}
-  count: 3
+  count: 2
   platforms: []
