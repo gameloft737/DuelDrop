@@ -16,5 +16,6 @@ MonoBehaviour:
     type: 3}
   reloadSpeed: 30
   knockback: 30
+  delay: 0.45
   damage: 60
   range: 0

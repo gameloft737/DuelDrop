@@ -46,8 +46,10 @@ public class AgentTracker : MonoBehaviour
                 {
                     targetPosition = target.position; // Use the target's position directly
                 }
-
-                agent.SetDestination(targetPosition); // Keep moving toward the target (or the ground position)
+                if (agent.isOnNavMesh){ 
+                    agent.SetDestination(targetPosition); // Keep moving toward the target (or the ground position)
+                }
+                
             }
             elapsed += Time.deltaTime;
             yield return null; // Wait for the next frame

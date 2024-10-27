@@ -60,7 +60,7 @@ public class BombEvent : EventAction
         yield return new WaitForSeconds(5f);
         Instantiate(explosion, transform.position, quaternion.identity);
 
-        // Check the distance between the bomb and manager1
+        // Check the distance between the bomb and manager
         if (arrowKeysManager != null)
         {
             float distanceToManager1 = Vector3.Distance(transform.position, arrowKeysManager.transform.position);
@@ -72,7 +72,7 @@ public class BombEvent : EventAction
             }
         }
 
-        // Check the distance between the bomb and manager2
+        // Check the distance between the bomb and manager
         if (wasdManager != null)
         {
             float distanceToManager2 = Vector3.Distance(transform.position, wasdManager.transform.position);

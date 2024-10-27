@@ -7,8 +7,30 @@ public class NecroManager : WeaponManager
 {
     [SerializeField] private float lifeDrainTime = 4f;
     [SerializeField] private GameObject skeleton;
+     protected override IEnumerator TryPerformAttack(AttackData attack){
+        if (attackCooldowns[attack] <= 0f)
+        {    
+            _playerMovement.animator.SetTrigger("attack");
+            AudioManager.instance.Play("NecroAttack");
+            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+            yield return new WaitForSeconds(attack.delay);
+            PerformAttack(attack);
+            yield return new WaitForSeconds(0.3f);
+            PerformAttack(attack);
+        }
+        else
+        {
+            Debug.Log("Attack on cooldown!");
+        }
+
+        yield return null; // Wait for the next frame
+    }
     protected override void PerformSpecialAttack(AttackData attack)
     {
+        
+        _playerMovement.animator.SetTrigger("special");
+        
+        AudioManager.instance.Play("NecroSpecialAttack");
         targetManager.healthSystem.Damage(attack.damage,lifeDrainTime);
         healthSystem.Heal(attack.damage, lifeDrainTime);
         
@@ -27,7 +49,12 @@ public class NecroManager : WeaponManager
         InstantKnockback skeletonKnockback;
         AgentTracker skeletonAgent;
         yield return new WaitForSeconds(delay);
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 3; i++){ 
+            _playerMovement.animator.SetTrigger("ultimate");
+            
+            AudioManager.instance.Play("NecroUltimateAttack");
+            
+            yield return new WaitForSeconds(attack.delay);
             skeletonObj = Instantiate(skeleton, transform.position, Quaternion.identity);
             skeletonKnockback = skeletonObj.GetComponent<InstantKnockback>();
             skeletonAgent = skeletonObj.GetComponent<AgentTracker>();
