@@ -133,10 +133,13 @@ public class WeaponManager : MonoBehaviour
         if (target != null)
         {
             // Instantiate the claw effect at the player's position
-            GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
-            particleEffect.transform.localScale = Vector3.one;
-            // Schedule destruction of the claw effect just before the attack reloads
-            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+            if(attack is not DoubleParticleAttackData){
+                GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+                particleEffect.transform.localScale = Vector3.one;
+                // Schedule destruction of the claw effect just before the attack reloads
+                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+            }
+            
 
             // Calculate the direction from the player to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;
