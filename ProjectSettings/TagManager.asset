@@ -9,6 +9,8 @@ TagManager:
   - WASDManager
   - ArrowKeysManager
   - Environment
+  - Lanes
+  - Rocket
   layers:
   - Default
   - TransparentFX
