@@ -42,7 +42,9 @@ public class HealthSystem : MonoBehaviour
             comboCount = 0;
             comboMultiplier = 1f;
         }
-        CreateComboText(comboCount,damage);
+        if(duration == 0){  
+            CreateComboText(comboCount,damage);
+        }
 
         // Apply the combo multiplier to the damage
         float comboDamage = damage * comboMultiplier;
