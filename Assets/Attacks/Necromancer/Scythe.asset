@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
   m_Name: Scythe
   m_EditorClassIdentifier: 
-  particle: {fileID: 3600389243222657682, guid: 3fee2e03e4bdc854bb38f7bcbca7c75d,
+  particle: {fileID: 2678065949719106378, guid: 6cd212366bcedc442a39fb0023d64330,
     type: 3}
   reloadSpeed: 1
   knockback: 20

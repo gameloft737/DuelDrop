@@ -48,7 +48,6 @@ public class NecroManager : WeaponManager
         GameObject skeletonObj;
         InstantKnockback skeletonKnockback;
         AgentTracker skeletonAgent;
-        yield return new WaitForSeconds(delay);
         for(int i = 0; i < 3; i++){ 
             _playerMovement.animator.SetTrigger("ultimate");
             
