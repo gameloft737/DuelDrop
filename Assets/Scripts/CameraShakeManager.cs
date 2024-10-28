@@ -17,7 +17,6 @@ public class CameraShakeManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

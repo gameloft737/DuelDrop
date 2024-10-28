@@ -28,8 +28,8 @@ public class WeaponManager : MonoBehaviour
     {
         // Initialize cooldowns for each attack
         attackCooldowns[regAttack] = regAttack.reloadSpeed;
-        attackCooldowns[specialAttack] = regAttack.reloadSpeed;
-        attackCooldowns[ultimateAttack] = regAttack.reloadSpeed;
+        attackCooldowns[specialAttack] = specialAttack.reloadSpeed;
+        attackCooldowns[ultimateAttack] = ultimateAttack.reloadSpeed;
         impulseSource = GetComponent<CinemachineImpulseSource>();
 
         target = GameObject.FindGameObjectsWithTag(targetTag + "Player")[0].transform;
@@ -174,8 +174,18 @@ public class WeaponManager : MonoBehaviour
 
     private void UpdateSlider(AttackData attack)
     {
-        // Add logic for sliders
-        return;
+        float cooldown = attackCooldowns[attack];
+        float maxCooldown = attack.reloadSpeed;
+        float sliderValue = Mathf.Clamp01(cooldown / maxCooldown);
+
+        // Determine which slider to update based on attack type
+        string sliderName = "";
+        if (attack == regAttack) sliderName = "RegularAttack";
+        else if (attack == specialAttack) sliderName = "SpecialAttack";
+        else if (attack == ultimateAttack) sliderName = "UltimateAttack";
+
+        // Call UIManager to update the slider value
+        UIManager.instance.SetSlider(currentTag, sliderName, sliderValue);
     }
 
     public void SetKnockbackModifier(float modifierValue)

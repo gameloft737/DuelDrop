@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NecroManager : WeaponManager
 {
@@ -52,23 +53,41 @@ public class NecroManager : WeaponManager
     {
         StartCoroutine(CreateSkeletons(2f, attack));
     }
-    private IEnumerator CreateSkeletons(float delay, AttackData attack){
+    private IEnumerator CreateSkeletons(float delay, AttackData attack)
+    {
         GameObject skeletonObj;
         InstantKnockback skeletonKnockback;
         AgentTracker skeletonAgent;
-        for(int i = 0; i < 3; i++){ 
+
+        for (int i = 0; i < 3; i++)
+        {
             _playerMovement.animator.SetTrigger("ultimate");
-            
             AudioManager.instance.Play("NecroUltimateAttack");
-            
+
             yield return new WaitForSeconds(attack.delay);
-            skeletonObj = Instantiate(skeleton, transform.position, Quaternion.identity);
-            skeletonKnockback = skeletonObj.GetComponent<InstantKnockback>();
-            skeletonAgent = skeletonObj.GetComponent<AgentTracker>();
-            skeletonAgent.target = targetManager.transform;
-            skeletonKnockback.attackData=attack;
-            skeletonKnockback.targetManager = targetManager;
-            skeletonKnockback.thisManager = this;
+
+            // Define the desired spawn position
+            Vector3 spawnPosition = transform.position;
+
+            // Find the closest point on the NavMesh
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(spawnPosition, out hit, 25f, NavMesh.AllAreas))
+            {
+                // Instantiate the skeleton at the nearest valid position on the NavMesh
+                skeletonObj = Instantiate(skeleton, hit.position, Quaternion.identity);
+                
+                skeletonKnockback = skeletonObj.GetComponent<InstantKnockback>();
+                skeletonAgent = skeletonObj.GetComponent<AgentTracker>();
+                skeletonAgent.target = targetManager.transform;
+                skeletonKnockback.attackData = attack;
+                skeletonKnockback.targetManager = targetManager;
+                skeletonKnockback.thisManager = this;
+            }
+            else
+            {
+                Debug.LogWarning("No valid NavMesh point found for the spawn position.");
+            }
+
             yield return new WaitForSeconds(delay);
         }
     }

@@ -23,6 +23,7 @@ public class HealthSystem : MonoBehaviour
     {
         health = maximum;
         healthBar.maxValue = maximum;
+        healthBar.value = maximum;
     }
 
     public void Damage(float damage, float duration)
