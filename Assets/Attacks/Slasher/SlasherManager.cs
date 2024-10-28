@@ -113,7 +113,7 @@ public class SlasherManager : WeaponManager
     protected IEnumerator ArrowAttack(float delay, AttackData attack){
         swordParticles.SetActive(true);
         yield return new WaitForSeconds(delay/3);
-        GameObject arrowsObj = Instantiate(arrows, new Vector3(-20, transform.position.y, 0), Quaternion.identity);
+        GameObject arrowsObj = Instantiate(arrows, new Vector3(-25, transform.position.y, 0), Quaternion.identity);
         AudioManager.instance.Play("SlasherUltimateAttack");
         foreach (Transform child in arrowsObj.transform)
         {
