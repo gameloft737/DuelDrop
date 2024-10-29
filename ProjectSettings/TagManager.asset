@@ -11,6 +11,8 @@ TagManager:
   - Environment
   - Lanes
   - Rocket
+  - Left Rocket Spawn
+  - Right Rocket Spawn
   layers:
   - Default
   - TransparentFX
