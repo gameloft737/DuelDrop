@@ -9123,8 +9123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEvents:
   - {fileID: 11400000, guid: fe4973a768abecb42bb142fc176dc339, type: 2}
-  - {fileID: 11400000, guid: 5456b415ff189404abb773451da4a4b6, type: 2}
   - {fileID: 11400000, guid: d9a8a6fae69acfc4d857e5c69ea74276, type: 2}
+  - {fileID: 11400000, guid: 5456b415ff189404abb773451da4a4b6, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
