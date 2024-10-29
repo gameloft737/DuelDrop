@@ -10,7 +10,7 @@ public class PlatformEvent : EventAction
     [SerializeField] int count; // The number of platforms to select.
     [SerializeField] List<GameObject> platforms = new List<GameObject>();
 
-    public override void EventTrigger()
+    protected override IEnumerator CreateEvent()
     {
         environment = GameObject.FindGameObjectWithTag("Environment").transform;
         for (int i = 0; i < count; i++)
@@ -27,6 +27,7 @@ public class PlatformEvent : EventAction
             platforms.Add(selectedPlatform);
         }
         StartCoroutine(FadeAfterDelay());
+        yield break;
     }
 
     private IEnumerator FadeAfterDelay()

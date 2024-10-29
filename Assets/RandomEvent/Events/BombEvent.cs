@@ -14,7 +14,7 @@ public class BombEvent : EventAction
     [SerializeField] private GameObject explosion;
     [SerializeField] private Collider specificGroundCollider;
     [SerializeField] private float bombRange;
-    public override void EventTrigger()
+    protected override IEnumerator CreateEvent()
     {
         
         environment = GameObject.FindGameObjectWithTag("Environment").transform;
@@ -35,15 +35,18 @@ public class BombEvent : EventAction
 
             // Define the new position with the random X, specified Y, and a Z value of 0
             Vector3 newPosition = new Vector3(randomX, 20f, 0);
-
+            yield return null; 
+            eventObject.SetActive(true);
             // Set the position of the object
+            GetComponent<Rigidbody>().position = newPosition;
             transform.position = newPosition;
+            Debug.Log(transform.position);
         }
         specificGroundCollider = selectedPlatform.GetComponent<Collider>();
             
         // Teleport the bombObject to the new position
         StartCoroutine(ApplyKnockbackAfterDelay());
-        
+        yield break;
     }
     public void FixedUpdate(){
         float yDistance = Mathf.Abs(transform.position.y - specificGroundCollider.transform.position.y);
