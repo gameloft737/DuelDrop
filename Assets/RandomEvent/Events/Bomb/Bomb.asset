@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4990dca80f58c409156977294f766d, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: 
-  eventName: BombEvent
+  eventName: Bomb
   eventIcon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   eventPrefab: {fileID: 1740106171000676923, guid: 3c285e322e6c50b43b08af690a85e3cb,
     type: 3}
