@@ -7,8 +7,9 @@ public class EnvironmentManager : MonoBehaviour
     public static EnvironmentManager instance;
     public float height = 20f;
     [SerializeField]private GameObject basePlatform;
-    private Transform[] platforms;
+    public Transform[] platforms;
 
+    [SerializeField]private LayerMask groundLayer;
     private void Awake()
     {
         if(instance == null){
@@ -23,7 +24,7 @@ public class EnvironmentManager : MonoBehaviour
 
         foreach (Transform t in allTransforms)
         {
-            if (t != transform) // Exclude the parent Transform
+            if (t != transform && ((1 << t.gameObject.layer) & groundLayer) != 0) // Exclude the parent Transform
             {
                 childTransforms.Add(t);
             }

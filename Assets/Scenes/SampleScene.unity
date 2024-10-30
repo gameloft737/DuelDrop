@@ -1810,6 +1810,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 20
   basePlatform: {fileID: 462421056}
+  platforms: []
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &526262636
 GameObject:
   m_ObjectHideFlags: 0
@@ -8933,6 +8937,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEvents:
   - {fileID: 11400000, guid: f43e38d27bb21a34f9093669f57c5c77, type: 2}
+  - {fileID: 11400000, guid: 21e22fb70a876dd4b9ecc7cada637fa5, type: 2}
+  - {fileID: 11400000, guid: a4e0aa1766b91a442ad95ffb7d61ad64, type: 2}
+  - {fileID: 11400000, guid: f1480b07739696247b958a98f7511fed, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}

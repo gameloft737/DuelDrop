@@ -17,6 +17,7 @@ public class PlatformFade : EventAction
             Transform selectedPlatform = EnvironmentManager.instance.GetRandomPlatform();
             ParticleSystem pEffect = Instantiate(effect, selectedPlatform.transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
             var shape = pEffect.shape;
+            Debug.Log(selectedPlatform);
 
             // Get the x size (width) of the selected platform
             float platformWidth = EnvironmentManager.instance.GetLength(selectedPlatform);
