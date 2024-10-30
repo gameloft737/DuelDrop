@@ -6,14 +6,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-[CreateAssetMenu(fileName = "RandomEvent", menuName = "Custom/RandomEvent")]
 public class RandomEvent : ScriptableObject 
 {
     public String eventName;
     public Sprite eventIcon;
     public GameObject eventPrefab;
-    private EventAction eventAction;
+    protected EventAction eventAction;
     public void Start(){
         eventAction = eventPrefab.GetComponent<EventAction>();
     }
@@ -22,7 +20,7 @@ public class RandomEvent : ScriptableObject
         if (eventPrefab != null)
         {
             // Instantiate the prefab in the scene
-            GameObject spawnedObject = Instantiate(eventPrefab);
+            GameObject spawnedObject = Instantiate(eventPrefab, FindLocation(), FindRotation());
             // Try to get the EventAction component from the spawned object
             eventAction = spawnedObject.GetComponent<EventAction>();
 
@@ -32,6 +30,11 @@ public class RandomEvent : ScriptableObject
                 eventAction.EventTrigger();
             }
         }
-    
+    }
+    protected virtual Vector3 FindLocation(){
+        return Vector3.zero;
+    }
+    protected virtual Quaternion FindRotation(){
+        return Quaternion.identity;
     }
 }

@@ -113,7 +113,7 @@ public class SlasherManager : WeaponManager
     protected IEnumerator ArrowAttack(float delay, AttackData attack){
         swordParticles.SetActive(true);
         yield return new WaitForSeconds(delay/3);
-        GameObject arrowsObj = Instantiate(arrows, new Vector3(-25, transform.position.y, 0), Quaternion.identity);
+        GameObject arrowsObj = Instantiate(arrows, new Vector3(-EnvironmentManager.instance.GetBaseLength(-10), transform.position.y, 0), Quaternion.identity);
         AudioManager.instance.Play("SlasherUltimateAttack");
         foreach (Transform child in arrowsObj.transform)
         {
@@ -124,7 +124,7 @@ public class SlasherManager : WeaponManager
                 knockback.attackData = attack;
             }
         }
-        GameObject arrowsVertObj = Instantiate(arrowsVert, new Vector3(target.position.x, 20, 0), Quaternion.Euler(0, 0, -90));
+        GameObject arrowsVertObj = Instantiate(arrowsVert, new Vector3(target.position.x, EnvironmentManager.instance.height, 0), Quaternion.Euler(0, 0, -90));
         AudioManager.instance.Play("SlasherUltimateAttack");
         foreach (Transform child in arrowsVertObj.transform)
         {

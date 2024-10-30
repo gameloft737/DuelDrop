@@ -48,15 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636267cebef897143bda3788a4d758f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventObject: {fileID: 5783012036333071291}
   radius: 10
   damage: 15
   maxKnockback: 90
-  environment: {fileID: 0}
-  objectCollider: {fileID: 1533363443750121239}
   explosion: {fileID: 6395025952226627311, guid: 3432115d93bb6e34991205cefb37e2d9,
     type: 3}
-  specificGroundCollider: {fileID: 0}
   bombRange: 7
 --- !u!54 &820236897163182949
 Rigidbody:
@@ -155,7 +151,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

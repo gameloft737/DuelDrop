@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238151217c9574b4ab763388d874eaeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 67a6ae92ecd408548b52fe71d6cc2fc1, type: 3}
   m_Name: HealthDrop
   m_EditorClassIdentifier: 
   eventName: HealthDrop
-  eventIcon: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  eventIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   eventPrefab: {fileID: 7859762394559403972, guid: eb22eeb2ca13ef843a34fa5e2611986f,
     type: 3}
+  spawnRadius: 32

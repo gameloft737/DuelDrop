@@ -4,57 +4,16 @@ using Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class BombEvent : EventAction
+public class Bomb : EventAction
 {
     [SerializeField]private float radius;
     [SerializeField]private float damage;
     [SerializeField]private float maxKnockback;
-    [SerializeField] Transform environment;
-    [SerializeField] private Collider objectCollider;
     [SerializeField] private GameObject explosion;
-    [SerializeField] private Collider specificGroundCollider;
     [SerializeField] private float bombRange;
-    protected override IEnumerator CreateEvent()
+    public override void EventTrigger()
     {
-        
-        environment = GameObject.FindGameObjectWithTag("Environment").transform;
-
-        // Select a random child (platform) from the environment
-        GameObject selectedPlatform = environment.GetChild(UnityEngine.Random.Range(0, environment.childCount)).gameObject;
-
-        // Get the BoxCollider of the selected platform
-        BoxCollider platformCollider = selectedPlatform.GetComponent<BoxCollider>();
-
-        if (platformCollider != null)
-        {
-            // Get the bounds of the BoxCollider
-            Bounds platformBounds = platformCollider.bounds;
-
-            // Generate a random X position within the platform's bounds
-            float randomX = UnityEngine.Random.Range(platformBounds.min.x, platformBounds.max.x);
-
-            // Define the new position with the random X, specified Y, and a Z value of 0
-            Vector3 newPosition = new Vector3(randomX, 20f, 0);
-            yield return null; 
-            eventObject.SetActive(true);
-            // Set the position of the object
-            GetComponent<Rigidbody>().position = newPosition;
-            transform.position = newPosition;
-            Debug.Log(transform.position);
-        }
-        specificGroundCollider = selectedPlatform.GetComponent<Collider>();
-            
-        // Teleport the bombObject to the new position
         StartCoroutine(ApplyKnockbackAfterDelay());
-        yield break;
-    }
-    public void FixedUpdate(){
-        float yDistance = Mathf.Abs(transform.position.y - specificGroundCollider.transform.position.y);
-        if (yDistance < 2f)
-        {
-            objectCollider.enabled = true;
-        }
-
     }
 
     private IEnumerator ApplyKnockbackAfterDelay()

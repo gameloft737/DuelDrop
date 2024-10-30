@@ -1212,7 +1212,7 @@ GameObject:
   - component: {fileID: 327802744}
   m_Layer: 0
   m_Name: MiddleLaneLeft
-  m_TagString: Left Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1726,7 +1726,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -11.14, z: 0}
-  m_LocalScale: {x: 33, y: 0.5, z: 1.5}
+  m_LocalScale: {x: 35, y: 0.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 511067375}
@@ -1851,6 +1851,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 511067375}
+  - component: {fileID: 511067376}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Environment
@@ -1879,6 +1880,20 @@ Transform:
   - {fileID: 462421060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &511067376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511067374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5e94eb36b6b1d4cbc867ea239578bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 20
+  basePlatform: {fileID: 462421056}
 --- !u!1 &526262636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,6 +1978,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 202838738579917969, guid: 0a28eb6bb1114174aa33d5ea1a1d7148,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1231682035219752310, guid: 0a28eb6bb1114174aa33d5ea1a1d7148,
         type: 3}
@@ -7918,7 +7938,7 @@ GameObject:
   - component: {fileID: 1228111069}
   m_Layer: 0
   m_Name: BottomLaneRight
-  m_TagString: Right Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7932,7 +7952,7 @@ Transform:
   m_GameObject: {fileID: 1228111068}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 12.52, y: 1.52, z: 0}
+  m_LocalPosition: {x: 14.33, y: 1.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8309,7 +8329,7 @@ GameObject:
   - component: {fileID: 1369624019}
   m_Layer: 0
   m_Name: TopLaneLeft
-  m_TagString: Left Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8823,7 +8843,7 @@ Transform:
   m_GameObject: {fileID: 1458346474}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
   m_LocalScale: {x: 5.6990905, y: 0.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9122,7 +9142,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomEvents:
-  - {fileID: 11400000, guid: 138e5fc58fa5d0742b1d118957962615, type: 2}
+  - {fileID: 11400000, guid: f43e38d27bb21a34f9093669f57c5c77, type: 2}
+  - {fileID: 11400000, guid: a4e0aa1766b91a442ad95ffb7d61ad64, type: 2}
+  - {fileID: 11400000, guid: 21e22fb70a876dd4b9ecc7cada637fa5, type: 2}
+  - {fileID: 11400000, guid: f1480b07739696247b958a98f7511fed, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
@@ -10489,7 +10512,7 @@ GameObject:
   - component: {fileID: 1845886683}
   m_Layer: 0
   m_Name: MiddleLaneRight
-  m_TagString: Right Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10934,7 +10957,7 @@ GameObject:
   - component: {fileID: 1890390756}
   m_Layer: 0
   m_Name: TopLaneRight
-  m_TagString: Right Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16315,7 +16338,7 @@ GameObject:
   - component: {fileID: 2133446727}
   m_Layer: 0
   m_Name: BottomLaneLeft
-  m_TagString: Left Rocket Spawn
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17306,7 +17329,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

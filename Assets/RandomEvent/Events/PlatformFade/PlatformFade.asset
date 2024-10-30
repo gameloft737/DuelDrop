@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238151217c9574b4ab763388d874eaeb, type: 3}
-  m_Name: Platform
+  m_Script: {fileID: 11500000, guid: d8858e5096dfadf46856988e10dcb0e1, type: 3}
+  m_Name: PlatformFade
   m_EditorClassIdentifier: 
   eventName: Platform Fade
-  eventIcon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  eventIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   eventPrefab: {fileID: 2230428277246350983, guid: 10bf229419eff5840abc3f701593654e,
     type: 3}

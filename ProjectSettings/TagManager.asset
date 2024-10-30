@@ -10,9 +10,7 @@ TagManager:
   - ArrowKeysManager
   - Environment
   - Lanes
-  - Rocket
-  - Left Rocket Spawn
-  - Right Rocket Spawn
+  - Base
   layers:
   - Default
   - TransparentFX
