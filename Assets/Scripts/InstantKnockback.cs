@@ -10,7 +10,6 @@ public class InstantKnockback : MonoBehaviour
     public WeaponManager targetManager;
     public WeaponManager thisManager;
     [SerializeField] bool baseOnParent = false;
-    
     [SerializeField] bool generalKnockback = false;
     [SerializeField] bool cameraShake = false;
     public AttackData attackData;
@@ -19,10 +18,36 @@ public class InstantKnockback : MonoBehaviour
             targetManager = GameObject.FindGameObjectsWithTag("ArrowKeysManager")[0].GetComponent<WeaponManager>();
             thisManager = GameObject.FindGameObjectsWithTag("WASDManager")[0].GetComponent<WeaponManager>();
         }
-
     }
     private void OnTriggerEnter(Collider collider){
-        if(collider.gameObject.transform == targetManager._playerMovement.characterColliderObj){
+        if(generalKnockback){
+            if(collider.gameObject.transform == thisManager._playerMovement.characterColliderObj){
+                if(baseOnParent){   
+                    thisManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                }
+                else{
+                    thisManager.ApplyKnockback(targetManager.transform.position, attackData.knockback, attackData.knockback, attackData.damage);
+                }
+                if(cameraShake){
+                    CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
+                }
+                Destroy(gameObject);
+            }
+
+            if(collider.gameObject.transform == targetManager._playerMovement.characterColliderObj){
+                if(baseOnParent){   
+                    targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                }
+                else{
+                    targetManager.ApplyKnockback(thisManager.transform.position, attackData.knockback, attackData.knockback, attackData.damage);
+                }
+                if(cameraShake){
+                    CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
+                }
+                Destroy(gameObject);
+            }
+        }
+        else if(collider.gameObject.transform == targetManager._playerMovement.characterColliderObj){
             if(baseOnParent){   
                 targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
             }
@@ -33,20 +58,6 @@ public class InstantKnockback : MonoBehaviour
                 CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
             }
             Destroy(gameObject);
-        }
-        if(generalKnockback){
-            if(collider.gameObject.transform == thisManager._playerMovement.characterColliderObj){
-                if(baseOnParent){   
-                    thisManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
-                }
-                else{
-                    thisManager.ApplyKnockback(targetManager.transform.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
-                }
-                if(cameraShake){
-                    CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
-                }
-                Destroy(gameObject);
-            }
         }
     }
 }

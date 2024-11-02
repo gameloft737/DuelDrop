@@ -4841,6 +4841,9 @@ GameObject:
   - component: {fileID: 4984418903506119064}
   - component: {fileID: 4985163095759218016}
   - component: {fileID: 7756981149151689797}
+  - component: {fileID: 2066937761151437007}
+  - component: {fileID: 5194767515327700766}
+  - component: {fileID: 6536361613016454473}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -4895,49 +4898,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   duration: 10
---- !u!1 &5933402797616259881
-GameObject:
+--- !u!114 &2066937761151437007
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7798610209103061058}
-  - component: {fileID: 6675897753192304317}
-  - component: {fileID: 8380223970590285086}
-  - component: {fileID: 8397598589746030661}
-  m_Layer: 0
-  m_Name: RocketObj
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7798610209103061058
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933402797616259881}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
-  m_LocalPosition: {x: 0.00000019079411, y: 0.06055504, z: -0.53272283}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8639304546157863870}
-  - {fileID: 5843184392754217216}
-  m_Father: {fileID: 4984418903506119064}
-  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
---- !u!65 &6675897753192304317
+  m_GameObject: {fileID: 2822375913630303653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ea561d93b7de5478966aa8e6f9492e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetManager: {fileID: 0}
+  thisManager: {fileID: 0}
+  baseOnParent: 1
+  generalKnockback: 1
+  cameraShake: 1
+  attackData: {fileID: 11400000, guid: 3f0eb5df70df64c43b9637806dd58cf9, type: 2}
+--- !u!65 &5194767515327700766
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933402797616259881}
+  m_GameObject: {fileID: 2822375913630303653}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4950,33 +4935,15 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 0, z: 3}
+  m_Size: {x: 3, y: 1, z: 3}
   m_Center: {x: 0, y: -1, z: 0}
---- !u!114 &8380223970590285086
+--- !u!114 &6536361613016454473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933402797616259881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ea561d93b7de5478966aa8e6f9492e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetManager: {fileID: 0}
-  thisManager: {fileID: 0}
-  baseOnParent: 1
-  generalKnockback: 1
-  cameraShake: 1
-  attackData: {fileID: 11400000, guid: 3f0eb5df70df64c43b9637806dd58cf9, type: 2}
---- !u!114 &8397598589746030661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5933402797616259881}
+  m_GameObject: {fileID: 2822375913630303653}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
@@ -5023,6 +4990,39 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!1 &5933402797616259881
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7798610209103061058}
+  m_Layer: 0
+  m_Name: RocketObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7798610209103061058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5933402797616259881}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8639304546157863870}
+  - {fileID: 5843184392754217216}
+  m_Father: {fileID: 4984418903506119064}
+  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
 --- !u!1001 &8101484021559936085
 PrefabInstance:
   m_ObjectHideFlags: 0

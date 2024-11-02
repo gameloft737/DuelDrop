@@ -20,7 +20,7 @@ public class RandomEvent : ScriptableObject
         if (eventPrefab != null)
         {
             // Instantiate the prefab in the scene
-            GameObject spawnedObject = Instantiate(eventPrefab, FindLocation(), FindRotation());
+            GameObject spawnedObject = Instantiate(eventPrefab, FindLocation(), FindRotation(), FindParent());
             // Try to get the EventAction component from the spawned object
             eventAction = spawnedObject.GetComponent<EventAction>();
 
@@ -36,5 +36,8 @@ public class RandomEvent : ScriptableObject
     }
     protected virtual Quaternion FindRotation(){
         return Quaternion.identity;
+    }
+    protected virtual Transform FindParent(){
+        return null;
     }
 }

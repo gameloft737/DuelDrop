@@ -7,7 +7,7 @@ public class HealthDropEvent : RandomEvent
 {
     [SerializeField] private float spawnRadius;
     protected override Vector3 FindLocation(){
-        spawnRadius = EnvironmentManager.instance.GetBaseLength(5f);
+        spawnRadius = EnvironmentManager.instance.GetBaseLength(2f)/2;
         Vector3 newPosition = new Vector3(UnityEngine.Random.Range(-spawnRadius, spawnRadius), 20f, 0);
         return newPosition;
     }

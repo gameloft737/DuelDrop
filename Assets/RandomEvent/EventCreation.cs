@@ -38,17 +38,22 @@ public class EventCreation : MonoBehaviour
     private void SelectRandomEvent()
     {
         prevEvent = nextEvent;
+
         if (randomEvents.Count > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, randomEvents.Count);
-            nextEvent = randomEvents[randomIndex];
-        }
-        if (prevEvent == nextEvent)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, randomEvents.Count);
+            
+            // Ensure a different event is selected if more than one event exists
+            if (randomEvents.Count > 1 && randomEvents[randomIndex] == prevEvent)
+            {
+                // Shift the index by 1, wrapping around if necessary
+                randomIndex = (randomIndex + 1) % randomEvents.Count;
+            }
+
             nextEvent = randomEvents[randomIndex];
         }
     }
+
     private void TriggerNextEvent()
     {
         if (nextEvent != null)

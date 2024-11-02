@@ -30,5 +30,6 @@ public class Rocket : EventAction
         {
             velocity.velocity = new Vector3(-speed,0,0);
         } 
+        Destroy(gameObject, 3f);
     }
 }
