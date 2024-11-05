@@ -12,7 +12,9 @@ public class UIManager : MonoBehaviour
 
     // Dictionary for fast runtime lookup of sliders
     private Dictionary<string, Dictionary<string, Slider>> playerSliders = new Dictionary<string, Dictionary<string, Slider>>();
-
+    [SerializeField] Slider arrowKeysHeath;
+    [SerializeField] Slider WASDHeath;
+    
     private void Awake()
     {
         // Singleton setup
@@ -49,6 +51,30 @@ public class UIManager : MonoBehaviour
             sliders.TryGetValue(sliderName, out Slider slider))
         {
             slider.value = value;
+        }
+        else if(sliderName.Equals("Health")){
+            if(identifier.Equals("WASDPlayer")){
+                WASDHeath.value = value;
+            }
+            else if(identifier.Equals("ArrowKeysPlayer")){
+                arrowKeysHeath.value = value;
+            }
+    
+        }
+    }
+    public void SetMaxSlider(string identifier, string sliderName, float value){
+        if (playerSliders.TryGetValue(identifier, out Dictionary<string, Slider> sliders) &&
+            sliders.TryGetValue(sliderName, out Slider slider))
+        {
+            slider.maxValue = value;
+        }
+        if(sliderName.Equals("Health")){
+            if(identifier.Equals("WASDPlayer")){
+                WASDHeath.maxValue = value;
+            }
+            else if(identifier.Equals("ArrowKeysPlayer")){
+                arrowKeysHeath.maxValue = value;
+            }
         }
     }
 

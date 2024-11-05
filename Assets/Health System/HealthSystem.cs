@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,10 +6,10 @@ using UnityEngine.UI;
 public class HealthSystem : MonoBehaviour
 {
     [SerializeField] private float maximum;
-    [SerializeField] private Slider healthBar;
     [SerializeField] GameObject damagePrefab;
     [SerializeField] GameObject comboTextPrefab; // Prefab for combo text
     [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits in seconds
+    [SerializeField] String currentTag;
     private float health;
     private Coroutine Healing;
     private float remainingHealing = 0f;
@@ -21,9 +22,10 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+        currentTag = gameObject.tag;
         health = maximum;
-        healthBar.maxValue = maximum;
-        healthBar.value = maximum;
+        UIManager.instance.SetMaxSlider(currentTag,  "Health", maximum);
+        UIManager.instance.SetSlider(currentTag, "Health", maximum);
     }
 
     public void Damage(float damage, float duration)
@@ -75,7 +77,7 @@ public class HealthSystem : MonoBehaviour
         }
 
         health -= damage;
-        healthBar.value = health;
+        UIManager.instance.SetSlider(currentTag, "Health", health);
     }
 
     private IEnumerator SmoothDamage(float damageAmount, float duration)
@@ -115,7 +117,7 @@ public class HealthSystem : MonoBehaviour
         }
 
         health += healAmount;
-        healthBar.value = health;
+         UIManager.instance.SetSlider(currentTag, "Health", health);
     }
 
     public void Heal(float healAmount, float duration)
