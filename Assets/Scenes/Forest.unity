@@ -19338,32 +19338,32 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
     name: FynAttack
     volume: 1
-    pitch: 0.74
+    pitch: 1
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: a663a58e210a58f408d7f367e1ba3ce0, type: 3}
     name: FynSpecialAttack
     volume: 1
-    pitch: 0.74
+    pitch: 1
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
     name: FynUltimateAttack
     volume: 1
-    pitch: 0.48
+    pitch: 1
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: afe197c19643a0044a0a04424e6bbd68, type: 3}
     name: SlasherAttack
     volume: 1
-    pitch: 0.74
+    pitch: 1
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: 9f378f95d54ef3842a94d97c94c38b02, type: 3}
     name: SlasherSpecialAttack
     volume: 1
-    pitch: 0.36
+    pitch: 1
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: a3b97701e287d3a4a8ec3b16c42df8e7, type: 3}
     name: SlasherUltimateAttack
     volume: 1
-    pitch: 0.74
+    pitch: 1
     source: {fileID: 0}
 --- !u!1 &1543474122
 GameObject:
