@@ -1331,83 +1331,23 @@ MonoBehaviour:
     m_ActionId: 0c7ebea5-b299-417c-9a69-9230c61f7a8e
     m_ActionName: WASDPlayer/Jump[/Keyboard/w]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6719177390031297646}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 12137bf7-2e0e-4fef-93e0-2761a059c5e6
     m_ActionName: ArrowKeysPlayer/Movement[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6719177390031297646}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: OnJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 5ecce843-2cf4-469a-be07-ec1834dbf904
     m_ActionName: ArrowKeysPlayer/Jump[/Keyboard/upArrow]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8309485110616664792}
-        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: OnAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 79536776-0dbe-47a8-8c0a-000c88b9c969
     m_ActionName: ArrowKeysPlayer/Attack[/Keyboard/slash]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8309485110616664792}
-        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: OnSpecialAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 40739dd5-6fc8-4eda-ae16-597aa77b4be4
     m_ActionName: ArrowKeysPlayer/SpecialAttack[/Keyboard/period]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8309485110616664792}
-        m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: OnUltimateAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: eb88a514-9129-4aa3-8c29-c5adc5383aa4
     m_ActionName: ArrowKeysPlayer/UltimateAttack[/Keyboard/downArrow]
   - m_PersistentCalls:
