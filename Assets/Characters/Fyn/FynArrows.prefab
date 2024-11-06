@@ -1716,7 +1716,7 @@ MonoBehaviour:
     m_ActionName: WASDPlayer/Jump[/Keyboard/w]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4434077152383365471}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -1732,7 +1732,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/Movement[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4434077152383365471}
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -1748,7 +1748,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/Jump[/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2423843623741398842}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
@@ -1764,7 +1764,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/Attack[/Keyboard/slash]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2423843623741398842}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnSpecialAttack
         m_Mode: 0
@@ -1780,7 +1780,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/SpecialAttack[/Keyboard/period]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2423843623741398842}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnUltimateAttack
         m_Mode: 0
