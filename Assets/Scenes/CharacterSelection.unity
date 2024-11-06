@@ -421,10 +421,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: ForestDynamic
-  selectedPlayer1: {fileID: 8533569255848985391, guid: 037eabe5f6215554aafb854ab0cf6b38,
-    type: 3}
-  selectedPlayer2: {fileID: 5690858693359149305, guid: e7a2a9c1faad53a44acabef6e5bda943,
-    type: 3}
+  WASDChararacters:
+  - {fileID: 5090521016947187070, guid: 85a67e15897ffb54ab01310e5c2cb4e3, type: 3}
+  - {fileID: 5690858693359149305, guid: e7a2a9c1faad53a44acabef6e5bda943, type: 3}
+  - {fileID: 3183271304453747546, guid: 9d294c8ccaeab1d458e6f30c31817df7, type: 3}
+  arrowKeysCharacters:
+  - {fileID: 8533569255848985391, guid: 037eabe5f6215554aafb854ab0cf6b38, type: 3}
+  - {fileID: 496807785227996755, guid: a895ce53786a9e043b4f5c82cf4c8118, type: 3}
+  - {fileID: 8799354408841162540, guid: 0a28eb6bb1114174aa33d5ea1a1d7148, type: 3}
+  selectedWASD: 2
+  selectedArrowKeys: 1
 --- !u!4 &983555207
 Transform:
   m_ObjectHideFlags: 0

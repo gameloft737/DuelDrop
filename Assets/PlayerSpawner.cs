@@ -3,29 +3,25 @@ using System;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public static GameObject selectedPlayer1Prefab; // Prefab for Player 1 (selected from SceneLoader)
-    public static GameObject selectedPlayer2Prefab; // Prefab for Player 2 (selected from SceneLoader)
-    public Vector3 player1SpawnPoint = new Vector3(-2, 0, 0); // Spawn point for Player 1
-    public Vector3 player2SpawnPoint = new Vector3(2, 0, 0);  // Spawn point for Player 2
+    
+    public GameObject[] WASDChararacters;
+    public GameObject[] arrowKeysCharacters;
+    public GameObject WASDPlayer; // Prefab for Player 1 (selected from SceneLoader)
+    public GameObject arrowKeysPlayer; // Prefab for Player 2 (selected from SceneLoader)
+    public Vector3 WASDPlayerSpawnPoint = new Vector3(-2, 0, 0); // Spawn point for Player 1
+    public Vector3 arrowKeysPlayerSpawnPoint = new Vector3(2, 0, 0);  // Spawn point for Player 2
 
     // Event to notify when players are spawned
     public static event Action OnPlayersSpawned;
 
     private void Start()
     {
-        // Check if the prefabs are assigned
-        if (selectedPlayer1Prefab == null || selectedPlayer2Prefab == null)
-        {
-            Debug.LogError("Selected player prefabs are not assigned.");
-            return;
-        }
-
+        
+        WASDPlayer = WASDChararacters[PlayerPrefs.GetInt("selectedWASD")];
+        arrowKeysPlayer = arrowKeysCharacters[PlayerPrefs.GetInt("selectedArrowKeys")];
         // Instantiate the selected players at designated spawn points
-        Instantiate(selectedPlayer1Prefab, player1SpawnPoint, Quaternion.identity);
-        Instantiate(selectedPlayer2Prefab, player2SpawnPoint, Quaternion.identity);
-
-        Debug.Log("Players spawned successfully in the new scene.");
-
+        Instantiate(WASDPlayer, WASDPlayerSpawnPoint, Quaternion.identity);
+        Instantiate(arrowKeysPlayer, arrowKeysPlayerSpawnPoint, Quaternion.identity);
         // Trigger the event to notify other scripts
         OnPlayersSpawned?.Invoke();
     }
