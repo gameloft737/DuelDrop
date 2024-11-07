@@ -1354,7 +1354,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8309485110616664792}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
-        m_MethodName: OnSpecialAttack
+        m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
