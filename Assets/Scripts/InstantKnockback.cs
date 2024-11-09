@@ -23,7 +23,7 @@ public class InstantKnockback : MonoBehaviour
         if(generalKnockback){
             if(collider.gameObject.transform == thisManager._playerMovement.characterColliderObj){
                 if(baseOnParent){   
-                    thisManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                    thisManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.1f, attackData.damage);
                 }
                 else{
                     thisManager.ApplyKnockback(targetManager.transform.position, attackData.knockback, attackData.knockback, attackData.damage);
@@ -36,7 +36,7 @@ public class InstantKnockback : MonoBehaviour
 
             if(collider.gameObject.transform == targetManager._playerMovement.characterColliderObj){
                 if(baseOnParent){   
-                    targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                    targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.1f, attackData.damage);
                 }
                 else{
                     targetManager.ApplyKnockback(thisManager.transform.position, attackData.knockback, attackData.knockback, attackData.damage);
@@ -49,10 +49,10 @@ public class InstantKnockback : MonoBehaviour
         }
         else if(collider.gameObject.transform == targetManager._playerMovement.characterColliderObj){
             if(baseOnParent){   
-                targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                targetManager.ApplyKnockback(transform.parent.position, attackData.knockback, attackData.knockback * 0.1f, attackData.damage);
             }
             else{
-                targetManager.ApplyKnockback(thisManager.transform.position, attackData.knockback, attackData.knockback * 0.2f, attackData.damage);
+                targetManager.ApplyKnockback(thisManager.transform.position, attackData.knockback, attackData.knockback * 0.1f, attackData.damage);
             }
             if(cameraShake){
                 CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
