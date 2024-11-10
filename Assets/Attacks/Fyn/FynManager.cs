@@ -49,12 +49,13 @@ public class FynManager : WeaponManager
             Vector3 facingDirection = _playerMovement.characterColliderObj.localScale.x > 0 ? transform.right : -transform.right;
 
             // Only apply knockback if the target is within range and the player is facing the target
-            if (distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0)
+            if((distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0) || distanceToTarget <= knockbackRange * 0.25f)
             {
                 float knockbackStrength = attack.knockback;
                 if (targetManager != null)
                 {
                     targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier,0.1f, attack.damage);
+                    ReduceCooldownsBasedOnKnockback(attack.knockback);
                 }
             }
         }

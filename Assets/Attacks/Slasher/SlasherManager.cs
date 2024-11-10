@@ -51,6 +51,7 @@ public class SlasherManager : WeaponManager
                 if (targetManager != null)
                 {
                     targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier,0.1f, attack.damage);
+                     ReduceCooldownsBasedOnKnockback(attack.knockback);
                 }
             }
         }
