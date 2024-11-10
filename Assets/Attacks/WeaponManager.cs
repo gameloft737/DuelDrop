@@ -18,7 +18,7 @@ public class WeaponManager : MonoBehaviour
     public float knockbackModifier = 1.0f;
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target; // Reference to the target (opponent)
-    
+
     [SerializeField] protected WeaponManager targetManager; // Reference to the target (opponent)
     protected CinemachineImpulseSource impulseSource;
 
@@ -28,12 +28,12 @@ public class WeaponManager : MonoBehaviour
     {
         // Initialize cooldowns for each attack
         attackCooldowns[regAttack] = regAttack.reloadSpeed;
-        attackCooldowns[specialAttack] = specialAttack.reloadSpeed;
-        attackCooldowns[ultimateAttack] = ultimateAttack.reloadSpeed;
+        attackCooldowns[specialAttack] = 0f; // Knockback-based fill for special and ultimate attacks starts at 0
+        attackCooldowns[ultimateAttack] = 0f;
         impulseSource = GetComponent<CinemachineImpulseSource>();
 
         target = GameObject.FindGameObjectsWithTag(targetTag + "Player")[0].transform;
-        
+
         targetManager = GameObject.FindGameObjectsWithTag(targetTag + "Manager")[0].GetComponent<WeaponManager>();
     }
 
@@ -44,15 +44,11 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual void UpdateCooldowns()
     {
-        // Update cooldown timers
-        List<AttackData> keys = new List<AttackData>(attackCooldowns.Keys);
-        foreach (AttackData attack in keys)
+        // Update only the time-based cooldown for the regular attack
+        if (attackCooldowns[regAttack] > 0)
         {
-            if (attackCooldowns[attack] > 0)
-            {
-                attackCooldowns[attack] -= Time.deltaTime;
-                UpdateSlider(attack);
-            }
+            attackCooldowns[regAttack] -= Time.deltaTime;
+            UpdateSlider(regAttack);
         }
     }
 
@@ -98,60 +94,52 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual IEnumerator TryPerformSpecialAttack(AttackData attack)
     {
-        if (attackCooldowns[attack] <= 0f)
+        if (attackCooldowns[attack] >= 1f) // Check if gauge is fully filled (1.0)
         {
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+            attackCooldowns[attack] = 0f; // Reset the cooldown
             yield return new WaitForSeconds(attack.delay);
             PerformSpecialAttack(attack);
         }
         else
         {
-            Debug.Log("SpecialAttack on cooldown!");
+            Debug.Log("SpecialAttack not fully charged!");
         }
 
-        yield return null; // Wait for the next frame
+        yield return null;
     }
 
     protected virtual IEnumerator TryPerformUltimateAttack(AttackData attack)
     {
-        if (attackCooldowns[attack] <= 0f)
+        if (attackCooldowns[attack] >= 1f) // Check if gauge is fully filled (1.0)
         {
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+            attackCooldowns[attack] = 0f; // Reset the cooldown
             yield return new WaitForSeconds(attack.delay);
             PerformUltimateAttack(attack);
         }
         else
         {
-            Debug.Log("UltimateAttack on cooldown!");
+            Debug.Log("UltimateAttack not fully charged!");
         }
 
-        yield return null; // Wait for the next frame
+        yield return null;
     }
 
     protected virtual void PerformAttack(AttackData attack)
     {
         if (target != null)
         {
-            // Instantiate the claw effect at the player's position
-            if(attack is not DoubleParticleAttackData){
+            if (attack is not DoubleParticleAttackData)
+            {
                 GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
                 particleEffect.transform.localScale = Vector3.one;
-                // Schedule destruction of the claw effect just before the attack reloads
                 StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
             }
-            
 
-            // Calculate the direction from the player to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            // Check if the target is within the knockback range
             float knockbackRange = attack.range;
             float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-            // Calculate the player's facing direction based on the character's local scale
             Vector3 facingDirection = _playerMovement.characterColliderObj.localScale.x > 0 ? transform.right : -transform.right;
 
-            // Only apply knockback if the target is within range and the player is facing the target
             if (distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0)
             {
                 float knockbackStrength = attack.knockback;
@@ -165,9 +153,9 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual void PerformSpecialAttack(AttackData attack) { }
     protected virtual void PerformUltimateAttack(AttackData attack) { }
+
     protected IEnumerator DestroyParticleEffect(GameObject particleEffect, float delay)
     {
-        // Wait for the delay (time until the next attack can be performed)
         yield return new WaitForSeconds(delay);
         Destroy(particleEffect);
     }
@@ -178,13 +166,11 @@ public class WeaponManager : MonoBehaviour
         float maxCooldown = attack.reloadSpeed;
         float sliderValue = Mathf.Clamp01(cooldown / maxCooldown);
 
-        // Determine which slider to update based on attack type
         string sliderName = "";
         if (attack == regAttack) sliderName = "RegularAttack";
         else if (attack == specialAttack) sliderName = "SpecialAttack";
         else if (attack == ultimateAttack) sliderName = "UltimateAttack";
 
-        // Call UIManager to update the slider value
         UIManager.instance.SetSlider(currentTag, sliderName, sliderValue);
     }
 
@@ -200,6 +186,22 @@ public class WeaponManager : MonoBehaviour
         if (knockupStrength > 0f)
         {
             _playerMovement.Knockup(knockupStrength);
+        }
+
+        if (targetManager != null)
+        {
+            targetManager.FillCooldownFromKnockback(knockbackStrength);
+        }
+    }
+
+    public void FillCooldownFromKnockback(float knockbackStrength)
+    {
+        // For special and ultimate attacks, increase cooldown based on knockback
+        foreach (var attack in new AttackData[] { specialAttack, ultimateAttack })
+        {
+            float requiredKnockback = attack.reloadSpeed;
+            attackCooldowns[attack] += knockbackStrength / requiredKnockback;
+            UpdateSlider(attack);
         }
     }
 }
