@@ -1,10 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Mathematics;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Rocket : EventAction
 {
