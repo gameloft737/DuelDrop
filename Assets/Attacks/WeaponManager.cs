@@ -18,12 +18,26 @@ public class WeaponManager : MonoBehaviour
     public float knockbackModifier = 1.0f;
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target;
+    bool isFrozen = false;
     
     [SerializeField] protected WeaponManager targetManager;
     protected CinemachineImpulseSource impulseSource;
 
     protected Dictionary<AttackData, float> attackCooldowns = new Dictionary<AttackData, float>();
+    public void FreezeAll()
+    {
+        // Set each attack's cooldown to its maximum value to freeze them
+        attackCooldowns[regAttack] = regAttack.reloadSpeed;
+        attackCooldowns[specialAttack] = specialAttack.reloadSpeed;
+        attackCooldowns[ultimateAttack] = ultimateAttack.reloadSpeed;
+        isFrozen =true;
+        // Update sliders to reflect the cooldowns being at maximum
+        UpdateSlider(regAttack);
+        UpdateSlider(specialAttack);
+        UpdateSlider(ultimateAttack);
 
+        Debug.Log("All attack cooldowns have been frozen.");
+}
     private void Start()
     {
         // Initialize cooldowns for each attack
@@ -39,7 +53,9 @@ public class WeaponManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateCooldowns();
+        if(!isFrozen){  
+            UpdateCooldowns();
+        }
     }
 
     protected virtual void UpdateCooldowns()
@@ -58,7 +74,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformAttack(regAttack));
         }
@@ -66,7 +82,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnSpecialAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformSpecialAttack(specialAttack));
         }
@@ -74,7 +90,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformUltimateAttack(ultimateAttack));
         }

@@ -1,39 +1,94 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class RoundsManager : MonoBehaviour
 {
-    [SerializeField] public RoundCycle roundCycle;
-    [SerializeField] 
-    public int roundDuration;
-    public int roundNumber;
-    GameObject arrowKeyPlayer = GameObject.FindGameObjectWithTag("ArrowKeysPlayer");
-    GameObject WASDPlayer = GameObject.FindGameObjectWithTag("WASDPlayer");
-   
-    public void RoundStart()
+    [SerializeField] private RoundSettings roundSettings;
+    private PlayerMovement arrowKeyPlayer;
+    private PlayerMovement WASDPlayer;
+    private WeaponManager arrowKeyManager;
+    private WeaponManager WASDManager;
+
+    public RoundState currentState;
+    public enum RoundState { 
+        Load, 
+        Play, 
+        Finish 
+    }
+
+    private int currentRound;
+    private float roundTimeRemaining;
+
+    private void OnEnable()
     {
-        roundDuration = roundCycle.roundDuration;
-        roundNumber = roundCycle.rounds;
-        for (int i = roundNumber; i > 0 ; i--)
+        // Subscribe to the OnPlayersSpawned event
+        PlayerSpawner.OnPlayersSpawned += InitializePlayers;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe from the event when this script is disabled
+        PlayerSpawner.OnPlayersSpawned -= InitializePlayers;
+    }
+
+    private void InitializePlayers()
+    {
+        // Initialize player components
+        arrowKeyPlayer = GameObject.FindGameObjectWithTag("ArrowKeysPlayer").GetComponent<PlayerMovement>();
+        WASDPlayer = GameObject.FindGameObjectWithTag("WASDPlayer").GetComponent<PlayerMovement>();
+        
+        arrowKeyManager = GameObject.FindGameObjectWithTag("ArrowKeysManager").GetComponent<WeaponManager>();
+        WASDManager = GameObject.FindGameObjectWithTag("WASDManager").GetComponent<WeaponManager>();
+        
+        StartCoroutine(RoundLoop());
+    }
+
+    private IEnumerator RoundLoop()
+    {
+        for (currentRound = 1; currentRound <= roundSettings.rounds; currentRound++)
         {
-            
-            StartCoroutine(Clock(roundDuration));
+            SetRoundState(RoundState.Load);
+            yield return new WaitForSeconds(2f); // brief loading period
+
+            SetRoundState(RoundState.Play);
+            roundTimeRemaining = roundSettings.roundDuration;
+
+            while (roundTimeRemaining > 0)
+            {
+                roundTimeRemaining -= Time.deltaTime;
+                yield return null;
+            }
+
+            SetRoundState(RoundState.Finish);
+            yield return new WaitForSeconds(2f);
         }
 
+        EndGame();
     }
-    private IEnumerator Clock(int roundtime)
+
+    private void SetRoundState(RoundState newState)
     {
-        while (roundtime > 0)
+        if (newState == RoundState.Play)
         {
-            roundtime--;
-            yield return new WaitForSeconds(1);
-        }
-    }
-    public void UpdateUI()
-    {
+            // Allow players to move
+            arrowKeyPlayer.SetState(false);
+            WASDPlayer.SetState(false);
             
+        }
+        else
+        {
+            // Freeze players
+            arrowKeyPlayer.SetState(true);
+            WASDPlayer.SetState(true);
+            arrowKeyManager.FreezeAll();
+            WASDManager.FreezeAll();
+        }
+        
+        currentState = newState;
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("All rounds are complete!");
     }
 }

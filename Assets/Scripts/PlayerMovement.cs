@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float animSmoothingSpeed;
     public Transform characterColliderObj;  
     public bool canMove = true;
+    public bool isFrozen = false;
+
     [Header("Settings")]
     public float moveSpeed = 5f;               
     public float acceleration = 10f;           
@@ -40,8 +42,13 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     [SerializeField] private float stunTime = 0.1f;
 
+    public void SetState(bool frozen){
+        canMove = !frozen;
+        isFrozen = frozen;
+    }
     private void Awake()
     {
+        SetState(false);
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ; 
         _mainCamera = Camera.main;
@@ -50,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         _inputDirection = context.ReadValue<Vector2>();
-        
+        if(isFrozen){return;}
         if (_inputDirection.x > 0) 
         {
             characterColliderObj.transform.localScale = new Vector3(1, 1, 1);
@@ -84,11 +91,16 @@ public class PlayerMovement : MonoBehaviour
             
             
         }
+        if(isFrozen){
+            animator.SetFloat("horizontal", 0);
+            animator.SetBool("isGrounded", true);
+            animator.SetBool("isMoving", false);
+        }
 
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && !isFrozen)
         {
             _jumpRequested = true;
             _jumpRequestTime = Time.time; 
@@ -110,7 +122,10 @@ public class PlayerMovement : MonoBehaviour
             ApplyCustomGravity();
         }
         CheckGrounded(); 
-        SmoothKnockback();
+        if(!isFrozen){
+            SmoothKnockback();
+            
+        }
         HandleMovement();
 
     }
@@ -128,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 targetVelocity = new Vector3(_inputDirection.x, 0, _inputDirection.y) * moveSpeed;
 
-        if (_inputDirection.magnitude > 0.1f && canMove)
+        if (_inputDirection.magnitude > 0.1f && canMove && !isFrozen)
         {
             _velocity = Vector3.MoveTowards(_velocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         }
@@ -176,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Knockback(Vector3 position, float strength)
     {
-        
+        if(isFrozen){return;}
         // Calculate the direction from the player to the explosion position
         Vector3 direction = (new Vector3(transform.position.x, 0, 0) - new Vector3(position.x, 0, 0)).normalized;
         

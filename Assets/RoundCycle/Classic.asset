@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd3e54d7e7142f74c892e80f609ba138, type: 3}
-  m_Name: RoundCycle
+  m_Name: Classic
   m_EditorClassIdentifier: 
-  rounds: 0
-  roundDuration: 0
+  rounds: 3
+  roundDuration: 30
