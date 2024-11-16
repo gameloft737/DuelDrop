@@ -90,9 +90,10 @@ public class RoundsManager : MonoBehaviour
                 else{
                     currentRound.winner = "ArrowKeys";
                 }
-                
                 PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
             }
+            WASDManager.healthSystem.SetMaxHealth();
+            arrowKeyManager.healthSystem.SetMaxHealth();
             yield return new WaitForSeconds(2f);
             round.isActive = false;
         }

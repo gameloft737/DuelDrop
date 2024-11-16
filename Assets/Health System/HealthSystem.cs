@@ -176,8 +176,9 @@ public class HealthSystem : MonoBehaviour
     }
     private void Die(){
         RoundsManager.instance.DeclareDeath(tag); 
+    }
+    public void SetMaxHealth(){
         HealthGain(maximum);
-        return;
     }
     private void Update(){
         if(Math.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax){
