@@ -6,6 +6,10 @@ public class EnvironmentManager : MonoBehaviour
 {
     public static EnvironmentManager instance;
     public float height = 20f;
+    [HideInInspector]public float voidHeight;
+    [SerializeField] float heightBuffer;
+    [HideInInspector]public float voidMinMax;
+    [SerializeField] float widthBuffer;
     [SerializeField]private GameObject basePlatform;
     public Transform[] platforms;
 
@@ -31,6 +35,8 @@ public class EnvironmentManager : MonoBehaviour
         }
 
         platforms = childTransforms.ToArray(); // Convert back to an array if needed
+        voidHeight = basePlatform.transform.position.y - heightBuffer;
+        voidMinMax = GetBaseLength()/2 + widthBuffer;
     }
 
     public float GetBaseLength(float leeway = 0)

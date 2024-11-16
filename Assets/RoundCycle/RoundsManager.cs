@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class RoundsManager : MonoBehaviour
 {
+    public static RoundsManager instance;
     [SerializeField] private RoundSettings roundSettings;
     private PlayerMovement arrowKeyPlayer;
     private PlayerMovement WASDPlayer;
     private WeaponManager arrowKeyManager;
     private WeaponManager WASDManager;
+    public GameObject loadScreen;
 
     public RoundState currentState;
     public enum RoundState { 
@@ -18,6 +20,16 @@ public class RoundsManager : MonoBehaviour
 
     private int currentRound;
     private float roundTimeRemaining;
+    private void Awake()
+    {
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     private void OnEnable()
     {
@@ -48,8 +60,9 @@ public class RoundsManager : MonoBehaviour
         for (currentRound = 1; currentRound <= roundSettings.rounds; currentRound++)
         {
             SetRoundState(RoundState.Load);
+            loadScreen.SetActive(true);
             yield return new WaitForSeconds(2f); // brief loading period
-
+            loadScreen.SetActive(false);
             SetRoundState(RoundState.Play);
             roundTimeRemaining = roundSettings.roundDuration;
 
@@ -74,12 +87,16 @@ public class RoundsManager : MonoBehaviour
             arrowKeyPlayer.SetState(false);
             WASDPlayer.SetState(false);
             
+            arrowKeyManager.UnfreezeAll();
+            WASDManager.UnfreezeAll();
+            
         }
         else
         {
             // Freeze players
             arrowKeyPlayer.SetState(true);
             WASDPlayer.SetState(true);
+
             arrowKeyManager.FreezeAll();
             WASDManager.FreezeAll();
         }

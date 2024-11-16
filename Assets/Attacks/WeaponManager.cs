@@ -37,7 +37,10 @@ public class WeaponManager : MonoBehaviour
         UpdateSlider(ultimateAttack);
 
         Debug.Log("All attack cooldowns have been frozen.");
-}
+    }
+    public void UnfreezeAll(){
+        isFrozen =false;
+    }
     private void Start()
     {
         // Initialize cooldowns for each attack

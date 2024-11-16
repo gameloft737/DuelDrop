@@ -72,7 +72,7 @@ public class HealthSystem : MonoBehaviour
         {
             if (Healing != null) { StopCoroutine(Healing); }
             Damaging = null;
-            Debug.Log("You Died");
+            Die();
             return;
         }
 
@@ -172,6 +172,24 @@ public class HealthSystem : MonoBehaviour
         }
         else{
             CreateDamageText(damageAmount);
+        }
+    }
+    private void Die(){
+        Debug.Log("ded");   
+        return;
+    }
+    private void Update(){
+        if(Math.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax){
+            Die();
+            return;
+        }
+        if(transform.position.y < EnvironmentManager.instance.voidHeight){
+            Die();
+            return;
+        }
+        if(transform.position.y > EnvironmentManager.instance.height * 2){
+            Die();
+            return;
         }
     }
 }
