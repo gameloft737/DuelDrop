@@ -3,7 +3,7 @@ using System;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    
+    public static PlayerSpawner instance;
     public GameObject[] WASDChararacters;
     public GameObject[] arrowKeysCharacters;
     public GameObject WASDPlayer; // Prefab for Player 1 (selected from SceneLoader)
@@ -13,7 +13,16 @@ public class PlayerSpawner : MonoBehaviour
 
     // Event to notify when players are spawned
     public static event Action OnPlayersSpawned;
-
+    private void Awake()
+    {
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
+        }   
+    }
     private void Start()
     {
         
@@ -25,4 +34,9 @@ public class PlayerSpawner : MonoBehaviour
         // Trigger the event to notify other scripts
         OnPlayersSpawned?.Invoke();
     }
+    public void TeleportPlayer(Transform WASDPlayer, Transform arrowKeyPlayer){
+        arrowKeyPlayer.position = arrowKeysPlayerSpawnPoint;
+        WASDPlayer.position = WASDPlayerSpawnPoint;
+    }
+
 }

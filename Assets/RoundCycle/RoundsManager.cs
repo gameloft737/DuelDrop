@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,14 +12,8 @@ public class RoundsManager : MonoBehaviour
     private WeaponManager WASDManager;
     public GameObject loadScreen;
 
-    public RoundState currentState;
-    public enum RoundState { 
-        Load, 
-        Play, 
-        Finish 
-    }
-
-    private int currentRound;
+    public Round[] rounds;
+    Round currentRound;
     private float roundTimeRemaining;
     private void Awake()
     {
@@ -28,6 +23,12 @@ public class RoundsManager : MonoBehaviour
         else{
             Destroy(gameObject);
             return;
+        }   
+        rounds = new Round[roundSettings.rounds];
+        for (int i = 0; i < rounds.Length; i++)
+        {
+            rounds[i] = new Round(); // Create a new Round instance
+            rounds[i].duration = roundSettings.roundDuration;
         }
     }
 
@@ -57,31 +58,60 @@ public class RoundsManager : MonoBehaviour
 
     private IEnumerator RoundLoop()
     {
-        for (currentRound = 1; currentRound <= roundSettings.rounds; currentRound++)
+        for (int i = 0; i < rounds.Length; i++)
         {
-            SetRoundState(RoundState.Load);
+            Debug.Log(i);
+            Round round = rounds[i];
+            currentRound = round;
+            round.isActive = true;
+            SetRoundState(Round.RoundState.Load, round);
             loadScreen.SetActive(true);
-            yield return new WaitForSeconds(2f); // brief loading period
+            yield return new WaitForSeconds(2f);
             loadScreen.SetActive(false);
-            SetRoundState(RoundState.Play);
-            roundTimeRemaining = roundSettings.roundDuration;
+            SetRoundState(Round.RoundState.Play, round);
 
+            roundTimeRemaining = roundSettings.roundDuration;
             while (roundTimeRemaining > 0)
             {
+                if (!round.isActive)
+                {
+                    break; // Exit if the round is no longer active
+                }
                 roundTimeRemaining -= Time.deltaTime;
-                yield return null;
+                yield return null; // Wait for the next frame
             }
 
-            SetRoundState(RoundState.Finish);
+            // End the round
+            SetRoundState(Round.RoundState.Finish, round);
+            if(round.isActive){
+                if(WASDManager.healthSystem.health > arrowKeyManager.healthSystem.health){
+                    round.winner = "WASD";
+                }
+                else{
+                    currentRound.winner = "ArrowKeys";
+                }
+                
+                PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
+            }
             yield return new WaitForSeconds(2f);
+            round.isActive = false;
         }
-
         EndGame();
     }
+    public void DeclareDeath(String winner){
+        if(winner.Equals(arrowKeyPlayer.tag)){  
+            currentRound.winner = "WASD";
+        }
+        else{
+            currentRound.winner = "ArrowKeys";
+        }
+        currentRound.isActive = false;
+        PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
+    }
 
-    private void SetRoundState(RoundState newState)
+    private void SetRoundState(Round.RoundState newState, Round round)
     {
-        if (newState == RoundState.Play)
+        if (newState == Round.RoundState.Play)
         {
             // Allow players to move
             arrowKeyPlayer.SetState(false);
@@ -101,11 +131,12 @@ public class RoundsManager : MonoBehaviour
             WASDManager.FreezeAll();
         }
         
-        currentState = newState;
+        round.currentState = newState;
     }
 
     private void EndGame()
     {
+        loadScreen.SetActive(true);
         Debug.Log("All rounds are complete!");
     }
 }

@@ -10,7 +10,7 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] GameObject comboTextPrefab; // Prefab for combo text
     [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits in seconds
     [SerializeField] String currentTag;
-    private float health;
+    public float health;
     private Coroutine Healing;
     private float remainingHealing = 0f;
     private float remainingDamage = 0f;
@@ -175,7 +175,8 @@ public class HealthSystem : MonoBehaviour
         }
     }
     private void Die(){
-        Debug.Log("ded");   
+        RoundsManager.instance.DeclareDeath(tag); 
+        HealthGain(maximum);
         return;
     }
     private void Update(){
