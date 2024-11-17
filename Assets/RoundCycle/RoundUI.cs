@@ -1,39 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RoundUI : MonoBehaviour
 {
-    [SerializeField] private RoundSettings roundSettings;
-    [SerializeField]public GameObject RoundIcon;
-    public Vector3 spawnPoint;
-    [SerializeField]public Transform roundIconPosition;
-    public Text roundTimer;
-    public GameObject[] Icons;
-    public Round[] rounds;
-    public void Start()
-    {
-        Icons = new GameObject[roundSettings.rounds];
-        spawnPoint = roundIconPosition.transform.position;
-        rounds = new Round[roundSettings.rounds];
-        for (int i = 0; i < Icons.Length; i++)
-        {
-            Icons[i] = Instantiate(RoundIcon, roundIconPosition);
-            Icons[i].transform.position = spawnPoint;
-            spawnPoint.x = spawnPoint.x - 50;
-        }
-    }
-    public void ChangeColors(string Winner)
-    {
-        if(Winner == "WASD") 
-        {
-            
-        }
-        if(Winner == "ArrowKeys")
-        {
+    [SerializeField] private RoundSettings roundSettings; // Reference to round settings
+    [SerializeField] private GameObject roundIconPrefab; // Prefab for round icons
+    [SerializeField] private Text roundTimer; // Timer text (optional for display)
 
+    private GameObject[] icons; // Array to store instantiated icons
+
+    private void Start()
+    {
+        roundSettings = RoundsManager.instance.roundSettings;
+
+        // Initialize arrays based on the number of rounds
+        icons = new GameObject[roundSettings.rounds];
+
+        // Get parent RectTransform width
+        RectTransform parentRect = GetComponent<RectTransform>();
+        float parentWidth = parentRect.rect.width;
+
+        // Calculate spacing between icons
+        float spacing = parentWidth / (icons.Length + 1);
+
+        // Spawn icons evenly distributed across the parent container
+        for (int i = 0; i < icons.Length; i++)
+        {
+            // Instantiate the icon as a child of the parent object
+            GameObject icon = Instantiate(roundIconPrefab, transform);
+
+            // Set the icon's position in local space
+            RectTransform iconRect = icon.GetComponent<RectTransform>();
+            float xPosition = spacing * (i + 1) - parentWidth / 2; // Center icons
+            iconRect.anchoredPosition = new Vector2(xPosition, 0); // Adjust the y-position as needed
+
+            // Store the instantiated icon
+            icons[i] = icon;
         }
     }
+
+    public void ChangeColors(string winner, int roundNumber)
+    {
+
+            if (icons[roundNumber] != null)
+            {
+                Image iconImage = icons[roundNumber].GetComponent<Image>();
+                if (iconImage != null)
+                {
+                    iconImage.color = winner == "WASD" ? Color.red : Color.blue;
+                }
+            }
+    }
+    
 }

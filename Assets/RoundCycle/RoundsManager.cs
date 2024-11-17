@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class RoundsManager : MonoBehaviour
 {
     public static RoundsManager instance;
-    [SerializeField] private RoundSettings roundSettings;
+    public RoundSettings roundSettings;
     private PlayerMovement arrowKeyPlayer;
     private PlayerMovement WASDPlayer;
     private WeaponManager arrowKeyManager;
