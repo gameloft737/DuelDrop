@@ -13,12 +13,10 @@ public class RoundsManager : MonoBehaviour
     private WeaponManager arrowKeyManager;
     private WeaponManager WASDManager;
     public GameObject loadScreen;
-    public GameObject RoundIcon;
     public Round[] rounds;
+    public RoundUI RoundUI;
     Round currentRound;
     private float roundTimeRemaining;
-    public Transform roundIconPosition;
-    public Text roundTimer;
     private void Awake()
     {
         if(instance == null){
@@ -34,11 +32,7 @@ public class RoundsManager : MonoBehaviour
             rounds[i] = new Round(); // Create a new Round instance
             rounds[i].duration = roundSettings.roundDuration;
         }
-        for (int i = 0; i < rounds.Length; i++)
-        {
-            GameObject roundIcon = Instantiate(RoundIcon,roundIconPosition);
-            
-        }
+
     }
 
     private void OnEnable()
@@ -62,6 +56,7 @@ public class RoundsManager : MonoBehaviour
         arrowKeyManager = GameObject.FindGameObjectWithTag("ArrowKeysManager").GetComponent<WeaponManager>();
         WASDManager = GameObject.FindGameObjectWithTag("WASDManager").GetComponent<WeaponManager>();
         
+
         StartCoroutine(RoundLoop());
     }
 
@@ -69,6 +64,7 @@ public class RoundsManager : MonoBehaviour
     {
         for (int i = 0; i < rounds.Length; i++)
         {
+
             Debug.Log(i);
             Round round = rounds[i];
             currentRound = round;
