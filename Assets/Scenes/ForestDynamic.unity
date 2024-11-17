@@ -8130,6 +8130,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundSettings: {fileID: 11400000, guid: f980e09d76a8c464298aaa8a2c9b881f, type: 2}
   loadScreen: {fileID: 340195583}
+  RoundIcon: {fileID: 3499698682954724919, guid: a19f4dd596a348e458ff050073690585,
+    type: 3}
+  roundIconPosition: {fileID: 0}
+  roundTimer: {fileID: 0}
 --- !u!4 &1099754749
 Transform:
   m_ObjectHideFlags: 0
