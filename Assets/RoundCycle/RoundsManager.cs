@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Unity.Play.Publisher.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoundsManager : MonoBehaviour
 {
@@ -11,10 +13,12 @@ public class RoundsManager : MonoBehaviour
     private WeaponManager arrowKeyManager;
     private WeaponManager WASDManager;
     public GameObject loadScreen;
-
+    public GameObject RoundIcon;
     public Round[] rounds;
     Round currentRound;
     private float roundTimeRemaining;
+    public Transform roundIconPosition;
+    public Text roundTimer;
     private void Awake()
     {
         if(instance == null){
@@ -29,6 +33,11 @@ public class RoundsManager : MonoBehaviour
         {
             rounds[i] = new Round(); // Create a new Round instance
             rounds[i].duration = roundSettings.roundDuration;
+        }
+        for (int i = 0; i < rounds.Length; i++)
+        {
+            GameObject roundIcon = Instantiate(RoundIcon,roundIconPosition);
+            
         }
     }
 
@@ -134,9 +143,7 @@ public class RoundsManager : MonoBehaviour
         
         round.currentState = newState;
     }
-
-    private void EndGame()
-    {
+    private void EndGame(){
         loadScreen.SetActive(true);
         Debug.Log("All rounds are complete!");
     }

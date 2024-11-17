@@ -4,7 +4,14 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - roundCycle: {fileID: 11400000, guid: 003a68b9b9cc9bf4a90a9827a5703eb6, type: 2}
+  - roundSettings: {instanceID: 0}
+  - loadScreen: {instanceID: 0}
+  - RoundIcon: {fileID: 3499698682954724919, guid: a19f4dd596a348e458ff050073690585,
+      type: 3}
+  - roundIconPosition: {fileID: 4626620425901414624, guid: 206e07dca71c74c4882d08218ebe9fc3,
+      type: 3}
+  - roundTimer: {fileID: 5429126231057444205, guid: 91f9068f5a8e9b840b450433e0600973,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
