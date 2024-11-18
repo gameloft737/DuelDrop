@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EventCreation : MonoBehaviour
 {
+    public static EventCreation instance;
     public List<RandomEvent> randomEvents; // List of possible random events as ScriptableObjects
     public Text eventNameText; // UI Text to display the next event name
     public Image eventIconImage; // UI Image to display the next event icon
@@ -13,7 +14,17 @@ public class EventCreation : MonoBehaviour
     private float currentTimer;
     private RandomEvent nextEvent;
     private RandomEvent prevEvent;
-
+    public bool isFrozen = true;
+    private void Awake()
+    {
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
+        }   
+    }
     void Start()
     {
         currentTimer = timeBetweenEvents;
@@ -22,17 +33,24 @@ public class EventCreation : MonoBehaviour
     }
 
     void Update()
-    {
-        currentTimer -= Time.deltaTime;
-        UpdateTimerUI();
+    {   
+        if(!isFrozen){
+            currentTimer -= Time.deltaTime;
+            UpdateTimerUI();
 
-        if (currentTimer <= 0)
-        {
-            TriggerNextEvent();
-            currentTimer = timeBetweenEvents; // Reset timer
-            SelectRandomEvent(); // Select the next random event
-            UpdateUI(); // Update the UI with new event info
+            if (currentTimer <= 0)
+            {
+                TriggerNextEvent();
+                currentTimer = timeBetweenEvents; // Reset timer
+                SelectRandomEvent(); // Select the next random event
+                UpdateUI(); // Update the UI with new event info
+            }
         }
+        else{
+            currentTimer = timeBetweenEvents;
+            UpdateTimerUI();
+        }
+        
     }
 
     private void SelectRandomEvent()

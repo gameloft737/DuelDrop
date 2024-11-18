@@ -8,9 +8,19 @@ public class RoundUI : MonoBehaviour
     [SerializeField] private RoundSettings roundSettings; // Reference to round settings
     [SerializeField] private GameObject roundIconPrefab; // Prefab for round icons
     [SerializeField] private Text roundTimer; // Timer text (optional for display)
+    public static RoundUI instance;
 
     private GameObject[] icons; // Array to store instantiated icons
-
+    private void Awake()
+    {
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
+        }   
+    }
     private void Start()
     {
         roundSettings = RoundsManager.instance.roundSettings;
@@ -46,7 +56,7 @@ public class RoundUI : MonoBehaviour
 
             if (icons[roundNumber] != null)
             {
-                Image iconImage = icons[roundNumber].GetComponent<Image>();
+                RawImage iconImage = icons[roundNumber].GetComponent<RawImage>();
                 if (iconImage != null)
                 {
                     iconImage.color = winner == "WASD" ? Color.red : Color.blue;

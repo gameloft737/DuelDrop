@@ -15,6 +15,7 @@ public class RoundsManager : MonoBehaviour
     public GameObject loadScreen;
     public Round[] rounds;
     public RoundUI RoundUI;
+    int currentRoundNum;
     Round currentRound;
     private float roundTimeRemaining;
     private void Awake()
@@ -67,11 +68,14 @@ public class RoundsManager : MonoBehaviour
 
             Debug.Log(i);
             Round round = rounds[i];
+            currentRoundNum = i;
             currentRound = round;
             round.isActive = true;
             SetRoundState(Round.RoundState.Load, round);
             loadScreen.SetActive(true);
+            EventCreation.instance.isFrozen = true;
             yield return new WaitForSeconds(2f);
+            EventCreation.instance.isFrozen = false;
             loadScreen.SetActive(false);
             SetRoundState(Round.RoundState.Play, round);
 
@@ -93,14 +97,16 @@ public class RoundsManager : MonoBehaviour
                     round.winner = "WASD";
                 }
                 else{
-                    currentRound.winner = "ArrowKeys";
+                    round.winner = "ArrowKeys";
                 }
                 PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
             }
             WASDManager.healthSystem.SetMaxHealth();
             arrowKeyManager.healthSystem.SetMaxHealth();
+            EventCreation.instance.isFrozen = true;
             yield return new WaitForSeconds(2f);
             round.isActive = false;
+            RoundUI.instance.ChangeColors(round.winner, currentRoundNum);
         }
         EndGame();
     }
