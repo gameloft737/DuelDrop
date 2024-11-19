@@ -10,7 +10,12 @@ public class PlatformFade : EventAction
     [SerializeField] int count; // The number of platforms to select.
     [SerializeField] List<Transform> platforms = new List<Transform>();
 
-    
+    public override void StopEvent(){
+        foreach (var platform in platforms)
+        {
+            platform.gameObject.SetActive(true);
+        }
+    }
     public override void EventTrigger(){
         for (int i = 0; i < count; i++)
         {

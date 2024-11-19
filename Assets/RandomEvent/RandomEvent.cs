@@ -15,7 +15,7 @@ public class RandomEvent : ScriptableObject
     public void Start(){
         eventAction = eventPrefab.GetComponent<EventAction>();
     }
-    public void Trigger()
+    public GameObject Trigger()
     {
         if (eventPrefab != null)
         {
@@ -29,7 +29,9 @@ public class RandomEvent : ScriptableObject
                 // Call the event trigger method
                 eventAction.EventTrigger();
             }
+            return spawnedObject;
         }
+        return null;
     }
     protected virtual Vector3 FindLocation(){
         return Vector3.zero;

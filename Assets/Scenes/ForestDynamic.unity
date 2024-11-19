@@ -19297,8 +19297,9 @@ MonoBehaviour:
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
-  timeBetweenEvents: 5
+  timeBetweenEvents: 10
   isFrozen: 1
+  currentEvents: []
 --- !u!1 &1586914634
 GameObject:
   m_ObjectHideFlags: 0

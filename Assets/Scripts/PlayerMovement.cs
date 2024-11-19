@@ -45,6 +45,13 @@ public class PlayerMovement : MonoBehaviour
     public void SetState(bool frozen){
         canMove = !frozen;
         isFrozen = frozen;
+        if (frozen)
+        {
+            // Clear knockback forces
+            currentKnockbackForce = Vector3.zero;
+            rb.velocity = new Vector3(0, rb.velocity.y, 0); // Retain vertical velocity if necessary
+        }
+
     }
     private void Awake()
     {
@@ -215,14 +222,17 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
     }
-    private void SmoothKnockback(){
-        // Gradually reduce the knockback force over time for smoothness
+    private void SmoothKnockback()
+    {
+        if (isFrozen) return;
+
         if (currentKnockbackForce.magnitude > 0.1f)
         {
             currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, smoothFactor);
             rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         }
     }
+
     public void Floor()
     {
         rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);

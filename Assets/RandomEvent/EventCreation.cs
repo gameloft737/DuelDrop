@@ -15,6 +15,26 @@ public class EventCreation : MonoBehaviour
     private RandomEvent nextEvent;
     private RandomEvent prevEvent;
     public bool isFrozen = true;
+    public List<GameObject> currentEvents;
+    public void DestroyEvents()
+    {
+        // Iterate through all events in the list
+        foreach (GameObject currentEvent in currentEvents)
+        {
+            if (currentEvent != null)
+            {
+                var eventAction = currentEvent.GetComponent<EventAction>();
+                if (eventAction != null)
+                {
+                    eventAction.StopEvent();
+                }
+
+                Destroy(currentEvent);
+            }
+        }
+
+        currentEvents.Clear();
+    }
     private void Awake()
     {
         if(instance == null){
@@ -75,8 +95,8 @@ public class EventCreation : MonoBehaviour
     private void TriggerNextEvent()
     {
         if (nextEvent != null)
-        {
-            nextEvent.Trigger();
+        {   
+            currentEvents.Add(nextEvent.Trigger());
         }
     }
 

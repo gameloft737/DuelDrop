@@ -104,6 +104,8 @@ public class RoundsManager : MonoBehaviour
             WASDManager.healthSystem.SetMaxHealth();
             arrowKeyManager.healthSystem.SetMaxHealth();
             EventCreation.instance.isFrozen = true;
+            EventCreation.instance.DestroyEvents();
+            
             yield return new WaitForSeconds(2f);
             round.isActive = false;
             RoundUI.instance.ChangeColors(round.winner, currentRoundNum);

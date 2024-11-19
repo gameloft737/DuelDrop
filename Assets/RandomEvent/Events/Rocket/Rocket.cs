@@ -7,9 +7,12 @@ public class Rocket : EventAction
     [SerializeField] float speed = 20f;
     [SerializeField] GameObject viewObject;
     [SerializeField] GameObject rocketEffect;
+    public override void StopEvent(){
+        Destroy(rocketEffect);
+    }
     public override void EventTrigger()
     {
-        Instantiate(rocketEffect, new Vector3(0f, transform.position.y, 0), Quaternion.identity);
+        rocketEffect = Instantiate(rocketEffect, new Vector3(0f, transform.position.y, 0), Quaternion.identity);
         viewObject.SetActive(false);
         StartCoroutine(StartMovement(3));
     }
