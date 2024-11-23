@@ -8,14 +8,23 @@ public class SlasherManager : WeaponManager
     [SerializeField] GameObject arrows;
     [SerializeField] GameObject arrowsVert;
     protected override IEnumerator TryPerformAttack(AttackData attack){
+        if (isAttacking)
+        {
+            Debug.Log("Already attacking, wait for the attack to finish.");
+            yield break;
+        }
         if (attackCooldowns[attack] <= 0f)
         {    
+            
+            isAttacking = true; // Mark as attacking
             randomNum = UnityEngine.Random.Range(1, 3);
             _playerMovement.animator.SetTrigger("attack" + randomNum);
             AudioManager.instance.Play("SlasherAttack");
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
-            yield return new WaitForSeconds(attack.delay);
             PerformAttack(attack);
+            yield return new WaitForSeconds(attack.delay);
+            
+            isAttacking = false; // Mark attack as finished
         }
         else
         {

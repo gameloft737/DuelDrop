@@ -99,29 +99,59 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    protected bool isAttacking = false; // Flag to check if an attack is already being performed
+
     protected virtual IEnumerator TryPerformAttack(AttackData attack)
     {
+        if (isAttacking)
+        {
+            Debug.Log("Already attacking, wait for the attack to finish.");
+            yield break;
+        }
+
         if (attackCooldowns[attack] <= 0f)
         {
-            attackCooldowns[attack] = attack.reloadSpeed;
+            isAttacking = true; // Mark as attacking
+            _playerMovement.animator.SetTrigger("attack");
+            AudioManager.instance.Play("MinoAttack");
+
             yield return new WaitForSeconds(attack.delay);
+
             PerformAttack(attack);
+
+            // Start cooldown after the attack
+            attackCooldowns[attack] = attack.reloadSpeed;
+            isAttacking = false; // Mark attack as finished
         }
         else
         {
             Debug.Log("Attack on cooldown!");
         }
 
-        yield return null;
+        yield return null; // Wait for the next frame
     }
+
+
+    protected bool isSpecialAttacking = false; // Flag for special attacks
+    protected bool isUltimateAttacking = false; // Flag for ultimate attacks
 
     protected virtual IEnumerator TryPerformSpecialAttack(AttackData attack)
     {
+        if (isSpecialAttacking)
+        {
+            Debug.Log("Already performing a special attack, wait for it to finish.");
+            yield break;
+        }
+
         if (attackCooldowns[attack] <= 0f)
         {
+            isSpecialAttacking = true; // Mark as performing special attack
             attackCooldowns[attack] = attack.reloadSpeed;
+
             yield return new WaitForSeconds(attack.delay);
+
             PerformSpecialAttack(attack);
+            isSpecialAttacking = false; // Reset flag after attack
         }
         else
         {
@@ -133,11 +163,21 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual IEnumerator TryPerformUltimateAttack(AttackData attack)
     {
+        if (isUltimateAttacking)
+        {
+            Debug.Log("Already performing an ultimate attack, wait for it to finish.");
+            yield break;
+        }
+
         if (attackCooldowns[attack] <= 0f)
         {
+            isUltimateAttacking = true; // Mark as performing ultimate attack
             attackCooldowns[attack] = attack.reloadSpeed;
+
             yield return new WaitForSeconds(attack.delay);
+
             PerformUltimateAttack(attack);
+            isUltimateAttacking = false; // Reset flag after attack
         }
         else
         {
@@ -146,6 +186,7 @@ public class WeaponManager : MonoBehaviour
 
         yield return null;
     }
+
 
     protected virtual void PerformAttack(AttackData attack)
     {

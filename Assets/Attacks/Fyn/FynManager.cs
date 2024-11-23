@@ -12,14 +12,24 @@ public class FynManager : WeaponManager
     private Coroutine shieldCoroutine;
     int randomNum = 1;
     protected override IEnumerator TryPerformAttack(AttackData attack){
+        if (isAttacking)
+        {
+            Debug.Log("Already attacking, wait for the attack to finish.");
+            yield break;
+        }
         if (attackCooldowns[attack] <= 0f)
         {    
+            isAttacking = true; // Mark as attacking
             randomNum = UnityEngine.Random.Range(1, 3);
             _playerMovement.animator.SetTrigger("attack" + randomNum);
             AudioManager.instance.Play("FynAttack");
             yield return new WaitForSeconds(attack.delay);
-            attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+
             PerformAttack(attack);
+
+            // Start cooldown after the attack
+            attackCooldowns[attack] = attack.reloadSpeed;
+            isAttacking = false; // Mark attack as finished
         }
         else
         {

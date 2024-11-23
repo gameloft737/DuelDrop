@@ -7,23 +7,33 @@ public class NecroManager : WeaponManager
     [SerializeField] private float lifeDrainTime = 4f;
     [SerializeField] private GameObject skeleton;
      protected override IEnumerator TryPerformAttack(AttackData attack){
+        if (isAttacking)
+        {
+            Debug.Log("Already attacking, wait for the attack to finish.");
+            yield break;
+        }
         if (attackCooldowns[attack] <= 0f)
         {    
+            isAttacking = true; // Mark as attacking
             _playerMovement.animator.SetTrigger("attack");
             AudioManager.instance.Play("NecroAttack");
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
+
             yield return new WaitForSeconds(attack.delay);
             GameObject particleEffect = Instantiate(attack.getParticle(1), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 
             PerformAttack(attack);
+
             yield return new WaitForSeconds(0.3f);
             particleEffect = Instantiate(attack.getParticle(2), transform.position, Quaternion.identity, transform);
             particleEffect.transform.localScale = Vector3.one;
             StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
 
             PerformAttack(attack);
+            
+            isAttacking = false; // Mark attack as finished
         }
         else
         {
