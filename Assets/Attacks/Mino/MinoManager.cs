@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MinoManager : WeaponManager
 {
+    public GameObject SpecialParticleEffect;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (isAttacking)
         {
@@ -29,5 +31,11 @@ public class MinoManager : WeaponManager
 
         yield return null; // Wait for the next frame
     }
-    
+    protected override void PerformSpecialAttack(AttackData attack)
+    {
+        Instantiate(SpecialParticleEffect, transform.position, transform.rotation);
+        Debug.Log("Mono Special Attack");
+    }
+
 }
+

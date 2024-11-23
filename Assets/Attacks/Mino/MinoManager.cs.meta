@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: c6e682fd5a131094eab05d3eb5b92f92
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - regAttack: {instanceID: 0}
+  - specialAttack: {instanceID: 0}
+  - ultimateAttack: {instanceID: 0}
+  - _playerMovement: {instanceID: 0}
+  - healthSystem: {instanceID: 0}
+  - target: {instanceID: 0}
+  - targetManager: {instanceID: 0}
+  - SpecialParticleEffect: {fileID: 7444999507507494681, guid: 2bbac2f338f62b7469c06e0f27a912cf,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
