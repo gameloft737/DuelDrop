@@ -6,11 +6,13 @@ public class MoveVelocity : MonoBehaviour
     public Vector3 velocity = new Vector3(0, 1, 0); // Default to moving up along the Y-axis
     public float duration = 0; // 0 means infinite duration
 
-    private bool isMoving = false;
+    [SerializeField]private bool isMoving = false;
     private float elapsedTime = 0;
 
     void Start()
     {
+        if (velocity != Vector3.zero)
+        {return;}
         // Start the movement when the script is loaded.
         StartMovement();
     }

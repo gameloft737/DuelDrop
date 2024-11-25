@@ -1816,6 +1816,7 @@ MonoBehaviour:
   healthSystem: {fileID: 1533526624163208826}
   target: {fileID: 0}
   targetManager: {fileID: 0}
+  soundSpeed: 7
 --- !u!1 &6426860478032021852
 GameObject:
   m_ObjectHideFlags: 0

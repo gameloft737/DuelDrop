@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MinoManager : WeaponManager
-{
-    public GameObject SpecialParticleEffect;
+{ 
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (isAttacking)
         {
@@ -33,9 +33,32 @@ public class MinoManager : WeaponManager
     }
     protected override void PerformSpecialAttack(AttackData attack)
     {
-        Instantiate(SpecialParticleEffect, transform.position, transform.rotation);
-        Debug.Log("Mono Special Attack");
-    }
+        GameObject particleS = Instantiate(attack.getParticle(1), transform.position, transform.rotation, transform);
+        StartCoroutine(DestroyParticleEffect(particleS, 1f));
+        StartCoroutine(SpawnProjectile(attack, 1f));
 
+    }
+    private IEnumerator SpawnProjectile(AttackData attack, float delay){
+        yield return new WaitForSeconds(delay);
+        GameObject shot = Instantiate(attack.getParticle(0), transform.position, transform.rotation);
+        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        shot.transform.forward = directionToTarget;
+        MoveVelocity moveVelocity = shot.GetComponentInChildren<MoveVelocity>();
+        if (moveVelocity != null)
+        {
+            moveVelocity.velocity = directionToTarget * attack.range;
+            moveVelocity.StartMovement();
+        }
+        else{Debug.Log("NULL");}
+
+        InstantKnockback knockback = shot.GetComponentInChildren<InstantKnockback>();
+        if (knockback != null)
+        {
+            knockback.targetManager = targetManager;
+            knockback.attackData = attack;
+        }
+        else{Debug.Log("NULL Knockback");}
+        Destroy(shot, 10f );
+    }
 }
 
