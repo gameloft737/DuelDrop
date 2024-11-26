@@ -9,7 +9,6 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField] private string currentTag;
     [SerializeField] private string targetTag;
-
     [Header("Attacks")]
     [SerializeField] protected AttackData regAttack;
     [SerializeField] protected AttackData specialAttack;

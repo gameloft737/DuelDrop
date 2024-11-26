@@ -11,8 +11,8 @@ MonoImporter:
   - healthSystem: {instanceID: 0}
   - target: {instanceID: 0}
   - targetManager: {instanceID: 0}
-  - SpecialParticleEffect: {fileID: 7444999507507494681, guid: 2bbac2f338f62b7469c06e0f27a912cf,
-      type: 3}
+  - minoSpecial: {fileID: 11400000, guid: fb1d8c14537619347a2a8b482f589c49, type: 2}
+  - minoRegular: {fileID: 11400000, guid: 4539423e58855a545b20bf55928122fb, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

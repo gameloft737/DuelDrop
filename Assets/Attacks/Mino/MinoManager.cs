@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public class MinoManager : WeaponManager
-{ 
+{
+    public float rampageDuration = 7f;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (isAttacking)
         {
@@ -59,6 +60,21 @@ public class MinoManager : WeaponManager
         }
         else{Debug.Log("NULL Knockback");}
         Destroy(shot, 10f );
+    }
+    protected override void PerformUltimateAttack(AttackData attack)
+    {
+        _playerMovement.moveSpeed = _playerMovement.moveSpeed * 3;
+        StartCoroutine(RampageTime());
+    }
+    private IEnumerator RampageTime()
+    {
+        while (rampageDuration>= 0)
+        {
+            yield return new WaitForSeconds(1);
+            rampageDuration--;
+        }
+        rampageDuration = 7f;
+        this._playerMovement.moveSpeed = this._playerMovement.moveSpeed / 3;
     }
 }
 
