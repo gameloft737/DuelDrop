@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
-  m_Name: MInoUlt
+  m_Name: MinoUlt
   m_EditorClassIdentifier: 
-  particle: {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f,
+  particle: {fileID: 1332224500203076107, guid: fd9d3b6e17b56b541b1258a8465e12dc,
     type: 3}
   reloadSpeed: 1
-  knockback: 20
+  knockback: 1
   delay: 0
-  damage: 20
-  range: 4
+  damage: 1
+  range: 1

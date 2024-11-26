@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class MinoManager : WeaponManager
 {
     public float rampageDuration = 7f;
+    public bool isRampage = false;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (isAttacking)
         {
@@ -17,6 +18,7 @@ public class MinoManager : WeaponManager
             isAttacking = true; // Mark as attacking
             _playerMovement.animator.SetTrigger("attack");
             AudioManager.instance.Play("MinoAttack");
+            
             yield return new WaitForSeconds(attack.delay);
 
             PerformAttack(attack);
@@ -31,6 +33,38 @@ public class MinoManager : WeaponManager
         }
 
         yield return null; // Wait for the next frame
+    }
+    protected override void PerformAttack(AttackData attack)
+    {
+        if (target != null)
+        {
+            if(isRampage){
+                GameObject particleEffect = Instantiate(attack.getParticle(2), transform.position, Quaternion.identity, transform);
+                particleEffect.transform.localScale = Vector3.one;
+                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+            }
+            else{
+                GameObject particleEffect = Instantiate(attack.getParticle(1), transform.position, Quaternion.identity, transform);
+                particleEffect.transform.localScale = Vector3.one;
+                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+            }
+            
+
+            Vector3 directionToTarget = (target.position - transform.position).normalized;
+            float knockbackRange = attack.range;
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            Vector3 facingDirection = _playerMovement.characterColliderObj.localScale.x > 0 ? transform.right : -transform.right;
+
+            if ((distanceToTarget <= knockbackRange && Vector3.Dot(facingDirection, directionToTarget) > 0) || distanceToTarget <= knockbackRange * 0.15f)
+            {
+                if (targetManager != null)
+                {
+                    if(isRampage){ targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier, 0.1f, attack.damage * 2); }
+                    else{ targetManager.ApplyKnockback(transform.position, attack.knockback * knockbackModifier, 0.1f, attack.damage); }
+                    ReduceCooldownsBasedOnKnockback(attack.knockback);
+                }
+            }
+        }
     }
     protected override void PerformSpecialAttack(AttackData attack)
     {
@@ -63,18 +97,21 @@ public class MinoManager : WeaponManager
     }
     protected override void PerformUltimateAttack(AttackData attack)
     {
-        _playerMovement.moveSpeed = _playerMovement.moveSpeed * 3;
-        StartCoroutine(RampageTime());
+        isRampage = true;
+        _playerMovement.moveSpeed = _playerMovement.moveSpeed * 2;
+        _playerMovement.acceleration = _playerMovement.acceleration * 2;
+        
+        StartCoroutine(RampageTime(attack));
     }
-    private IEnumerator RampageTime()
+    private IEnumerator RampageTime(AttackData attack)
     {
-        while (rampageDuration>= 0)
-        {
-            yield return new WaitForSeconds(1);
-            rampageDuration--;
-        }
-        rampageDuration = 7f;
-        this._playerMovement.moveSpeed = this._playerMovement.moveSpeed / 3;
+        GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+        particleEffect.transform.localScale = Vector3.one;
+        yield return new WaitForSeconds(rampageDuration);
+        Destroy(particleEffect);
+        isRampage = false;
+        _playerMovement.moveSpeed = _playerMovement.moveSpeed / 2;
+        _playerMovement.acceleration = _playerMovement.acceleration / 2;
     }
 }
 

@@ -634,7 +634,8 @@ MonoBehaviour:
   healthSystem: {fileID: 1247685526402954325}
   target: {fileID: 0}
   targetManager: {fileID: 0}
-  soundSpeed: 7
+  rampageDuration: 7
+  isRampage: 0
 --- !u!1 &883259884721490493
 GameObject:
   m_ObjectHideFlags: 0
