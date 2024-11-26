@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,9 @@ public class RoundUI : MonoBehaviour
                     iconImage.color = winner == "WASD" ? Color.red : Color.blue;
                 }
             }
+    }
+    public static String GetColorName(string winner){
+        return winner == "WASD" ? "Red" : "Blue";
     }
     
 }

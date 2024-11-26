@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using Unity.Play.Publisher.Editor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,13 @@ public class RoundsManager : MonoBehaviour
     private PlayerMovement WASDPlayer;
     private WeaponManager arrowKeyManager;
     private WeaponManager WASDManager;
+    //ui
     public GameObject loadScreen;
+    public ParticleSystem sparkles;
+    public Animator animator; 
+    public Text roundEnd;
+    //ui
     public Round[] rounds;
-    public RoundUI RoundUI;
     int currentRoundNum;
     Round currentRound;
     private float roundTimeRemaining;
@@ -101,6 +106,10 @@ public class RoundsManager : MonoBehaviour
                 }
                 PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
             }
+            animator.SetTrigger("end");
+            sparkles.Play();
+            roundEnd.text =  RoundUI.GetColorName(round.winner);
+            
             WASDManager.healthSystem.SetMaxHealth();
             arrowKeyManager.healthSystem.SetMaxHealth();
             EventCreation.instance.isFrozen = true;
