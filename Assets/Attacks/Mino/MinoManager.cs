@@ -41,12 +41,12 @@ public class MinoManager : WeaponManager
             if(isRampage){
                 GameObject particleEffect = Instantiate(attack.getParticle(2), transform.position, Quaternion.identity, transform);
                 particleEffect.transform.localScale = Vector3.one;
-                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed * 2));
             }
             else{
                 GameObject particleEffect = Instantiate(attack.getParticle(1), transform.position, Quaternion.identity, transform);
                 particleEffect.transform.localScale = Vector3.one;
-                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed));
+                StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed * 2));
             }
             
 
