@@ -419,24 +419,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afa517ee12d1494cbb95a54ff549266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2267675232541286762}
-  animSmoothingSpeed: 2
-  characterColliderObj: {fileID: 6091621195157375403}
+  animator: {fileID: 331920526602996124, guid: fea3c28171c9c5844a43c04f166d7f98, type: 3}
+  animSmoothingSpeed: 5
+  characterColliderObj: {fileID: 8252955271157488370, guid: fea3c28171c9c5844a43c04f166d7f98,
+    type: 3}
   canMove: 1
   isFrozen: 0
-  moveSpeed: 5
+  moveSpeed: 4
   acceleration: 50
   deceleration: 50
-  jumpForce: 16
+  jumpForce: 13
   groundedDistance: 0.1
-  gravityMultiplier: 15
+  gravityMultiplier: 16
   coyoteTime: 0.2
   jumpTimeout: 0.2
   maxFallSpeed: -15
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheck: {fileID: 1356756463403053944}
+  groundCheck: {fileID: 9043133451197034331, guid: fea3c28171c9c5844a43c04f166d7f98,
+    type: 3}
   groundCheckRadius: 0.2
   rb: {fileID: 0}
   _isGrounded: 0
