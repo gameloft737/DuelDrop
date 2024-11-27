@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 7274740965261097593, guid: be77330c4444182489d7bd994b93f603,
     type: 3}
-  reloadSpeed: 0.8
+  reloadSpeed: 0.25
   knockback: 20
   delay: 0.3
   damage: 20

@@ -30320,7 +30320,7 @@ MonoBehaviour:
   - {fileID: 8533569255848985391, guid: 037eabe5f6215554aafb854ab0cf6b38, type: 3}
   - {fileID: 496807785227996755, guid: a895ce53786a9e043b4f5c82cf4c8118, type: 3}
   - {fileID: 8799354408841162540, guid: 0a28eb6bb1114174aa33d5ea1a1d7148, type: 3}
-  - {fileID: 381608448660419936, guid: 7775d1e8c16f4b7469ab6623ccf31e6c, type: 3}
+  - {fileID: 2531705281977117942, guid: 490c6effbf046e74eabb58ee07b99175, type: 3}
   WASDPlayer: {fileID: 0}
   arrowKeysPlayer: {fileID: 0}
   WASDPlayerSpawnPoint: {x: -2, y: 3, z: 0}
