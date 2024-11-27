@@ -1721,7 +1721,7 @@ GameObject:
   - component: {fileID: 3163645785554433268}
   m_Layer: 7
   m_Name: WeaponManager
-  m_TagString: WASDManager
+  m_TagString: ArrowKeysManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1806,8 +1806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e682fd5a131094eab05d3eb5b92f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTag: WASD
-  targetTag: ArrowKeys
+  currentTag: ArrowKeys
+  targetTag: WASD
   regAttack: {fileID: 11400000, guid: 4539423e58855a545b20bf55928122fb, type: 2}
   specialAttack: {fileID: 11400000, guid: fb1d8c14537619347a2a8b482f589c49, type: 2}
   ultimateAttack: {fileID: 11400000, guid: ea4c94a97046dd547a1f3ca80aa4a5e3, type: 2}
