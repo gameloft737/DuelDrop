@@ -842,7 +842,7 @@ MonoBehaviour:
   moveSpeed: 4
   acceleration: 50
   deceleration: 50
-  jumpForce: 13
+  jumpForce: 16
   groundedDistance: 0.1
   gravityMultiplier: 16
   coyoteTime: 0.2
