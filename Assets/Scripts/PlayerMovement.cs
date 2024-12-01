@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpRequestTime;
     private Camera _mainCamera;
     [SerializeField] private float stunTime = 0.1f;
-
+    public bool isRight = true;
     public void SetState(bool frozen){
         canMove = !frozen;
         isFrozen = frozen;
@@ -68,10 +68,12 @@ public class PlayerMovement : MonoBehaviour
         if (_inputDirection.x > 0) 
         {
             characterColliderObj.transform.localScale = new Vector3(1, 1, 1);
+            isRight = true;
         }
         else if (_inputDirection.x < 0)
         {
             characterColliderObj.transform.localScale = new Vector3(-1, 1, 1);
+            isRight = false;
         }
         
     }

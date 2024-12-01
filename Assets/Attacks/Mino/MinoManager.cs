@@ -7,6 +7,8 @@ public class MinoManager : WeaponManager
 {
     public float rampageDuration = 7f;
     public bool isRampage = false;
+    public float hornMoveSpeed = 5f;
+    [SerializeField] private GameObject hornPrefab;
     protected override IEnumerator TryPerformAttack(AttackData attack){
         if (isAttacking)
         {
@@ -33,7 +35,7 @@ public class MinoManager : WeaponManager
         }
 
         yield return null; // Wait for the next frame
-    }
+    }    
     protected override void PerformAttack(AttackData attack)
     {
         if (target != null)
@@ -64,14 +66,31 @@ public class MinoManager : WeaponManager
                     ReduceCooldownsBasedOnKnockback(attack.knockback);
                 }
             }
+            if(isRampage){
+                GameObject projectile = Instantiate(hornPrefab, transform.position,Quaternion.identity);
+                MoveVelocity velocity = projectile.GetComponentInChildren<MoveVelocity>();
+                velocity.velocity = new Vector3(_playerMovement.isRight ? hornMoveSpeed : -hornMoveSpeed, 0, 0);
+                velocity.StartMovement();
+                InstantKnockback knockbacker = projectile.GetComponentInChildren<InstantKnockback>();
+                knockbacker.targetManager = targetManager;
+                knockbacker.thisManager = this;  
+                StartCoroutine(DestroyParticleEffect(projectile, 3f));
+            }
         }
     }
     protected override void PerformSpecialAttack(AttackData attack)
     {
+        
+        AudioManager.instance.Play("MinoSpecialAttack");
         GameObject particleS = Instantiate(attack.getParticle(1), transform.position, transform.rotation, transform);
+        StartCoroutine(SpecialAfterTime(0.35f));
         StartCoroutine(DestroyParticleEffect(particleS, 1f));
         StartCoroutine(SpawnProjectile(attack, 1f));
 
+    }
+    private IEnumerator SpecialAfterTime(float delay){
+        yield return new WaitForSeconds(delay);
+        _playerMovement.animator.SetTrigger("special");
     }
     private IEnumerator SpawnProjectile(AttackData attack, float delay){
         yield return new WaitForSeconds(delay);
@@ -97,6 +116,9 @@ public class MinoManager : WeaponManager
     }
     protected override void PerformUltimateAttack(AttackData attack)
     {
+        
+        _playerMovement.animator.SetTrigger("ultimate");
+        AudioManager.instance.Play("MinoUltimateAttack");
         isRampage = true;
         _playerMovement.moveSpeed = _playerMovement.moveSpeed * 2;
         _playerMovement.acceleration = _playerMovement.acceleration * 2;

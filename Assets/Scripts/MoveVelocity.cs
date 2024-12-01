@@ -11,8 +11,6 @@ public class MoveVelocity : MonoBehaviour
 
     void Start()
     {
-        if (velocity != Vector3.zero)
-        {return;}
         // Start the movement when the script is loaded.
         StartMovement();
     }

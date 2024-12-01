@@ -696,7 +696,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/Jump[/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3163645785554433268}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/Attack[/Keyboard/slash]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3163645785554433268}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnSpecialAttack
         m_Mode: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
     m_ActionName: ArrowKeysPlayer/SpecialAttack[/Keyboard/period]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3163645785554433268}
         m_TargetAssemblyTypeName: WeaponManager, Assembly-CSharp
         m_MethodName: OnUltimateAttack
         m_Mode: 0
@@ -1818,6 +1818,9 @@ MonoBehaviour:
   targetManager: {fileID: 0}
   rampageDuration: 7
   isRampage: 0
+  hornMoveSpeed: 5
+  hornPrefab: {fileID: 2541878378433692517, guid: 5e2bf8d79b5eb864b839634b5c092e45,
+    type: 3}
 --- !u!1 &6426860478032021852
 GameObject:
   m_ObjectHideFlags: 0
