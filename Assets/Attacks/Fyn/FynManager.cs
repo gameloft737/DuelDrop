@@ -21,8 +21,14 @@ public class FynManager : WeaponManager
         {    
             isAttacking = true; // Mark as attacking
             randomNum = UnityEngine.Random.Range(1, 3);
+            GameObject particleEffect = Instantiate(attack.getParticle(randomNum), transform.position, Quaternion.identity, transform);
+            particleEffect.transform.localScale = Vector3.one;
+            // Schedule destruction of the claw effect just before the attack reloads
+            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed *2f));
+
             _playerMovement.animator.SetTrigger("attack" + randomNum);
             AudioManager.instance.Play("FynAttack");
+            
             yield return new WaitForSeconds(attack.delay);
 
             PerformAttack(attack);
@@ -43,11 +49,7 @@ public class FynManager : WeaponManager
         if (target != null)
         {
             // Instantiate the claw effect at the player's position
-            GameObject particleEffect = Instantiate(attack.getParticle(randomNum), transform.position, Quaternion.identity, transform);
-            particleEffect.transform.localScale = Vector3.one;
-            // Schedule destruction of the claw effect just before the attack reloads
-            StartCoroutine(DestroyParticleEffect(particleEffect, attack.reloadSpeed *2f));
-
+           
             // Calculate the direction from the player to the target
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
@@ -67,6 +69,7 @@ public class FynManager : WeaponManager
                     targetManager.ApplyKnockback(transform.position, knockbackStrength * knockbackModifier,0.1f, attack.damage);
                     ReduceCooldownsBasedOnKnockback(attack.knockback);
                 }
+            
             }
         }
     }

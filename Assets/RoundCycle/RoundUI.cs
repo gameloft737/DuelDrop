@@ -67,5 +67,11 @@ public class RoundUI : MonoBehaviour
     public static String GetColorName(string winner){
         return winner == "WASD" ? "Blue" : "Red";
     }
+
+    public void SetTimer(float roundTimeRemaining){
+        int minutes = Mathf.FloorToInt(roundTimeRemaining / 60);
+        int seconds = Mathf.FloorToInt(roundTimeRemaining % 60);
+        roundTimer.text = $"{minutes:00}:{seconds:00}";
+    }
     
 }

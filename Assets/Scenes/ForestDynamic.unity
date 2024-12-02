@@ -13161,6 +13161,7 @@ MonoBehaviour:
   sparkles: {fileID: 930217001}
   animator: {fileID: 661515894}
   roundEnd: {fileID: 661515897}
+  endScreen: EndScreen
 --- !u!4 &1099754749
 Transform:
   m_ObjectHideFlags: 0
@@ -30312,7 +30313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf877dc710fa684aa44f8b66cf6c7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WASDChararacters:
+  WASDCharacters:
   - {fileID: 5090521016947187070, guid: 85a67e15897ffb54ab01310e5c2cb4e3, type: 3}
   - {fileID: 5690858693359149305, guid: e7a2a9c1faad53a44acabef6e5bda943, type: 3}
   - {fileID: 3183271304453747546, guid: 9d294c8ccaeab1d458e6f30c31817df7, type: 3}

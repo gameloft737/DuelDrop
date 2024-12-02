@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using Unity.Play.Publisher.Editor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RoundsManager : MonoBehaviour
@@ -23,6 +24,8 @@ public class RoundsManager : MonoBehaviour
     int currentRoundNum;
     Round currentRound;
     private float roundTimeRemaining;
+    
+    public string endScreen; // The name of the scene to load
     private void Awake()
     {
         if(instance == null){
@@ -65,17 +68,18 @@ public class RoundsManager : MonoBehaviour
 
         StartCoroutine(RoundLoop());
     }
+    private int arrowKeysWins = 0; // Tracks ArrowKeys player wins
+    private int wasdWins = 0; // Tracks WASD player wins
 
     private IEnumerator RoundLoop()
     {
         for (int i = 0; i < rounds.Length; i++)
         {
-
-            Debug.Log(i);
             Round round = rounds[i];
             currentRoundNum = i;
             currentRound = round;
             round.isActive = true;
+            
             SetRoundState(Round.RoundState.Load, round);
             loadScreen.SetActive(true);
             EventCreation.instance.isFrozen = true;
@@ -91,45 +95,77 @@ public class RoundsManager : MonoBehaviour
                 {
                     break; // Exit if the round is no longer active
                 }
+                RoundUI.instance.SetTimer(roundTimeRemaining);
                 roundTimeRemaining -= Time.deltaTime;
                 yield return null; // Wait for the next frame
             }
 
             // End the round
             SetRoundState(Round.RoundState.Finish, round);
-            if(round.isActive){
-                if(WASDManager.healthSystem.health > arrowKeyManager.healthSystem.health){
+            if (round.isActive)
+            {
+                if (WASDManager.healthSystem.health > arrowKeyManager.healthSystem.health)
+                {
                     round.winner = "WASD";
+                    wasdWins++; // Increment WASD wins
                 }
-                else{
+                else
+                {
                     round.winner = "ArrowKeys";
+                    arrowKeysWins++; // Increment ArrowKeys wins
                 }
-                PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
+                
             }
+            PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
             animator.SetTrigger("end");
             sparkles.Play();
-            roundEnd.text =  RoundUI.GetColorName(round.winner);
-            
+            roundEnd.text = RoundUI.GetColorName(round.winner);
+
             WASDManager.healthSystem.SetMaxHealth();
             arrowKeyManager.healthSystem.SetMaxHealth();
             EventCreation.instance.isFrozen = true;
             EventCreation.instance.DestroyEvents();
-            
+
             yield return new WaitForSeconds(2f);
             round.isActive = false;
             RoundUI.instance.ChangeColors(round.winner, currentRoundNum);
         }
         EndGame();
     }
+
+    private void EndGame()
+    {
+        loadScreen.SetActive(true);
+        PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
+        if (arrowKeysWins > wasdWins)
+        {
+            PlayerPrefs.SetInt("winner",  PlayerPrefs.GetInt("selectedArrowKeys"));
+            String name = arrowKeyPlayer.name;
+            PlayerPrefs.SetString("winnerString",name.Remove(name.Length - 9));
+        }
+        else
+        {
+            PlayerPrefs.SetInt("winner",  PlayerPrefs.GetInt("selectedWASD"));
+            String name = WASDPlayer.name;
+            PlayerPrefs.SetString("winnerString",name.Remove(name.Length - 4));
+        }
+        
+        SceneManager.LoadScene(endScreen);
+
+    }
+
     public void DeclareDeath(String winner){
+        
+        currentRound.isActive = false;
+        PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform,  arrowKeyPlayer.transform);
         if(winner.Equals(arrowKeyPlayer.tag)){  
             currentRound.winner = "WASD";
+            wasdWins++;
         }
         else{
             currentRound.winner = "ArrowKeys";
+            arrowKeysWins++;
         }
-        currentRound.isActive = false;
-        PlayerSpawner.instance.TeleportPlayer( WASDPlayer.transform,  arrowKeyPlayer.transform);
     }
 
     private void SetRoundState(Round.RoundState newState, Round round)
@@ -155,9 +191,5 @@ public class RoundsManager : MonoBehaviour
         }
         
         round.currentState = newState;
-    }
-    private void EndGame(){
-        loadScreen.SetActive(true);
-        Debug.Log("All rounds are complete!");
     }
 }

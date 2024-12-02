@@ -20,9 +20,9 @@ public class SlasherManager : WeaponManager
             randomNum = UnityEngine.Random.Range(1, 3);
             _playerMovement.animator.SetTrigger("attack" + randomNum);
             AudioManager.instance.Play("SlasherAttack");
+            yield return new WaitForSeconds(attack.delay);
             attackCooldowns[attack] = attack.reloadSpeed; // Set the cooldown based on reloadSpeed
             PerformAttack(attack);
-            yield return new WaitForSeconds(attack.delay);
             
             isAttacking = false; // Mark attack as finished
         }

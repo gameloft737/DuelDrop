@@ -4,7 +4,7 @@ using System;
 public class PlayerSpawner : MonoBehaviour
 {
     public static PlayerSpawner instance;
-    public GameObject[] WASDChararacters;
+    public GameObject[] WASDCharacters;
     public GameObject[] arrowKeysCharacters;
     public GameObject WASDPlayer; // Prefab for Player 1 (selected from SceneLoader)
     public GameObject arrowKeysPlayer; // Prefab for Player 2 (selected from SceneLoader)
@@ -26,7 +26,7 @@ public class PlayerSpawner : MonoBehaviour
     private void Start()
     {
         
-        WASDPlayer = WASDChararacters[PlayerPrefs.GetInt("selectedWASD")];
+        WASDPlayer = WASDCharacters[PlayerPrefs.GetInt("selectedWASD")];
         arrowKeysPlayer = arrowKeysCharacters[PlayerPrefs.GetInt("selectedArrowKeys")];
         // Instantiate the selected players at designated spawn points
         Instantiate(WASDPlayer, WASDPlayerSpawnPoint, Quaternion.identity);
