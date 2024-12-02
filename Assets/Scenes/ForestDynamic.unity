@@ -2122,6 +2122,7 @@ MonoBehaviour:
   widthBuffer: 15
   basePlatform: {fileID: 462421056}
   platforms: []
+  platformOffset: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

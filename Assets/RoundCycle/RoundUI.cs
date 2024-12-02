@@ -60,12 +60,12 @@ public class RoundUI : MonoBehaviour
                 RawImage iconImage = icons[roundNumber].GetComponent<RawImage>();
                 if (iconImage != null)
                 {
-                    iconImage.color = winner == "WASD" ? Color.red : Color.blue;
+                    iconImage.color = winner == "WASD" ? Color.blue : Color.red;
                 }
             }
     }
     public static String GetColorName(string winner){
-        return winner == "WASD" ? "Red" : "Blue";
+        return winner == "WASD" ? "Blue" : "Red";
     }
     
 }

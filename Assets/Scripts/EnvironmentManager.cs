@@ -12,6 +12,7 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField] float widthBuffer;
     [SerializeField]private GameObject basePlatform;
     public Transform[] platforms;
+    public float platformOffset;
 
     [SerializeField]private LayerMask groundLayer;
     private void Awake()
