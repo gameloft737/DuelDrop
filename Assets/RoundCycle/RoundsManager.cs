@@ -73,13 +73,15 @@ public class RoundsManager : MonoBehaviour
 
     private IEnumerator RoundLoop()
     {
+        int majority = Mathf.CeilToInt(rounds.Length / 2f); // Majority threshold
+
         for (int i = 0; i < rounds.Length; i++)
         {
             Round round = rounds[i];
             currentRoundNum = i;
             currentRound = round;
             round.isActive = true;
-            
+
             SetRoundState(Round.RoundState.Load, round);
             loadScreen.SetActive(true);
             EventCreation.instance.isFrozen = true;
@@ -114,7 +116,6 @@ public class RoundsManager : MonoBehaviour
                     round.winner = "ArrowKeys";
                     arrowKeysWins++; // Increment ArrowKeys wins
                 }
-                
             }
             PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
             animator.SetTrigger("end");
@@ -128,31 +129,40 @@ public class RoundsManager : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             round.isActive = false;
-            RoundUI.instance.ChangeColors(round.winner, currentRoundNum);
+            RoundUI.instance.SetUI(round.winner);
+
+            // Check if one player has reached the majority
+            if (wasdWins >= majority || arrowKeysWins >= majority)
+            {
+                EndGame(); // End game early if a player has won
+                yield break; // Exit the coroutine
+            }
         }
-        EndGame();
+
+        EndGame(); // End game if all rounds are completed without a majority winner
     }
 
     private void EndGame()
     {
         loadScreen.SetActive(true);
         PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
+
         if (arrowKeysWins > wasdWins)
         {
-            PlayerPrefs.SetInt("winner",  PlayerPrefs.GetInt("selectedArrowKeys"));
-            String name = arrowKeyPlayer.name;
-            PlayerPrefs.SetString("winnerString",name.Remove(name.Length - 9));
+            PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedArrowKeys"));
+            string name = arrowKeyPlayer.name;
+            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 9));
         }
         else
         {
-            PlayerPrefs.SetInt("winner",  PlayerPrefs.GetInt("selectedWASD"));
-            String name = WASDPlayer.name;
-            PlayerPrefs.SetString("winnerString",name.Remove(name.Length - 4));
+            PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedWASD"));
+            string name = WASDPlayer.name;
+            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 4));
         }
-        
-        SceneManager.LoadScene(endScreen);
 
+        SceneManager.LoadScene(endScreen);
     }
+
 
     public void DeclareDeath(String winner){
         

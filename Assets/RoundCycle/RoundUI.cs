@@ -1,77 +1,96 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RoundUI : MonoBehaviour
 {
     [SerializeField] private RoundSettings roundSettings; // Reference to round settings
-    [SerializeField] private GameObject roundIconPrefab; // Prefab for round icons
+    [SerializeField] private Slider rightSlider;
+    [SerializeField] private GameObject right; // Parent for right-side icons
+    [SerializeField] private Slider leftSlider;
+    [SerializeField] private GameObject left; // Parent for left-side icons
+    [SerializeField] private GameObject roundDividerPrefab; // Prefab for round icons
     [SerializeField] private Text roundTimer; // Timer text (optional for display)
     public static RoundUI instance;
 
-    private GameObject[] icons; // Array to store instantiated icons
+    private GameObject[] leftIcons;  // Array for left-side icons
+    private GameObject[] rightIcons; // Array for right-side icons
+
     private void Awake()
     {
-        if(instance == null){
+        if (instance == null)
+        {
             instance = this;
         }
-        else{
+        else
+        {
             Destroy(gameObject);
             return;
-        }   
+        }
     }
+
     private void Start()
     {
         roundSettings = RoundsManager.instance.roundSettings;
 
-        // Initialize arrays based on the number of rounds
-        icons = new GameObject[roundSettings.rounds];
+        // Set slider max values
+        
+        int halfRounds = Mathf.CeilToInt(roundSettings.rounds / 2f);
+        leftSlider.maxValue = halfRounds;
+        rightSlider.maxValue = halfRounds;
 
-        // Get parent RectTransform width
-        RectTransform parentRect = GetComponent<RectTransform>();
-        float parentWidth = parentRect.rect.width;
+        // Initialize arrays for icons
+        int iconCount = Mathf.CeilToInt(halfRounds / 2f); // One icon for every two rounds
+        leftIcons = new GameObject[iconCount];
+        rightIcons = new GameObject[iconCount];
 
-        // Calculate spacing between icons
-        float spacing = parentWidth / (icons.Length + 1);
+        // Get parent heights
+        float leftHeight = left.GetComponent<RectTransform>().rect.height;
+        float rightHeight = right.GetComponent<RectTransform>().rect.height;
 
-        // Spawn icons evenly distributed across the parent container
-        for (int i = 0; i < icons.Length; i++)
+        // Calculate spacing for vertical distribution
+        float leftSpacing = leftHeight / iconCount;
+        float rightSpacing = rightHeight / iconCount;
+
+        // Create icons for the left side
+        for (int i = 0; i < leftIcons.Length; i++)
         {
-            // Instantiate the icon as a child of the parent object
-            GameObject icon = Instantiate(roundIconPrefab, transform);
-
-            // Set the icon's position in local space
+            GameObject icon = Instantiate(roundDividerPrefab, left.transform); // Parent to left GameObject
             RectTransform iconRect = icon.GetComponent<RectTransform>();
-            float xPosition = spacing * (i + 1) - parentWidth / 2; // Center icons
-            iconRect.anchoredPosition = new Vector2(xPosition, 0); // Adjust the y-position as needed
+            iconRect.anchoredPosition = new Vector2(0, leftSpacing * (i + 0.5f) - leftHeight / 2); // Center icon vertically
+            leftIcons[i] = icon;
+        }
 
-            // Store the instantiated icon
-            icons[i] = icon;
+        // Create icons for the right side
+        for (int i = 0; i < rightIcons.Length; i++)
+        {
+            GameObject icon = Instantiate(roundDividerPrefab, right.transform); // Parent to right GameObject
+            RectTransform iconRect = icon.GetComponent<RectTransform>();
+            iconRect.anchoredPosition = new Vector2(0, rightSpacing * (i + 0.5f) - rightHeight / 2); // Center icon vertically
+            rightIcons[i] = icon;
         }
     }
 
-    public void ChangeColors(string winner, int roundNumber)
+    public void SetUI(string winner)
     {
-
-            if (icons[roundNumber] != null)
-            {
-                RawImage iconImage = icons[roundNumber].GetComponent<RawImage>();
-                if (iconImage != null)
-                {
-                    iconImage.color = winner == "WASD" ? Color.blue : Color.red;
-                }
-            }
+        if(winner.Equals("WASD"))
+        {
+            leftSlider.value += 1;
+        }
+        else{
+            rightSlider.value += 1;
+        }
     }
-    public static String GetColorName(string winner){
+
+    public static string GetColorName(string winner)
+    {
         return winner == "WASD" ? "Blue" : "Red";
     }
 
-    public void SetTimer(float roundTimeRemaining){
+    public void SetTimer(float roundTimeRemaining)
+    {
         int minutes = Mathf.FloorToInt(roundTimeRemaining / 60);
         int seconds = Mathf.FloorToInt(roundTimeRemaining % 60);
         roundTimer.text = $"{minutes:00}:{seconds:00}";
     }
-    
 }
