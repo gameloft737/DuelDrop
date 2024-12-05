@@ -5,87 +5,129 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private float maximum;
-    [SerializeField] GameObject damagePrefab;
-    [SerializeField] GameObject comboTextPrefab; // Prefab for combo text
-    [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits in seconds
-    [SerializeField] String currentTag;
-    public float health;
-    private Coroutine Healing;
-    private float remainingHealing = 0f;
-    private float remainingDamage = 0f;
-    private Coroutine Damaging;
+    [Header("Health Settings")]
+    [SerializeField] private float maximumHealth = 100f; // Maximum health
+    [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits (seconds)
 
-    private int comboCount = 0; // Tracks the number of consecutive hits
-    private float comboMultiplier = 1f; // Multiplier for combo damage
-    private float lastHitTime = 0f; // Tracks the time of the last hit
+    [Header("UI and Prefabs")]
+    [SerializeField] private GameObject damagePrefab;     // Prefab for damage text
+    [SerializeField] private GameObject comboTextPrefab;  // Prefab for combo text
+
+    [Header("References")]
+    [SerializeField] private string currentTag; // Tag identifying this GameObject
+
+    public float health; // Current health
+    private Coroutine healingCoroutine;
+    private Coroutine damagingCoroutine;
+    private float remainingHealing;
+    private float remainingDamage;
+
+    private int comboCount;
+    private float comboMultiplier = 1f;
+    private float lastHitTime;
 
     private void Start()
     {
+        // Initialize health and UI
         currentTag = gameObject.tag;
-        health = maximum;
-        UIManager.instance.SetMaxSlider(currentTag,  "Health", maximum);
-        UIManager.instance.SetSlider(currentTag, "Health", maximum);
+        health = maximumHealth;
+        UpdateHealthUI();
     }
 
-    public void Damage(float damage, float duration)
+    /// <summary>
+    /// Applies damage over a duration. Supports combos for consecutive hits.
+    /// </summary>
+    public void Damage(float damageAmount, float duration)
     {
-        // Calculate time since last hit for combo logic
+        UpdateComboState();
+
+        // Apply combo multiplier
+        float comboDamage = damageAmount * comboMultiplier;
+
+        // Stop existing damage coroutine if running
+        if (damagingCoroutine != null)
+        {
+            StopCoroutine(damagingCoroutine);
+            ApplyDamage(remainingDamage);
+        }
+
+        // Start new damage coroutine
+        damagingCoroutine = StartCoroutine(SmoothDamage(comboDamage, duration));
+    }
+
+    /// <summary>
+    /// Heals over a duration. Clamps health to the maximum.
+    /// </summary>
+    public void Heal(float healAmount, float duration)
+    {
+        // Stop existing heal coroutine if running
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+            ApplyHealing(remainingHealing);
+        }
+
+        // Start new heal coroutine
+        healingCoroutine = StartCoroutine(SmoothHeal(healAmount, duration));
+    }
+
+    /// <summary>
+    /// Updates the combo state based on the time since the last hit.
+    /// </summary>
+    private void UpdateComboState()
+    {
         float timeSinceLastHit = Time.time - lastHitTime;
 
-        // If within the combo time window, increase the combo count
         if (timeSinceLastHit <= comboTimeWindow)
         {
             comboCount++;
-            comboMultiplier = 1f + (comboCount * 0.5f); // Adjust the multiplier as desired 
+            comboMultiplier = 1f + (comboCount * 0.5f);
         }
         else
         {
-            // Reset the combo if time window exceeded
             comboCount = 0;
             comboMultiplier = 1f;
         }
-        if(duration == 0){  
-            CreateComboText(comboCount,damage);
-        }
 
-        // Apply the combo multiplier to the damage
-        float comboDamage = damage * comboMultiplier;
-
-        // Update the last hit time
         lastHitTime = Time.time;
-
-        // If a damaging coroutine is already running, apply the remaining damage instantly
-        if (Damaging != null)
-        {
-            StopCoroutine(Damaging);
-            DamageSubtraction(remainingDamage);
-        }
-
-        // Start the new damaging coroutine
-        Damaging = StartCoroutine(SmoothDamage(comboDamage, duration));
     }
 
-    public void DamageSubtraction(float damage)
+    /// <summary>
+    /// Applies immediate damage.
+    /// </summary>
+    private void ApplyDamage(float damageAmount)
     {
+        health -= damageAmount;
+        health = Mathf.Clamp(health, 0, maximumHealth);
+
+        UpdateHealthUI();
+
         if (health <= 0)
         {
-            if (Healing != null) { StopCoroutine(Healing); }
-            Damaging = null;
             Die();
-            return;
         }
-
-        health -= damage;
-        UIManager.instance.SetSlider(currentTag, "Health", health);
     }
 
+    /// <summary>
+    /// Applies immediate healing.
+    /// </summary>
+    private void ApplyHealing(float healAmount)
+    {
+        health += healAmount;
+        health = Mathf.Clamp(health, 0, maximumHealth);
+
+        UpdateHealthUI();
+    }
+
+    /// <summary>
+    /// Smoothly applies damage over a duration.
+    /// </summary>
     private IEnumerator SmoothDamage(float damageAmount, float duration)
     {
-        if (duration == 0f)
+        if (duration <= 0)
         {
-            DamageSubtraction(damageAmount);
-            yield break;  // Exit immediately for instant damage
+            ApplyDamage(damageAmount);
+            yield break;
         }
 
         float elapsedTime = 0f;
@@ -94,48 +136,25 @@ public class HealthSystem : MonoBehaviour
         while (elapsedTime < duration)
         {
             float frameDamage = damagePerSecond * Time.deltaTime;
+            ApplyDamage(frameDamage);
 
-            // Apply damage for this frame
-            DamageSubtraction(frameDamage);
-            remainingDamage = (damageAmount - (damagePerSecond * elapsedTime));
-
+            remainingDamage = damageAmount - (damagePerSecond * elapsedTime);
             elapsedTime += Time.deltaTime;
+
             yield return null;
         }
 
         remainingDamage = 0f;
     }
 
-    public void HealthGain(float healAmount)
-    {
-        if (health >= maximum)
-        {
-            health = maximum;
-            if (Healing != null) { StopCoroutine(Healing); }
-            Healing = null;
-            return;
-        }
-
-        health += healAmount;
-         UIManager.instance.SetSlider(currentTag, "Health", health);
-    }
-
-    public void Heal(float healAmount, float duration)
-    {
-        if (Healing != null)
-        {
-            StopCoroutine(Healing);
-            HealthGain(remainingHealing);
-        }
-
-        Healing = StartCoroutine(SmoothHeal(healAmount, duration));
-    }
-
+    /// <summary>
+    /// Smoothly applies healing over a duration.
+    /// </summary>
     private IEnumerator SmoothHeal(float healAmount, float duration)
     {
-        if (duration == 0f)
+        if (duration <= 0)
         {
-            HealthGain(healAmount);
+            ApplyHealing(healAmount);
             yield break;
         }
 
@@ -145,53 +164,81 @@ public class HealthSystem : MonoBehaviour
         while (elapsedTime < duration)
         {
             float frameHeal = healPerSecond * Time.deltaTime;
-            HealthGain(frameHeal);
-            remainingHealing = (healAmount - (healPerSecond * elapsedTime));
+            ApplyHealing(frameHeal);
 
+            remainingHealing = healAmount - (healPerSecond * elapsedTime);
             elapsedTime += Time.deltaTime;
+
             yield return null;
         }
 
         remainingHealing = 0f;
     }
 
-    void CreateDamageText(float damage)
+    /// <summary>
+    /// Updates the health slider in the UI.
+    /// </summary>
+    /// 
+    public void SetMaxHealth()
     {
-        Debug.Log(damage);
-        GameObject dmg = Instantiate(damagePrefab, transform.position, Quaternion.identity, transform);
-        dmg.GetComponent<TMPro.TextMeshPro>().SetText(damage.ToString());
+        health = maximumHealth; // Set health to maximum
+        UpdateHealthUI(); // Update the health bar UI
+    }
+    private void UpdateHealthUI()
+    {
+        float healthPercentage = health / maximumHealth;
+        UIManager.instance.SetSlider(currentTag, "Health", healthPercentage);
+        Debug.Log($"Health: {health}/{maximumHealth}");
     }
 
-    void CreateComboText(int comboCount, float damageAmount)
+    /// <summary>
+    /// Creates floating damage text.
+    /// </summary>
+    private void CreateDamageText(float damageAmount)
     {
-        // Only show combo text if combo count is greater than 1 (i.e., when a combo is active)
-        if (comboCount > 1)
+        if (damagePrefab != null)
+        {
+            GameObject dmgText = Instantiate(damagePrefab, transform.position, Quaternion.identity, transform);
+            dmgText.GetComponent<TMPro.TextMeshPro>().SetText(damageAmount.ToString("F1"));
+        }
+    }
+
+    /// <summary>
+    /// Creates combo text when applicable.
+    /// </summary>
+    private void CreateComboText()
+    {
+        if (comboCount > 1 && comboTextPrefab != null)
         {
             GameObject comboText = Instantiate(comboTextPrefab, transform.position, Quaternion.identity, transform);
-            comboText.GetComponent<TMPro.TextMeshPro>().SetText("Combo x" + comboCount);
-        }
-        else{
-            CreateDamageText(damageAmount);
+            comboText.GetComponent<TMPro.TextMeshPro>().SetText($"Combo x{comboCount}");
         }
     }
-    private void Die(){
-        RoundsManager.instance.DeclareDeath(tag); 
+
+    /// <summary>
+    /// Handles player death.
+    /// </summary>
+    private void Die()
+    {
+        RoundsManager.instance.DeclareDeath(currentTag);
+        Debug.Log($"{currentTag} has died.");
     }
-    public void SetMaxHealth(){
-        HealthGain(maximum);
+
+    private void Update()
+    {
+        CheckOutOfBounds();
     }
-    private void Update(){
-        if(Math.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax){
+
+    /// <summary>
+    /// Checks if the player is out of bounds and handles death if true.
+    /// </summary>
+    private void CheckOutOfBounds()
+    {
+        if (Mathf.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax ||
+            transform.position.y < EnvironmentManager.instance.voidHeight ||
+            transform.position.y > EnvironmentManager.instance.height * 2)
+        {
             Die();
-            return;
-        }
-        if(transform.position.y < EnvironmentManager.instance.voidHeight){
-            Die();
-            return;
-        }
-        if(transform.position.y > EnvironmentManager.instance.height * 2){
-            Die();
-            return;
         }
     }
 }
