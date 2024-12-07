@@ -17,7 +17,8 @@ public class RoundsManager : MonoBehaviour
     //ui
     public GameObject loadScreen;
     public ParticleSystem sparkles;
-    public Animator animator; 
+    public Animator animator;
+    public GameObject gameOver; 
     public Text roundEnd;
     //ui
     public Round[] rounds;
@@ -144,25 +145,29 @@ public class RoundsManager : MonoBehaviour
 
     private void EndGame()
     {
-        loadScreen.SetActive(true);
+        gameOver.SetActive(true);
         PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
 
         if (arrowKeysWins > wasdWins)
         {
             PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedArrowKeys"));
             string name = arrowKeyPlayer.name;
-            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 9));
+            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 9, 9));
         }
         else
         {
             PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedWASD"));
             string name = WASDPlayer.name;
-            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 4));
+            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 4, 4));
         }
 
-        SceneManager.LoadScene(endScreen);
+        StartCoroutine (loadSceneAfterDelay(1));
     }
+    IEnumerator loadSceneAfterDelay(float waitbySecs){
 
+        yield return new WaitForSeconds(waitbySecs);
+        SceneManager.LoadScene(endScreen);
+    }   
 
     public void DeclareDeath(String winner){
         

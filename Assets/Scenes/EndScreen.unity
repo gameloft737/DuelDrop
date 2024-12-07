@@ -324,7 +324,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812fa0037600fc94889fe7f97dbd435f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters: []
+  characters:
+  - {fileID: 3172027160340002430, guid: 0aeacf8641e19e947b149623f151b2d3, type: 3}
+  - {fileID: 2878125362509854893, guid: 27a0ccaea810b094a9a2df7282685b8a, type: 3}
+  - {fileID: 4978916938552695953, guid: 10403aadea3294648b9acb5be7a1edca, type: 3}
+  - {fileID: 3055226273086959715, guid: 07a05bb60da14bc4d8b73c61ebbce2eb, type: 3}
   winnerText: {fileID: 490108635}
 --- !u!4 &1332960816
 Transform:
