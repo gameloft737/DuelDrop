@@ -45,7 +45,7 @@ public class EnvironmentManager : MonoBehaviour
         BoxCollider boxCollider = basePlatform.GetComponent<BoxCollider>();
         if (boxCollider != null)
         { 
-            return boxCollider.bounds.size.x - leeway;
+            return boxCollider.bounds.size.x - leeway ;
         }
         return 0;
     }
