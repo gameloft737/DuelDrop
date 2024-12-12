@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Classic
   m_EditorClassIdentifier: 
   rounds: 3
-  roundDuration: 30
+  roundDuration: 90
