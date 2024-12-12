@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ForestDynamic.unity
     guid: e18ae5d62f537204e88403f0eafc00a5
   - enabled: 1
+    path: Assets/Scenes/CityDynamic.unity
+    guid: 68d5c468220165a44ac8228dc79030dc
+  - enabled: 1
+    path: Assets/Scenes/OceanDynamic.unity
+    guid: ce6a61c4f3442cf489f06fac38870143
+  - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: aff20f4fe9406214487ee6826334ee30
   m_configObjects: {}

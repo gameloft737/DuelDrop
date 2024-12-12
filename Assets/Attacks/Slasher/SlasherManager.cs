@@ -119,10 +119,12 @@ public class SlasherManager : WeaponManager
         }
     }
     protected IEnumerator ArrowAttack(float delay, AttackData attack){
+        if(isFrozen){yield break;}
         swordParticles.SetActive(true);
         yield return new WaitForSeconds(delay/3);
         GameObject arrowsObj = Instantiate(arrows, new Vector3(-EnvironmentManager.instance.GetBaseLength(-10), transform.position.y, 0), Quaternion.identity);
         AudioManager.instance.Play("SlasherUltimateAttack");
+        damagers.Add(arrowsObj);
         foreach (Transform child in arrowsObj.transform)
         {
             InstantKnockback knockback = child.GetComponent<InstantKnockback>();
@@ -134,6 +136,7 @@ public class SlasherManager : WeaponManager
         }
         GameObject arrowsVertObj = Instantiate(arrowsVert, new Vector3(target.position.x, EnvironmentManager.instance.height, 0), Quaternion.Euler(0, 0, -90));
         AudioManager.instance.Play("SlasherUltimateAttack");
+        damagers.Add(arrowsVertObj);
         foreach (Transform child in arrowsVertObj.transform)
         {
             InstantKnockback knockback = child.GetComponent<InstantKnockback>();

@@ -81,9 +81,10 @@ public class NecroManager : WeaponManager
             NavMeshHit hit;
             if (NavMesh.SamplePosition(spawnPosition, out hit, 25f, NavMesh.AllAreas))
             {
+                if(isFrozen){yield break;}
                 // Instantiate the skeleton at the nearest valid position on the NavMesh
                 skeletonObj = Instantiate(skeleton, hit.position, Quaternion.identity);
-                
+                damagers.Add(skeletonObj);
                 skeletonKnockback = skeletonObj.GetComponent<InstantKnockback>();
                 skeletonAgent = skeletonObj.GetComponent<AgentTracker>();
                 skeletonAgent.target = targetManager.transform;

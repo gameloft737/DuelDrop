@@ -181,6 +181,10 @@ public class HealthSystem : MonoBehaviour
     /// 
     public void SetMaxHealth()
     {
+        if (healingCoroutine != null){StopCoroutine(healingCoroutine);}
+        if (healingCoroutine != null){StopCoroutine(damagingCoroutine);}
+        remainingDamage = 0f;
+        remainingHealing = 0f;
         health = maximumHealth; // Set health to maximum
         UpdateHealthUI(); // Update the health bar UI
     }

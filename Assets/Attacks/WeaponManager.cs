@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class WeaponManager : MonoBehaviour
 {
+    public List<GameObject> damagers;
     [SerializeField] private string currentTag;
     [SerializeField] private string targetTag;
     [Header("Attacks")]
@@ -17,7 +18,7 @@ public class WeaponManager : MonoBehaviour
     public float knockbackModifier = 1.0f;
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target;
-    bool isFrozen = false;
+    protected bool isFrozen = false;
     
     [SerializeField] protected WeaponManager targetManager;
     protected CinemachineImpulseSource impulseSource;
@@ -263,5 +264,14 @@ public class WeaponManager : MonoBehaviour
         {
             _playerMovement.Knockup(knockupStrength);
         }
+    }
+    public void DeleteDamagers(){
+        for(int i = 0; i < damagers.Count; i++){
+            GameObject damage = damagers[i];
+            if(damage != null){
+                Destroy(damage);
+            }
+        }
+        damagers.Clear();
     }
 }

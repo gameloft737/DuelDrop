@@ -66,8 +66,9 @@ public class MinoManager : WeaponManager
                     ReduceCooldownsBasedOnKnockback(attack.knockback);
                 }
             }
-            if(isRampage){
+            else if(isRampage){
                 GameObject projectile = Instantiate(hornPrefab, transform.position,Quaternion.identity);
+                damagers.Add(projectile);
                 MoveVelocity velocity = projectile.GetComponentInChildren<MoveVelocity>();
                 velocity.velocity = new Vector3(_playerMovement.isRight ? hornMoveSpeed : -hornMoveSpeed, 0, 0);
                 velocity.StartMovement();
