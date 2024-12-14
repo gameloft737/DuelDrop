@@ -201,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
     public void Knockback(Vector3 position, float strength)
     {
         if(isFrozen){return;}
+        AudioManager.instance.Play("Hit");
         // Calculate the direction from the player to the explosion position
         Vector3 direction = (new Vector3(transform.position.x, 0, 0) - new Vector3(position.x, 0, 0)).normalized;
         

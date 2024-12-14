@@ -13,6 +13,7 @@ public class InstantKnockback : MonoBehaviour
     [SerializeField] bool generalKnockback = false;
     [SerializeField] bool cameraShake = false;
     public AttackData attackData;
+    [SerializeField] string soundEffect = "";
     private void Start(){
         if(generalKnockback){
             targetManager = GameObject.FindGameObjectsWithTag("ArrowKeysManager")[0].GetComponent<WeaponManager>();
@@ -20,6 +21,8 @@ public class InstantKnockback : MonoBehaviour
         }
     }
     private void OnTriggerEnter(Collider collider){
+        
+        AudioManager.instance.Play(soundEffect);
         if(generalKnockback){
             if(collider.gameObject.transform == thisManager._playerMovement.characterColliderObj){
                 if(baseOnParent){   

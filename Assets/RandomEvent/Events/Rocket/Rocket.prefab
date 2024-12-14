@@ -4898,6 +4898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
   duration: 10
+  isMoving: 0
 --- !u!114 &2066937761151437007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4916,6 +4917,7 @@ MonoBehaviour:
   generalKnockback: 1
   cameraShake: 1
   attackData: {fileID: 11400000, guid: 3f0eb5df70df64c43b9637806dd58cf9, type: 2}
+  soundEffect: RocketHit
 --- !u!65 &5194767515327700766
 BoxCollider:
   m_ObjectHideFlags: 0

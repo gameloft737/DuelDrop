@@ -12,12 +12,16 @@ public class Rocket : EventAction
     }
     public override void EventTrigger()
     {
+        
+        AudioManager.instance.Play("RocketWarning");
         rocketEffect = Instantiate(rocketEffect, new Vector3(0f, transform.position.y, 0), Quaternion.identity);
         viewObject.SetActive(false);
         StartCoroutine(StartMovement(3));
     }
     private IEnumerator StartMovement(float delay){
         yield return new WaitForSeconds(delay);
+        
+        AudioManager.instance.Play("RocketFlyby");
         viewObject.SetActive(true);
         MoveVelocity velocity = rocket.GetComponent<MoveVelocity>();
         if (transform.position.x < 0)

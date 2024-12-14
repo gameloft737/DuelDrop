@@ -13,6 +13,7 @@ public class Bomb : EventAction
     [SerializeField] private float bombRange;
     public override void EventTrigger()
     {
+        AudioManager.instance.Play("BombTicking");
         StartCoroutine(ApplyKnockbackAfterDelay());
     }
 
@@ -20,6 +21,8 @@ public class Bomb : EventAction
     {
         // Wait for 5 seconds
         yield return new WaitForSeconds(5f);
+        
+        AudioManager.instance.Play("BombExplosion");
         Instantiate(explosion, transform.position, quaternion.identity);
 
         // Check the distance between the bomb and manager

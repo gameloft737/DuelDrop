@@ -9,7 +9,8 @@ public class HealthDrop : EventAction
         Destroy(gameObject, 10f);
     }
     private void OnTriggerEnter(Collider other){
-        Debug.Log(other);
+        
+        AudioManager.instance.Play("HealthDrop");
         if(other.transform.parent == null){
             return;
         }

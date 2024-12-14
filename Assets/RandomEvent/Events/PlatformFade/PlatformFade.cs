@@ -17,6 +17,8 @@ public class PlatformFade : EventAction
         }
     }
     public override void EventTrigger(){
+        
+        AudioManager.instance.Play("PlatformFire");
         for (int i = 0; i < count; i++)
         {
             Transform selectedPlatform = EnvironmentManager.instance.GetRandomPlatform();
