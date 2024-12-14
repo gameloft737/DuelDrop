@@ -13,9 +13,7 @@ public class UIManager : MonoBehaviour
     // Dictionary for fast runtime lookup of sliders
     private Dictionary<string, Dictionary<string, Slider>> playerSliders = new Dictionary<string, Dictionary<string, Slider>>();
     [SerializeField] Slider arrowKeysHeath;
-    [SerializeField] Slider arrowKeysHeathImg;
     [SerializeField] Slider WASDHeath;
-    [SerializeField] Slider WASDHeathImg;
     
     private void Awake()
     {

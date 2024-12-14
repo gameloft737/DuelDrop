@@ -2595,7 +2595,7 @@ MonoBehaviour:
   sceneNames:
   - ForestDynamic
   - CityDynamic
-  - SeaDynamic
+  - OceanDynamic
 --- !u!4 &983555207
 Transform:
   m_ObjectHideFlags: 0
@@ -5640,9 +5640,7 @@ MonoBehaviour:
   sliderConfig:
     playerSliders: []
   arrowKeysHeath: {fileID: 0}
-  arrowKeysHeathImg: {fileID: 0}
   WASDHeath: {fileID: 0}
-  WASDHeathImg: {fileID: 0}
 --- !u!1 &2140071178
 GameObject:
   m_ObjectHideFlags: 0

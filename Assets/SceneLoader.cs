@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    private string sceneToLoad; // The name of the scene to load
+    private int sceneIndex = 0; // The name of the scene to load
     
     // Selected player prefabs
     public CharacterCycler WASDChararacters;
@@ -12,13 +12,16 @@ public class SceneLoader : MonoBehaviour
     public int selectedWASD;
     public int selectedArrowKeys;
     public string[] sceneNames;
+    private void Start(){
+        sceneIndex = 0;
+    }
     public void LoadScene()
     {
         PlayerPrefs.SetInt("selectedWASD",  WASDChararacters.currentIndex);
         PlayerPrefs.SetInt("selectedArrowKeys",  arrowKeysCharacters.currentIndex);
-        SceneManager.LoadScene(sceneToLoad);
+        SceneManager.LoadScene(sceneNames[sceneIndex]);
     }
     public void SetScene(int newPosition){
-        sceneToLoad = sceneNames[newPosition];
+        sceneIndex = newPosition;
     }
 }
