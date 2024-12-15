@@ -871,12 +871,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximum: 750
+  maximumHealth: 250
+  comboTimeWindow: 2
   damagePrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
     type: 3}
   comboTextPrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
     type: 3}
-  comboTimeWindow: 2
   currentTag: 
   health: 0
 --- !u!1 &2545137938254992110
@@ -1808,6 +1808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e682fd5a131094eab05d3eb5b92f92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagers: []
   currentTag: ArrowKeys
   targetTag: WASD
   regAttack: {fileID: 11400000, guid: 4539423e58855a545b20bf55928122fb, type: 2}

@@ -10952,6 +10952,21 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6cecd226879020f4082a2aeb1a9bdabd, type: 3}
+    name: BombTicking
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 430dc40cb61fb8444b9d344181d4f7d1, type: 3}
+    name: BombExplosion
+    volume: 1
+    pitch: 2
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 442716fda778ba94b833992ea5711a66, type: 3}
+    name: RocketHit
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &1564653165
 GameObject:
   m_ObjectHideFlags: 0
@@ -10997,7 +11012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomEvents:
-  - {fileID: 11400000, guid: a4e0aa1766b91a442ad95ffb7d61ad64, type: 2}
+  - {fileID: 11400000, guid: 21e22fb70a876dd4b9ecc7cada637fa5, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
