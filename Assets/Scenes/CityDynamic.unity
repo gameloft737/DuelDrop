@@ -10939,8 +10939,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: bd785394bfb470340badbf34963a7341, type: 3}
     name: Hit
-    volume: 1
-    pitch: 1
+    volume: 0.6
+    pitch: 0.85
     source: {fileID: 0}
   - audioClip: {fileID: 8300000, guid: 31c5a83dba70c46479c9b2f5085f7556, type: 3}
     name: RocketFlyby
