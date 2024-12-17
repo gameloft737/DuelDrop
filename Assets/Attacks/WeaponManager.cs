@@ -273,5 +273,9 @@ public class WeaponManager : MonoBehaviour
             }
         }
         damagers.Clear();
+        RemoveEffects();
+    }
+    protected virtual void RemoveEffects(){
+        return;
     }
 }

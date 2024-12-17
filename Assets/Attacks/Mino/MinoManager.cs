@@ -126,11 +126,20 @@ public class MinoManager : WeaponManager
         
         StartCoroutine(RampageTime(attack));
     }
+    private GameObject particleEffect;
     private IEnumerator RampageTime(AttackData attack)
     {
-        GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+         particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
         particleEffect.transform.localScale = Vector3.one;
         yield return new WaitForSeconds(rampageDuration);
+        Destroy(particleEffect);
+        if(!isRampage){yield break;}
+        isRampage = false;
+        _playerMovement.moveSpeed = _playerMovement.moveSpeed / 2;
+        _playerMovement.acceleration = _playerMovement.acceleration / 2;
+    }
+    protected override void RemoveEffects(){
+        if(!isRampage){return;}
         Destroy(particleEffect);
         isRampage = false;
         _playerMovement.moveSpeed = _playerMovement.moveSpeed / 2;

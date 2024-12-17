@@ -40,7 +40,7 @@ public class RoundUI : MonoBehaviour
         rightSlider.maxValue = halfRounds;
 
         // Initialize arrays for icons
-        int iconCount = Mathf.CeilToInt(halfRounds / 2f); // One icon for every two rounds
+        int iconCount = Mathf.CeilToInt(halfRounds / 2f); 
         leftIcons = new GameObject[iconCount];
         rightIcons = new GameObject[iconCount];
 
@@ -49,24 +49,25 @@ public class RoundUI : MonoBehaviour
         float rightHeight = right.GetComponent<RectTransform>().rect.height;
 
         // Calculate spacing for vertical distribution
-        float leftSpacing = leftHeight / iconCount;
-        float rightSpacing = rightHeight / iconCount;
+        float leftSpacing = leftHeight / (iconCount+1);
+        float rightSpacing = rightHeight / (iconCount+1);
 
         // Create icons for the left side
-        for (int i = 0; i < leftIcons.Length; i++)
+        for (int i = 0; i < iconCount; i++)
         {
             GameObject icon = Instantiate(roundDividerPrefab, left.transform); // Parent to left GameObject
             RectTransform iconRect = icon.GetComponent<RectTransform>();
-            iconRect.anchoredPosition = new Vector2(0, leftSpacing * (i + 0.5f) - leftHeight / 2); // Center icon vertically
+            iconRect.anchoredPosition = new Vector2(0, leftSpacing * (i + 1));
             leftIcons[i] = icon;
         }
 
+
         // Create icons for the right side
-        for (int i = 0; i < rightIcons.Length; i++)
+        for (int i = 0; i < iconCount; i++)
         {
             GameObject icon = Instantiate(roundDividerPrefab, right.transform); // Parent to right GameObject
             RectTransform iconRect = icon.GetComponent<RectTransform>();
-            iconRect.anchoredPosition = new Vector2(0, rightSpacing * (i + 0.5f) - rightHeight / 2); // Center icon vertically
+            iconRect.anchoredPosition = new Vector2(0, rightSpacing * (i + 1));
             rightIcons[i] = icon;
         }
     }

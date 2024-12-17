@@ -22,7 +22,6 @@ public class RoundsManager : MonoBehaviour
     public Text roundEnd;
     //ui
     public Round[] rounds;
-    int currentRoundNum;
     Round currentRound;
     private float roundTimeRemaining;
     
@@ -79,7 +78,6 @@ public class RoundsManager : MonoBehaviour
         for (int i = 0; i < rounds.Length; i++)
         {
             Round round = rounds[i];
-            currentRoundNum = i;
             currentRound = round;
             round.isActive = true;
 
@@ -135,7 +133,7 @@ public class RoundsManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             round.isActive = false;
             RoundUI.instance.SetUI(round.winner);
-
+            Debug.Log(arrowKeysWins+"and"+wasdWins);
             // Check if one player has reached the majority
             if (wasdWins >= majority || arrowKeysWins >= majority)
             {
@@ -174,9 +172,10 @@ public class RoundsManager : MonoBehaviour
     }   
 
     public void DeclareDeath(String winner){
-        
-        currentRound.isActive = false;
         PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform,  arrowKeyPlayer.transform);
+        if(currentRound.isActive == false){return;}
+        Debug.Log("death declared");
+        currentRound.isActive = false;
         if(winner.Equals(arrowKeyPlayer.tag)){  
             currentRound.winner = "WASD";
             wasdWins++;

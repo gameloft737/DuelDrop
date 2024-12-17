@@ -74,16 +74,17 @@ public class FynManager : WeaponManager
         }
     }
     // Override the special attack method to activate the shield
+    private GameObject shieldParticleEffect;
     protected override void PerformSpecialAttack(AttackData attack)
     {
         if (shieldCoroutine == null)
         {
             AudioManager.instance.Play("FynSpecialAttack");
             isShieldActive = true;
-            GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+            shieldParticleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
 
             // Schedule destruction of the claw effect just before the attack reloads
-            StartCoroutine(DestroyParticleEffect(particleEffect, shieldDuration));
+            StartCoroutine(DestroyParticleEffect(shieldParticleEffect, shieldDuration));
             // Start the shield duration countdown
             shieldCoroutine = StartCoroutine(DeactivateShieldAfterDuration(shieldDuration));
 
@@ -195,6 +196,12 @@ public class FynManager : WeaponManager
         _playerMovement.canMove = true;
         _playerMovement.animator.SetBool("isUltimate", false);
         StartCoroutine(KnockBackBuff(buffTime, attack));
+    }
+    protected override void RemoveEffects(){
+        if(!isShieldActive){return;}
+        Destroy(shieldParticleEffect);
+        isShieldActive = false;
+        shieldCoroutine = null;
     }
 
 }

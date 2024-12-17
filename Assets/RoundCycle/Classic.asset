@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd3e54d7e7142f74c892e80f609ba138, type: 3}
   m_Name: Classic
   m_EditorClassIdentifier: 
-  rounds: 3
+  rounds: 5
   roundDuration: 90
