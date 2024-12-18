@@ -270,6 +270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagers: []
+  hitParticle: {fileID: 3842859596219690324, guid: 2a8496eb5e240a84b98273cb422f3ece,
+    type: 3}
   currentTag: WASD
   targetTag: ArrowKeys
   regAttack: {fileID: 11400000, guid: 25d7287542367f94cbe675e9574a4607, type: 2}
@@ -280,6 +282,7 @@ MonoBehaviour:
   healthSystem: {fileID: 4403663460292692260}
   target: {fileID: 0}
   targetManager: {fileID: 0}
+  isShieldActive: 0
   shieldDuration: 7
   moveSpeed: 50
   buffStrength: 3

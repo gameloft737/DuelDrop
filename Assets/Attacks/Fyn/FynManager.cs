@@ -132,6 +132,8 @@ public class FynManager : WeaponManager
                 _playerMovement.Knockup(knockupStrength);
             }
         }
+        
+        MakeHit(attackPosition);
     }
     protected override void PerformUltimateAttack(AttackData attack)
     {

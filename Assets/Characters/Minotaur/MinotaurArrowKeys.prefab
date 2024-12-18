@@ -1809,6 +1809,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagers: []
+  hitParticle: {fileID: 7749271953947556033, guid: 337bd8714f0b51946b8116b470ad2182,
+    type: 3}
   currentTag: ArrowKeys
   targetTag: WASD
   regAttack: {fileID: 11400000, guid: 4539423e58855a545b20bf55928122fb, type: 2}

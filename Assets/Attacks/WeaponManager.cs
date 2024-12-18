@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class WeaponManager : MonoBehaviour
 {
     public List<GameObject> damagers;
+    [SerializeField] protected GameObject hitParticle;
     [SerializeField] private string currentTag;
     [SerializeField] private string targetTag;
     [Header("Attacks")]
@@ -258,13 +259,49 @@ public class WeaponManager : MonoBehaviour
 
     public virtual void ApplyKnockback(Vector3 attackPosition, float knockbackStrength, float knockupStrength, float damage)
     {
+
         healthSystem.Damage(damage, 0);
+
         _playerMovement.Knockback(attackPosition, knockbackStrength);
+
+        MakeHit(attackPosition);
+
         if (knockupStrength > 0f)
         {
             _playerMovement.Knockup(knockupStrength);
         }
     }
+    protected void MakeHit(Vector3 attackPosition)
+{
+    // Calculate the relative position of the attack
+    Vector3 attackDirection = attackPosition - transform.position;
+
+    // Determine base Z-axis rotation (0 for right, 180 for left)
+    float zRotation = attackDirection.x >= 0 ? 180f : 0f ;
+
+    // Add a tilt based on the vertical position (Y-coordinate)
+    if (attackDirection.y > 0.5f)
+    {
+        // Tilt slightly upward (max +30)
+        zRotation += 30f;
+    }
+    else if (attackDirection.y < -0.5f)
+    {
+        // Tilt slightly downward (max -30)
+        zRotation -= 30f;
+    }
+
+    // Apply the calculated rotation around the Z-axis
+    Quaternion particleRotation = Quaternion.Euler(0f, 0f, zRotation);
+
+    // Debug to verify the rotation
+    Debug.Log($"Particle Rotation: {particleRotation.eulerAngles}");
+
+    // Instantiate the particle with the calculated rotation
+    Instantiate(hitParticle, transform.position, particleRotation, transform);
+}
+
+
     public void DeleteDamagers(){
         for(int i = 0; i < damagers.Count; i++){
             GameObject damage = damagers[i];
