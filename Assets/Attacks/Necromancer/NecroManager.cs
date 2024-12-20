@@ -37,6 +37,7 @@ public class NecroManager : WeaponManager
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("Attack on cooldown!");
         }
 

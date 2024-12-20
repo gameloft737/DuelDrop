@@ -827,6 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207456059}
   - component: {fileID: 207456060}
+  - component: {fileID: 207456061}
   m_Layer: 5
   m_Name: ArrowKeysHealth
   m_TagString: Untagged
@@ -906,6 +907,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &207456061
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207456058}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &213686040
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 213686041}
   - component: {fileID: 213686042}
+  - component: {fileID: 213686043}
   m_Layer: 5
   m_Name: WASDHELATH
   m_TagString: Untagged
@@ -995,6 +1018,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &213686043
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213686040}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &288691414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,8 +1133,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1435840420}
   - {fileID: 2101573775}
+  - {fileID: 1435840420}
   - {fileID: 374292056}
   - {fileID: 940597527}
   - {fileID: 1326542232}
@@ -1411,6 +1455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 362100277}
   - component: {fileID: 362100278}
+  - component: {fileID: 362100279}
   m_Layer: 5
   m_Name: SpecialAtk
   m_TagString: Untagged
@@ -1428,7 +1473,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 65433547}
   - {fileID: 968437818}
@@ -1490,6 +1535,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &362100279
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362100276}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &374292055
 GameObject:
   m_ObjectHideFlags: 0
@@ -13661,6 +13727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1131421193}
   - component: {fileID: 1131421194}
+  - component: {fileID: 1131421195}
   m_Layer: 5
   m_Name: UltAttack
   m_TagString: Untagged
@@ -13708,7 +13775,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 0, b: 0, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13740,6 +13807,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1131421195
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131421192}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1135660894
 GameObject:
   m_ObjectHideFlags: 0
@@ -13974,6 +14062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1184180285}
   - component: {fileID: 1184180286}
+  - component: {fileID: 1184180287}
   m_Layer: 5
   m_Name: SpecialAtk
   m_TagString: Untagged
@@ -14053,6 +14142,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1184180287
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184180284}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1226720946
 GameObject:
   m_ObjectHideFlags: 0
@@ -29900,16 +30010,20 @@ MonoBehaviour:
       sliders:
       - sliderName: SpecialAttack
         slider: {fileID: 362100278}
+        animator: {fileID: 362100279}
       - sliderName: UltimateAttack
         slider: {fileID: 1131421194}
+        animator: {fileID: 1131421195}
     - identifier: ArrowKeys
       sliders:
       - sliderName: SpecialAttack
         slider: {fileID: 1184180286}
+        animator: {fileID: 1184180287}
       - sliderName: UltimateAttack
         slider: {fileID: 1596035215}
-  arrowKeysHeath: {fileID: 207456060}
-  WASDHeath: {fileID: 213686042}
+        animator: {fileID: 1596035216}
+  arrowKeysHealth: {fileID: 207456060}
+  WASDHealth: {fileID: 213686042}
 --- !u!4 &1588334242
 Transform:
   m_ObjectHideFlags: 0
@@ -29949,6 +30063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596035214}
   - component: {fileID: 1596035215}
+  - component: {fileID: 1596035216}
   m_Layer: 5
   m_Name: UltAttack
   m_TagString: Untagged
@@ -30028,6 +30143,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1596035216
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596035213}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58a4be43a6cccd7409a95c7f0a47fe26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1610257230
 GameObject:
   m_ObjectHideFlags: 0

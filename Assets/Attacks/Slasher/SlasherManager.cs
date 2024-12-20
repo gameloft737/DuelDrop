@@ -28,6 +28,7 @@ public class SlasherManager : WeaponManager
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("Attack on cooldown!");
         }
 

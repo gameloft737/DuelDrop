@@ -10,11 +10,12 @@ public class UIManager : MonoBehaviour
     [Header("Sliders Configuration")]
     [SerializeField] private SliderConfig sliderConfig; // Reference to the ScriptableObject-like config
 
-    // Dictionary for fast runtime lookup of sliders
-    private Dictionary<string, Dictionary<string, Slider>> playerSliders = new Dictionary<string, Dictionary<string, Slider>>();
-    [SerializeField] Slider arrowKeysHeath;
-    [SerializeField] Slider WASDHeath;
-    
+    // Dictionary for fast runtime lookup of sliders and animators
+    private Dictionary<string, Dictionary<string, SliderData>> playerSliders = new Dictionary<string, Dictionary<string, SliderData>>();
+
+    [SerializeField] private Slider arrowKeysHealth;
+    [SerializeField] private Slider WASDHealth;
+
     private void Awake()
     {
         // Singleton setup
@@ -35,10 +36,10 @@ public class UIManager : MonoBehaviour
     {
         foreach (var playerSlider in sliderConfig.playerSliders)
         {
-            var sliderDict = new Dictionary<string, Slider>();
+            var sliderDict = new Dictionary<string, SliderData>();
             foreach (var sliderData in playerSlider.sliders)
             {
-                sliderDict[sliderData.sliderName] = sliderData.slider;
+                sliderDict[sliderData.sliderName] = sliderData;
             }
             playerSliders[playerSlider.identifier] = sliderDict;
         }
@@ -48,34 +49,52 @@ public class UIManager : MonoBehaviour
     public void SetSlider(string identifier, string sliderName, float value)
     {
         value *= 0.5f;
-        if (playerSliders.TryGetValue(identifier, out Dictionary<string, Slider> sliders) &&
-            sliders.TryGetValue(sliderName, out Slider slider))
+        if (playerSliders.TryGetValue(identifier, out Dictionary<string, SliderData> sliders) &&
+            sliders.TryGetValue(sliderName, out SliderData sliderData))
         {
-            slider.value = value;
+            sliderData.slider.value = value;
         }
-        else if(sliderName.Equals("Health")){
-            if(identifier.Equals("WASDPlayer")){
-                WASDHeath.value = value;
-                
+        else if (sliderName.Equals("Health"))
+        {
+            if (identifier.Equals("WASDPlayer"))
+            {
+                WASDHealth.value = value;
             }
-            else if(identifier.Equals("ArrowKeysPlayer")){
-                arrowKeysHeath.value = value;
+            else if (identifier.Equals("ArrowKeysPlayer"))
+            {
+                arrowKeysHealth.value = value;
             }
-    
         }
     }
-    public void SetMaxSlider(string identifier, string sliderName, float value){
-        if (playerSliders.TryGetValue(identifier, out Dictionary<string, Slider> sliders) &&
-            sliders.TryGetValue(sliderName, out Slider slider))
+
+    // Triggers an animation on the slider's animator
+    public void AnimateSlider(string identifier, string sliderName, string trigger)
+    {
+        if (playerSliders.TryGetValue(identifier, out Dictionary<string, SliderData> sliders) &&
+            sliders.TryGetValue(sliderName, out SliderData sliderData) &&
+            sliderData.animator != null)
         {
-            slider.maxValue = value * 0.5f;
+            sliderData.animator.SetTrigger(trigger);
         }
-        if(sliderName.Equals("Health")){
-            if(identifier.Equals("WASDPlayer")){
-                WASDHeath.maxValue = value;
+    }
+
+    // Sets the maximum value of a slider
+    public void SetMaxSlider(string identifier, string sliderName, float value)
+    {
+        if (playerSliders.TryGetValue(identifier, out Dictionary<string, SliderData> sliders) &&
+            sliders.TryGetValue(sliderName, out SliderData sliderData))
+        {
+            sliderData.slider.maxValue = value * 0.5f;
+        }
+        else if (sliderName.Equals("Health"))
+        {
+            if (identifier.Equals("WASDPlayer"))
+            {
+                WASDHealth.maxValue = value;
             }
-            else if(identifier.Equals("ArrowKeysPlayer")){
-                arrowKeysHeath.maxValue = value;
+            else if (identifier.Equals("ArrowKeysPlayer"))
+            {
+                arrowKeysHealth.maxValue = value;
             }
         }
     }
@@ -101,5 +120,6 @@ public class UIManager : MonoBehaviour
     {
         public string sliderName; // e.g., "attack", "specialAttack"
         public Slider slider;     // Reference to the Slider component in the scene
+        public Animator animator; // Reference to the Animator component
     }
 }

@@ -31,6 +31,7 @@ public class MinoManager : WeaponManager
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("Attack on cooldown!");
         }
 

@@ -39,6 +39,7 @@ public class FynManager : WeaponManager
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("Attack on cooldown!");
         }
 

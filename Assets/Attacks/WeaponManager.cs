@@ -126,6 +126,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("Attack on cooldown!");
         }
 
@@ -156,6 +157,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("SpecialAttack on cooldown!");
         }
 
@@ -182,6 +184,7 @@ public class WeaponManager : MonoBehaviour
         }
         else
         {
+            AnimateSlider(attack);
             Debug.Log("UltimateAttack on cooldown!");
         }
 
@@ -250,6 +253,15 @@ public class WeaponManager : MonoBehaviour
         else if (attack == ultimateAttack) sliderName = "UltimateAttack";
 
         UIManager.instance.SetSlider(currentTag, sliderName, sliderValue);
+    }
+    protected void AnimateSlider(AttackData attack)
+    {
+        string sliderName = "";
+        if (attack == regAttack) sliderName = "RegularAttack";
+        else if (attack == specialAttack) sliderName = "SpecialAttack";
+        else if (attack == ultimateAttack) sliderName = "UltimateAttack";
+
+        UIManager.instance.AnimateSlider(currentTag, sliderName, "vibrate");
     }
 
     public void SetKnockbackModifier(float modifierValue)
