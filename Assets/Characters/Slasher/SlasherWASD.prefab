@@ -892,7 +892,7 @@ MonoBehaviour:
   _isGrounded: 0
   stunTime: 0.1
   isRight: 1
-  smoothFactor: 0.1
+  weight: 0.8
 --- !u!114 &4278773503737732902
 MonoBehaviour:
   m_ObjectHideFlags: 0

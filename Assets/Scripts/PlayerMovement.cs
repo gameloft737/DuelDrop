@@ -195,7 +195,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     [Header("Knockback Settings")]
-    public float smoothFactor = 0.1f; // How quickly the knockback smooths out
+    public float weight = 0.1f; // How quickly the knockback smooths out
     private Vector3 currentKnockbackForce; // Current force being applied
 
     public void Knockback(Vector3 position, float strength)
@@ -231,7 +231,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentKnockbackForce.magnitude > 0.1f)
         {
-            currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, smoothFactor);
+            float recoverySpeed = 0.1f * weight; // Higher weight = slower recovery
+            currentKnockbackForce = Vector3.Lerp(currentKnockbackForce, Vector3.zero, recoverySpeed);
             rb.AddForce(currentKnockbackForce, ForceMode.Impulse);
         }
     }
