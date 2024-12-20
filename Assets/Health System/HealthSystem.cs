@@ -28,52 +28,59 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
-        // Initialize health and UI
         currentTag = gameObject.tag;
         health = maximumHealth;
         UpdateHealthUI();
     }
 
-    /// <summary>
-    /// Applies damage over a duration. Supports combos for consecutive hits.
-    /// </summary>
     public void Damage(float damageAmount, float duration)
     {
         UpdateComboState();
 
-        // Apply combo multiplier
         float comboDamage = damageAmount * comboMultiplier;
 
-        // Stop existing damage coroutine if running
         if (damagingCoroutine != null)
         {
             StopCoroutine(damagingCoroutine);
+            damagingCoroutine = null;
             ApplyDamage(remainingDamage);
         }
 
-        // Start new damage coroutine
         damagingCoroutine = StartCoroutine(SmoothDamage(comboDamage, duration));
     }
 
-    /// <summary>
-    /// Heals over a duration. Clamps health to the maximum.
-    /// </summary>
     public void Heal(float healAmount, float duration)
     {
-        // Stop existing heal coroutine if running
         if (healingCoroutine != null)
         {
             StopCoroutine(healingCoroutine);
+            healingCoroutine = null;
             ApplyHealing(remainingHealing);
         }
 
-        // Start new heal coroutine
         healingCoroutine = StartCoroutine(SmoothHeal(healAmount, duration));
     }
 
-    /// <summary>
-    /// Updates the combo state based on the time since the last hit.
-    /// </summary>
+    public void SetMaxHealth()
+    {
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+            healingCoroutine = null;
+        }
+
+        if (damagingCoroutine != null)
+        {
+            StopCoroutine(damagingCoroutine);
+            damagingCoroutine = null;
+        }
+
+        remainingDamage = 0f;
+        remainingHealing = 0f;
+        health = maximumHealth;
+        UpdateHealthUI();
+    }
+
     private void UpdateComboState()
     {
         float timeSinceLastHit = Time.time - lastHitTime;
@@ -92,9 +99,6 @@ public class HealthSystem : MonoBehaviour
         lastHitTime = Time.time;
     }
 
-    /// <summary>
-    /// Applies immediate damage.
-    /// </summary>
     private void ApplyDamage(float damageAmount)
     {
         health -= damageAmount;
@@ -108,9 +112,6 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Applies immediate healing.
-    /// </summary>
     private void ApplyHealing(float healAmount)
     {
         health += healAmount;
@@ -119,14 +120,12 @@ public class HealthSystem : MonoBehaviour
         UpdateHealthUI();
     }
 
-    /// <summary>
-    /// Smoothly applies damage over a duration.
-    /// </summary>
     private IEnumerator SmoothDamage(float damageAmount, float duration)
     {
         if (duration <= 0)
         {
             ApplyDamage(damageAmount);
+            damagingCoroutine = null;
             yield break;
         }
 
@@ -145,16 +144,15 @@ public class HealthSystem : MonoBehaviour
         }
 
         remainingDamage = 0f;
+        damagingCoroutine = null;
     }
 
-    /// <summary>
-    /// Smoothly applies healing over a duration.
-    /// </summary>
     private IEnumerator SmoothHeal(float healAmount, float duration)
     {
         if (duration <= 0)
         {
             ApplyHealing(healAmount);
+            healingCoroutine = null;
             yield break;
         }
 
@@ -173,21 +171,9 @@ public class HealthSystem : MonoBehaviour
         }
 
         remainingHealing = 0f;
+        healingCoroutine = null;
     }
 
-    /// <summary>
-    /// Updates the health slider in the UI.
-    /// </summary>
-    /// 
-    public void SetMaxHealth()
-    {
-        if (healingCoroutine != null){StopCoroutine(healingCoroutine);}
-        if (healingCoroutine != null){StopCoroutine(damagingCoroutine);}
-        remainingDamage = 0f;
-        remainingHealing = 0f;
-        health = maximumHealth; // Set health to maximum
-        UpdateHealthUI(); // Update the health bar UI
-    }
     private void UpdateHealthUI()
     {
         float healthPercentage = health / maximumHealth;
@@ -195,9 +181,6 @@ public class HealthSystem : MonoBehaviour
         Debug.Log($"Health: {health}/{maximumHealth}");
     }
 
-    /// <summary>
-    /// Creates floating damage text.
-    /// </summary>
     private void CreateDamageText(float damageAmount)
     {
         if (damagePrefab != null)
@@ -207,9 +190,6 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Creates combo text when applicable.
-    /// </summary>
     private void CreateComboText()
     {
         if (comboCount > 1 && comboTextPrefab != null)
@@ -219,9 +199,6 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Handles player death.
-    /// </summary>
     private void Die()
     {
         RoundsManager.instance.DeclareDeath(currentTag);
@@ -233,9 +210,6 @@ public class HealthSystem : MonoBehaviour
         CheckOutOfBounds();
     }
 
-    /// <summary>
-    /// Checks if the player is out of bounds and handles death if true.
-    /// </summary>
     private void CheckOutOfBounds()
     {
         if (Mathf.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax ||

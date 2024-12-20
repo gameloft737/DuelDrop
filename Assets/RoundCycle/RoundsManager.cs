@@ -14,6 +14,7 @@ public class RoundsManager : MonoBehaviour
     private WeaponManager arrowKeyManager;
     private WeaponManager WASDManager;
     //ui
+    public GameObject countdown;
     public GameObject loadScreen;
     public ParticleSystem sparkles;
     public Animator animator;
@@ -83,7 +84,9 @@ public class RoundsManager : MonoBehaviour
             SetRoundState(Round.RoundState.Load, round);
             loadScreen.SetActive(true);
             EventCreation.instance.isFrozen = true;
-            yield return new WaitForSeconds(2f);
+            countdown.SetActive(true);
+            yield return new WaitForSeconds(4f);
+            countdown.SetActive(false);
             EventCreation.instance.isFrozen = false;
             loadScreen.SetActive(false);
             SetRoundState(Round.RoundState.Play, round);
