@@ -32,6 +32,9 @@ public class WeaponManager : MonoBehaviour
         attackCooldowns[specialAttack] = specialAttack.reloadSpeed;
         attackCooldowns[ultimateAttack] = ultimateAttack.reloadSpeed;
         isFrozen =true;
+        
+        UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", false);
+        UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", false);
         // Update sliders to reflect the cooldowns being at maximum
         UpdateSlider(regAttack);
         UpdateSlider(specialAttack);
@@ -81,6 +84,7 @@ public class WeaponManager : MonoBehaviour
         if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformAttack(regAttack));
+            
         }
     }
 
@@ -89,6 +93,8 @@ public class WeaponManager : MonoBehaviour
         if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformSpecialAttack(specialAttack));
+            
+            UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", false);
         }
     }
 
@@ -97,6 +103,8 @@ public class WeaponManager : MonoBehaviour
         if (context.performed && !isFrozen)
         {
             StartCoroutine(TryPerformUltimateAttack(ultimateAttack));
+            
+            UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", false);
         }
     }
 
@@ -247,12 +255,23 @@ public class WeaponManager : MonoBehaviour
         float maxCooldown = attack.reloadSpeed;
         float sliderValue = Mathf.Clamp01(cooldown / maxCooldown);
 
-        string sliderName = "";
-        if (attack == regAttack) sliderName = "RegularAttack";
-        else if (attack == specialAttack) sliderName = "SpecialAttack";
-        else if (attack == ultimateAttack) sliderName = "UltimateAttack";
+        if (attack == regAttack){
+            UIManager.instance.SetSlider(currentTag, "RegularAttack", sliderValue);
+        }
+        else if (attack == specialAttack) {
+            UIManager.instance.SetSlider(currentTag, "SpecialAttack", sliderValue);
+            if(sliderValue <= 0.01){
+                UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", true);
+            }
+        }
+        else if (attack == ultimateAttack) {
+            UIManager.instance.SetSlider(currentTag, "UltimateAttack", sliderValue);
+            if(sliderValue <= 0.01){ 
+                UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", true);
+            }
+        }
 
-        UIManager.instance.SetSlider(currentTag, sliderName, sliderValue);
+        
     }
     protected void AnimateSlider(AttackData attack)
     {
@@ -321,6 +340,7 @@ public class WeaponManager : MonoBehaviour
                 Destroy(damage);
             }
         }
+        
         damagers.Clear();
         RemoveEffects();
     }

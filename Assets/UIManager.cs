@@ -77,6 +77,15 @@ public class UIManager : MonoBehaviour
             sliderData.animator.SetTrigger(trigger);
         }
     }
+    public void AnimateSlider(string identifier, string sliderName, string boolName, bool value)
+    {
+        if (playerSliders.TryGetValue(identifier, out Dictionary<string, SliderData> sliders) &&
+            sliders.TryGetValue(sliderName, out SliderData sliderData) &&
+            sliderData.animator != null)
+        {
+            sliderData.animator.SetBool(boolName,value);
+        }
+    }
 
     // Sets the maximum value of a slider
     public void SetMaxSlider(string identifier, string sliderName, float value)
