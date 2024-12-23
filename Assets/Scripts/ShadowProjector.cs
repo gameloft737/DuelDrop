@@ -28,7 +28,7 @@ public class ShadowProjector : MonoBehaviour
         {
             // Smoothly interpolate shadow position
             Vector3 targetPosition = hit.point + Vector3.up * offset;
-            smoothShadowPosition = Vector3.Lerp(smoothShadowPosition, targetPosition, 0.1f);
+            smoothShadowPosition = Vector3.Lerp(smoothShadowPosition, targetPosition, 0.05f);
             shadow.transform.position = smoothShadowPosition;
         }
     }

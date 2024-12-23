@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
+    public bool isMoving;
     private void Animate(){
         if(animator != null)
         {
@@ -96,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("horizontal", animHorizontal);
             bool isAnimGrounded = Physics.Raycast(groundCheck.position, Vector3.down, groundCheckRadius * 7f, groundLayer);
             animator.SetBool("isGrounded", isAnimGrounded || _isGrounded);
-            animator.SetBool("isMoving", _inputDirection.x != 0);
+            isMoving = _inputDirection.x != 0;
+            animator.SetBool("isMoving", isMoving);
             
             
         }
