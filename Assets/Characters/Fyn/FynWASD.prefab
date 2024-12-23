@@ -285,7 +285,7 @@ MonoBehaviour:
   isShieldActive: 0
   shieldDuration: 7
   moveSpeed: 50
-  buffStrength: 3
+  buffStrength: 2
   buffTime: 3
 --- !u!114 &203666567188324813
 MonoBehaviour:
@@ -1470,6 +1470,7 @@ MonoBehaviour:
   _isGrounded: 0
   stunTime: 0.1
   isRight: 1
+  isMoving: 0
   weight: 1
 --- !u!114 &4403663460292692260
 MonoBehaviour:

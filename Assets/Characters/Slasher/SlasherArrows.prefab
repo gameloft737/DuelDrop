@@ -5219,6 +5219,7 @@ MonoBehaviour:
   _isGrounded: 0
   stunTime: 0.1
   isRight: 1
+  isMoving: 0
   weight: 0.8
 --- !u!114 &9037436174050014760
 MonoBehaviour:
@@ -5232,7 +5233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumHealth: 75
+  maximumHealth: 100
   comboTimeWindow: 2
   damagePrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
     type: 3}

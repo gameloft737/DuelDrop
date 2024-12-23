@@ -31,6 +31,8 @@ public class WeaponManager : MonoBehaviour
         attackCooldowns[regAttack] = regAttack.reloadSpeed;
         attackCooldowns[specialAttack] = specialAttack.reloadSpeed;
         attackCooldowns[ultimateAttack] = ultimateAttack.reloadSpeed;
+        Debug.Log("COOLDOwn for " + _playerMovement.gameObject.name+" IS " + attackCooldowns[ultimateAttack]);
+
         isFrozen =true;
         
         UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", false);
