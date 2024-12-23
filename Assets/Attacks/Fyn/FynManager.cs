@@ -108,6 +108,9 @@ public class FynManager : WeaponManager
     {
         if (isShieldActive)
         {
+            if(knockupStrength < 5f){
+                return;
+            }
             // Reduce the knockback received by 50% and reflect the rest
             float reducedKnockback = knockbackStrength * knockbackReduction;
             healthSystem.Damage((damage * knockbackReduction), 0);

@@ -5639,8 +5639,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sliderConfig:
     playerSliders: []
-  arrowKeysHeath: {fileID: 0}
-  WASDHeath: {fileID: 0}
+  arrowKeysHealth: {fileID: 0}
+  WASDHealth: {fileID: 0}
 --- !u!1 &2140071178
 GameObject:
   m_ObjectHideFlags: 0
