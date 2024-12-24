@@ -14,4 +14,7 @@ public class Message : MonoBehaviour
         messageObj.SetActive(true);
         Debug.Log("enabled");
     }
+    public virtual void Warn(){
+        return;
+    }
 }

@@ -19,6 +19,8 @@ public class Messager : MonoBehaviour
         if(context.performed){
             if(currentMessage.isComplete){
                 NextMessage();
+            } else {
+                currentMessage.Warn();
             }
         }
     }

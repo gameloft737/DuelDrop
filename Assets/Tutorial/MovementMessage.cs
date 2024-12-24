@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,21 +9,17 @@ public class MovementMessage : Message
     [Header("Input Actions")]
     [SerializeField] private InputAction wAction;
     [SerializeField] private InputAction aAction;
-    [SerializeField] private InputAction sAction;
     [SerializeField] private InputAction dAction;
     [SerializeField] private InputAction upAction;
     [SerializeField] private InputAction leftAction;
-    [SerializeField] private InputAction downAction;
     [SerializeField] private InputAction rightAction;
 
     [Header("Key Images")]
     [SerializeField] private Image wKeyImage;
     [SerializeField] private Image aKeyImage;
-    [SerializeField] private Image sKeyImage;
     [SerializeField] private Image dKeyImage;
     [SerializeField] private Image upArrowImage;
     [SerializeField] private Image leftArrowImage;
-    [SerializeField] private Image downArrowImage;
     [SerializeField] private Image rightArrowImage;
 
     private Dictionary<InputAction, bool> keyPressedStates;
@@ -34,11 +31,9 @@ public class MovementMessage : Message
         {
             { wAction, false },
             { aAction, false },
-            { sAction, false },
             { dAction, false },
             { upAction, false },
             { leftAction, false },
-            { downAction, false },
             { rightAction, false }
         };
 
@@ -79,11 +74,9 @@ public class MovementMessage : Message
         // Update the color of the associated image to green
         if (action == wAction) wKeyImage.color = Color.green;
         if (action == aAction) aKeyImage.color = Color.green;
-        if (action == sAction) sKeyImage.color = Color.green;
         if (action == dAction) dKeyImage.color = Color.green;
         if (action == upAction) upArrowImage.color = Color.green;
         if (action == leftAction) leftArrowImage.color = Color.green;
-        if (action == downAction) downArrowImage.color = Color.green;
         if (action == rightAction) rightArrowImage.color = Color.green;
     }
 
@@ -92,11 +85,9 @@ public class MovementMessage : Message
         // Reset all key images to their default color (white)
         wKeyImage.color = Color.white;
         aKeyImage.color = Color.white;
-        sKeyImage.color = Color.white;
         dKeyImage.color = Color.white;
         upArrowImage.color = Color.white;
         leftArrowImage.color = Color.white;
-        downArrowImage.color = Color.white;
         rightArrowImage.color = Color.white;
     }
 
@@ -117,5 +108,9 @@ public class MovementMessage : Message
     private void CompleteMessage()
     {
         Debug.Log("Message completed after 2 seconds.");
+    }
+    [SerializeField] Animator warner;
+    public override void Warn(){
+        warner.SetTrigger("warn");
     }
 }
