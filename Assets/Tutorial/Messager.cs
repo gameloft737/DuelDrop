@@ -1,19 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Messager : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] private InputAction next;
+    [SerializeField] private Message[] messages;
+    [SerializeField]private int currentIndex = 0;
+    private Message currentMessage;
+    void Awake(){
+        next.Enable();
+        next.performed += Next;
+        currentMessage = messages[currentIndex];
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Next(InputAction.CallbackContext context)
     {
-        
+        if(context.performed){
+            if(currentMessage.isComplete){
+                NextMessage();
+            }
+        }
+    }
+    private bool NextMessage(){
+        if(currentIndex >= messages.Length - 1){
+            return false;
+        }
+        currentMessage.DisableMessage();
+        currentIndex++;
+        currentMessage = messages[currentIndex];
+        currentMessage.EnableMessage();
+        return true;
     }
 }

@@ -260,6 +260,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Messages",
+            "id": "89ccf229-6ac3-4205-acb5-102d9219cbf7",
+            "actions": [
+                {
+                    "name": "WASDMovement",
+                    "type": "Button",
+                    "id": "eadc17cb-fc4f-498d-847d-eeac23631f7c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ArrowMovement",
+                    "type": "Button",
+                    "id": "3d5bffe0-b635-4ccc-83c2-b4c1c934a9a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bd521485-b003-4a7f-9710-562a982a366b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WASDMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ef0b18e-6d48-43ce-a02d-b637c2872c04",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ArrowMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
