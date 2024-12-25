@@ -40,7 +40,7 @@ public class MovementMessage : Message
         // Enable input actions and subscribe to performed events
         foreach (var action in keyPressedStates.Keys)
         {
-            action.Enable();
+            action.Enable();    
             action.performed += OnKeyPressed;
         }
 
@@ -59,6 +59,7 @@ public class MovementMessage : Message
 
     private void OnKeyPressed(InputAction.CallbackContext context)
     {
+        if(!messageObj.activeSelf){return;}
         InputAction action = context.action;
 
         if (keyPressedStates.ContainsKey(action))
@@ -98,16 +99,9 @@ public class MovementMessage : Message
         {
             if (!state) return;
         }
-
-        // If all keys are pressed, set isComplete to true and log a message
         isComplete = true;
+        // If all keys are pressed, set isComplete to true and log a message  
         Debug.Log("All keys pressed! isComplete = true");
-        Invoke(nameof(CompleteMessage), 2f); // Wait 2 seconds before marking the message as complete
-    }
-
-    private void CompleteMessage()
-    {
-        Debug.Log("Message completed after 2 seconds.");
     }
     [SerializeField] Animator warner;
     public override void Warn(){

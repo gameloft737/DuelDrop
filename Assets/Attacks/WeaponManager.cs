@@ -19,8 +19,8 @@ public class WeaponManager : MonoBehaviour
     public float knockbackModifier = 1.0f;
     public HealthSystem healthSystem;
     [SerializeField] protected Transform target;
-    protected bool isFrozen = false;
-    
+    [SerializeField]protected bool isFrozen = false;
+    public int isTutorial = 0;
     [SerializeField] protected WeaponManager targetManager;
     protected CinemachineImpulseSource impulseSource;
 
@@ -69,6 +69,32 @@ public class WeaponManager : MonoBehaviour
 
     protected virtual void UpdateCooldowns()
     {
+        if(isTutorial != 0){
+            switch(isTutorial){
+                case 1:
+                    if (attackCooldowns[regAttack] > 0)
+                    {
+                        attackCooldowns[regAttack] -= Time.deltaTime;
+                        UpdateSlider(regAttack);
+                    }
+                    break;
+                case 2:
+                    if (attackCooldowns[specialAttack] > 0)
+                    {
+                        attackCooldowns[specialAttack] -= Time.deltaTime;
+                        UpdateSlider(specialAttack);
+                    }
+                    break; 
+                case 3:
+                    if (attackCooldowns[ultimateAttack] > 0)
+                    {
+                        attackCooldowns[ultimateAttack] -= Time.deltaTime;
+                        UpdateSlider(ultimateAttack);
+                    }
+                    break;   
+            }
+            return;
+        }
         // Update cooldown timers
         List<AttackData> keys = new List<AttackData>(attackCooldowns.Keys);
         foreach (AttackData attack in keys)
@@ -83,7 +109,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isFrozen)
+        if (context.performed && (!isFrozen || isTutorial == 1))
         {
             StartCoroutine(TryPerformAttack(regAttack));
             
@@ -92,7 +118,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnSpecialAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isFrozen)
+        if (context.performed && (!isFrozen || isTutorial == 2))
         {
             StartCoroutine(TryPerformSpecialAttack(specialAttack));
             
@@ -102,7 +128,7 @@ public class WeaponManager : MonoBehaviour
 
     public void OnUltimateAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && !isFrozen)
+        if (context.performed && (!isFrozen || isTutorial == 3))
         {
             StartCoroutine(TryPerformUltimateAttack(ultimateAttack));
             
@@ -122,6 +148,7 @@ public class WeaponManager : MonoBehaviour
 
         if (attackCooldowns[attack] <= 0f)
         {
+            isTutorial = 0;
             isAttacking = true; // Mark as attacking
             _playerMovement.animator.SetTrigger("attack");
             AudioManager.instance.Play("MinoAttack");
@@ -157,6 +184,7 @@ public class WeaponManager : MonoBehaviour
 
         if (attackCooldowns[attack] <= 0f)
         {
+            isTutorial = 0;
             isSpecialAttacking = true; // Mark as performing special attack
             attackCooldowns[attack] = attack.reloadSpeed;
 
@@ -184,6 +212,7 @@ public class WeaponManager : MonoBehaviour
 
         if (attackCooldowns[attack] <= 0f)
         {
+            isTutorial = 0;
             isUltimateAttacking = true; // Mark as performing ultimate attack
             attackCooldowns[attack] = attack.reloadSpeed;
 

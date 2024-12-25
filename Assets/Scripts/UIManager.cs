@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
             InitializeDictionary();
+            
         }
         else
         {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
+    public bool isFrozen;
     [Header("Health Settings")]
     [SerializeField] private float maximumHealth = 100f; // Maximum health
     [SerializeField] private float comboTimeWindow = 2f; // Time window for combo hits (seconds)
@@ -35,6 +36,7 @@ public class HealthSystem : MonoBehaviour
 
     public void Damage(float damageAmount, float duration)
     {
+        if(isFrozen){return;}
         UpdateComboState();
 
         float comboDamage = damageAmount * comboMultiplier;
@@ -51,6 +53,7 @@ public class HealthSystem : MonoBehaviour
 
     public void Heal(float healAmount, float duration)
     {
+        if(isFrozen){return;}
         if (healingCoroutine != null)
         {
             StopCoroutine(healingCoroutine);
@@ -101,6 +104,7 @@ public class HealthSystem : MonoBehaviour
 
     private void ApplyDamage(float damageAmount)
     {
+        if(isFrozen){return;}
         health -= damageAmount;
         health = Mathf.Clamp(health, 0, maximumHealth);
 
@@ -114,6 +118,7 @@ public class HealthSystem : MonoBehaviour
 
     private void ApplyHealing(float healAmount)
     {
+        if(isFrozen){return;}
         health += healAmount;
         health = Mathf.Clamp(health, 0, maximumHealth);
 

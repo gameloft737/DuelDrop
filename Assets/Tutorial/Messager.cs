@@ -9,7 +9,7 @@ public class Messager : MonoBehaviour
     [SerializeField] private Message[] messages;
     [SerializeField]private int currentIndex = 0;
     private Message currentMessage;
-    void Awake(){
+    public void Awake(){
         next.Enable();
         next.performed += Next;
         currentMessage = messages[currentIndex];

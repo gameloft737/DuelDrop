@@ -18,7 +18,9 @@ public class FynManager : WeaponManager
             yield break;
         }
         if (attackCooldowns[attack] <= 0f)
-        {    
+        { 
+            
+            isTutorial = 0;
             isAttacking = true; // Mark as attacking
             randomNum = UnityEngine.Random.Range(1, 3);
             GameObject particleEffect = Instantiate(attack.getParticle(randomNum), transform.position, Quaternion.identity, transform);
