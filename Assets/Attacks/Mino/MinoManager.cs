@@ -68,15 +68,23 @@ public class MinoManager : WeaponManager
                 }
             }
             else if(isRampage){
-                GameObject projectile = Instantiate(hornPrefab, transform.position,Quaternion.identity);
+                GameObject projectile = Instantiate(
+                    hornPrefab, 
+                    transform.position, 
+                    Quaternion.Euler(0, _playerMovement.isRight ? 0 : 180, 0) // Adjust rotation based on direction
+                );
+
                 damagers.Add(projectile);
                 MoveVelocity velocity = projectile.GetComponentInChildren<MoveVelocity>();
                 velocity.velocity = new Vector3(_playerMovement.isRight ? hornMoveSpeed : -hornMoveSpeed, 0, 0);
                 velocity.StartMovement();
+
                 InstantKnockback knockbacker = projectile.GetComponentInChildren<InstantKnockback>();
                 knockbacker.targetManager = targetManager;
-                knockbacker.thisManager = this;  
+                knockbacker.thisManager = this;
+
                 StartCoroutine(DestroyParticleEffect(projectile, 3f));
+
             }
         }
     }
