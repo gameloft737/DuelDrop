@@ -10,7 +10,7 @@ public class EndScreenLoader : MonoBehaviour
     void Start()
     {
         GameObject character = characters[PlayerPrefs.GetInt("winner")];
-        Instantiate(character, transform.position, Quaternion.identity);
+        Instantiate(character, transform.position, Quaternion.identity, transform);
         winnerText.text = PlayerPrefs.GetString("winnerString");
     }
 }
