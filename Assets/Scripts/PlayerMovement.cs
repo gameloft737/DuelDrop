@@ -244,5 +244,17 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
+    public GameObject speedParticle;
+    public void SetSpeedBoost(float boost, float duration, GameObject prefab){
+        speedParticle = Instantiate(prefab, transform.position, Quaternion.identity, transform);
+        StartCoroutine(SpeedBoost(boost, duration));
+    }
+    private IEnumerator SpeedBoost(float boost, float duration){
+        moveSpeed *= boost;
+        acceleration *= boost * 0.8f;
+        yield return new WaitForSeconds(duration);
+        moveSpeed /= boost;
+        acceleration *= boost / 0.8f;
+    }
 
 }

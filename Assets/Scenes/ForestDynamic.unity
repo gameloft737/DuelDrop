@@ -25298,6 +25298,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21e22fb70a876dd4b9ecc7cada637fa5, type: 2}
   - {fileID: 11400000, guid: f1480b07739696247b958a98f7511fed, type: 2}
   - {fileID: 11400000, guid: f43e38d27bb21a34f9093669f57c5c77, type: 2}
+  - {fileID: 11400000, guid: 7f3d7408d7cec994b8c8ef93aaa80bc9, type: 2}
   eventNameText: {fileID: 1611214677}
   eventIconImage: {fileID: 68290033}
   timerText: {fileID: 640876758}
