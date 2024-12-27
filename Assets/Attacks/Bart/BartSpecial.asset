@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17f7754c9f108041833b743717f6b42, type: 3}
-  m_Name: BartAttack
+  m_Name: BartSpecial
   m_EditorClassIdentifier: 
-  particle: {fileID: 4390558217584167717, guid: fbc2d28daddc6ec45bb3acb2a829143a,
+  particle: {fileID: 6686350275514269659, guid: 272d2d43dd674b34292f42d0ecc37e35,
     type: 3}
-  reloadSpeed: 1
-  knockback: 30
+  reloadSpeed: 15
+  knockback: 0
   delay: 0.1
-  damage: 30
-  range: 15
+  damage: 50
+  range: 0

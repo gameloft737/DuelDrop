@@ -51,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
             // Clear knockback forces
             currentKnockbackForce = Vector3.zero;
             rb.velocity = new Vector3(0, rb.velocity.y, 0); // Retain vertical velocity if necessary
+            acceleration = ogAcceleration;
+            moveSpeed = ogSpeed;
         }
 
     }
@@ -60,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ; 
         _mainCamera = Camera.main;
+        ogSpeed = moveSpeed;
+        ogAcceleration = acceleration;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -245,16 +249,23 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector3.down * jumpForce, ForceMode.Impulse);
     }
     public GameObject speedParticle;
+    public float ogSpeed;
+    public float ogAcceleration;
     public void SetSpeedBoost(float boost, float duration, GameObject prefab){
         speedParticle = Instantiate(prefab, transform.position, Quaternion.identity, transform);
         StartCoroutine(SpeedBoost(boost, duration));
     }
+    public void SetSpeedBoost(float boost, float duration){
+        StartCoroutine(SpeedBoost(boost, duration));
+    }
     private IEnumerator SpeedBoost(float boost, float duration){
-        moveSpeed *= boost;
-        acceleration *= boost * 0.8f;
+        
+        moveSpeed = ogSpeed * boost;
+        acceleration = ogAcceleration * boost;
         yield return new WaitForSeconds(duration);
-        moveSpeed /= boost;
-        acceleration *= boost / 0.8f;
+        if(moveSpeed == ogSpeed){yield return null;}
+        moveSpeed = ogSpeed;
+        acceleration = ogAcceleration;
     }
 
 }

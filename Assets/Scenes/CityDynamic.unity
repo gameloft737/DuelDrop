@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 5348338}
   - component: {fileID: 5348337}
   m_Layer: 5
-  m_Name: SpecialAtk
+  m_Name: SpecialAtkA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17357,11 +17357,13 @@ MonoBehaviour:
   - {fileID: 5690858693359149305, guid: e7a2a9c1faad53a44acabef6e5bda943, type: 3}
   - {fileID: 3183271304453747546, guid: 9d294c8ccaeab1d458e6f30c31817df7, type: 3}
   - {fileID: 2531705281977117942, guid: fea3c28171c9c5844a43c04f166d7f98, type: 3}
+  - {fileID: 3183271304453747546, guid: 926bbd6ee4ac4264da8bc2556f7f2559, type: 3}
   arrowKeysCharacters:
   - {fileID: 8533569255848985391, guid: 037eabe5f6215554aafb854ab0cf6b38, type: 3}
   - {fileID: 496807785227996755, guid: a895ce53786a9e043b4f5c82cf4c8118, type: 3}
   - {fileID: 8799354408841162540, guid: 0a28eb6bb1114174aa33d5ea1a1d7148, type: 3}
   - {fileID: 2531705281977117942, guid: 490c6effbf046e74eabb58ee07b99175, type: 3}
+  - {fileID: 3454180402295118149, guid: 4b4dba5205537e34b8befd68d545e2a8, type: 3}
   WASDPlayer: {fileID: 0}
   arrowKeysPlayer: {fileID: 0}
   WASDPlayerSpawnPoint: {x: -2, y: 3, z: 0}
@@ -23102,7 +23104,7 @@ GameObject:
   - component: {fileID: 2013620811}
   - component: {fileID: 2013620810}
   m_Layer: 5
-  m_Name: UltAttack
+  m_Name: UltAttackA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

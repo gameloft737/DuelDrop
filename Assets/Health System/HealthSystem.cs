@@ -219,7 +219,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (Mathf.Abs(transform.position.x) > EnvironmentManager.instance.voidMinMax ||
             transform.position.y < EnvironmentManager.instance.voidHeight ||
-            transform.position.y > EnvironmentManager.instance.height * 2)
+            transform.position.y > EnvironmentManager.instance.height * 3)
         {
             Die();
         }
