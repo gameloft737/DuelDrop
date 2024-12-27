@@ -72,6 +72,8 @@ public class SlasherManager : WeaponManager
         {
             _playerMovement.animator.SetBool("isSpecial", true);
             _playerMovement.canMove = false;
+            
+            isFrozen = true;
             _playerMovement.Floor();
             StartCoroutine(Smash(1.2f, attack));
             
@@ -81,6 +83,8 @@ public class SlasherManager : WeaponManager
     {
         yield return new WaitForSeconds(delay);
         _playerMovement.canMove = true;
+        
+            isFrozen = false;
         if (target != null)
         {
             CameraShakeManager.instance.CameraShake(impulseSource);

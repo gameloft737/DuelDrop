@@ -258,7 +258,7 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    protected void ReduceCooldownsBasedOnKnockback(float knockback)
+    public void ReduceCooldownsBasedOnKnockback(float knockback)
     {
         // Calculate cooldown reduction for special and ultimate attacks
         float specialReduction = knockback * specialAttack.reloadSpeed * 0.005f;

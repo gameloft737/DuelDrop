@@ -9,6 +9,7 @@ public class InstantKnockback : MonoBehaviour
 {
     public WeaponManager targetManager;
     public WeaponManager thisManager;
+    [SerializeField] bool reduceCooldowns = false;
     [SerializeField] bool baseOnParent = false;
     [SerializeField] bool generalKnockback = false;
     [SerializeField] bool cameraShake = false;
@@ -59,6 +60,9 @@ public class InstantKnockback : MonoBehaviour
             }
             if(cameraShake){
                 CameraShakeManager.instance.CameraShake(GetComponent<CinemachineImpulseSource>());
+            }
+            if(reduceCooldowns){
+                thisManager.ReduceCooldownsBasedOnKnockback(attackData.knockback);
             }
             Destroy(gameObject);
         }

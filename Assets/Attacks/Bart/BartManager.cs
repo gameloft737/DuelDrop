@@ -4,7 +4,6 @@ using UnityEngine.AI;
 
 public class BartManager : WeaponManager
 {
-    [SerializeField] private float lifeDrainTime = 4f;
     [SerializeField] private GameObject attackObj;
     [SerializeField] private GameObject ultimateAttackObj; 
      protected override IEnumerator TryPerformAttack(AttackData attack){
@@ -67,13 +66,15 @@ protected override void PerformAttack(AttackData attack)
         if (target != null)
         {
             _playerMovement.animator.SetTrigger("special");
-            
+            isFrozen = true;
             _playerMovement.animator.SetBool("isSpecial", true);
             _playerMovement.isFrozen = true;
             _playerMovement.Floor();    
             StartCoroutine(Healer(2.2f, attack));
             
             healthSystem.Heal(attack.damage,1f);
+            
+            healthSystem.isFrozen = true;
             AudioManager.instance.Play("BartSpecialAttack");
             GameObject particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
             
@@ -86,8 +87,9 @@ protected override void PerformAttack(AttackData attack)
         yield return new WaitForSeconds(delay);
         _playerMovement.isFrozen = false;
         
+            isFrozen = false;
             _playerMovement.animator.SetBool("isSpecial", false);
-            
+            healthSystem.isFrozen = false;
         
     }
     protected override void PerformUltimateAttack(AttackData attack)

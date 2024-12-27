@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Messager : MonoBehaviour
 {
     [SerializeField] private InputAction next;
     [SerializeField] private Message[] messages;
     [SerializeField]private int currentIndex = 0;
+    [SerializeField] private string sceneToLoad;
     private Message currentMessage;
     public void Awake(){
         next.Enable();
@@ -18,7 +20,9 @@ public class Messager : MonoBehaviour
     {
         if(context.performed){
             if(currentMessage.isComplete){
-                NextMessage();
+                if(!NextMessage()){
+                    SceneManager.LoadScene(sceneToLoad);
+                }
             } else {
                 currentMessage.Warn();
             }

@@ -77,6 +77,9 @@ public class AttackMessage : Message
                     wasdHealth.isFrozen = true; 
                     Debug.Log("SIGMA" +wasdHealth.isFrozen); 
                     wasdHealth.SetMaxHealth();
+                    
+                    arrowKeysHealth.isFrozen = true; 
+                    arrowKeysHealth.SetMaxHealth();
                 }
                 keyPressedStates[action] = true;
                 UpdateVisual(action);
@@ -87,7 +90,12 @@ public class AttackMessage : Message
                     arrowKeys.FreezeAll(); } 
                 else if (tutorialNum == 3) 
                 {
-                    arrowKeysHealth.isFrozen = true; Debug.Log("SIGMA" +arrowKeysHealth.isFrozen);arrowKeysHealth.SetMaxHealth();
+                    wasdHealth.isFrozen = true; 
+                    Debug.Log("SIGMA" +wasdHealth.isFrozen); 
+                    wasdHealth.SetMaxHealth();
+                    
+                    arrowKeysHealth.isFrozen = true; 
+                    arrowKeysHealth.SetMaxHealth();
                 }
                 keyPressedStates[action] = true;
                 UpdateVisual(action);
