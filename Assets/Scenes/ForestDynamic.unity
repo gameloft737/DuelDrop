@@ -13850,6 +13850,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eecc37ac51ca264fac8c013ba90a496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allSettings:
+  - {fileID: 11400000, guid: 154fee6507087f74aafcec3c13414fd3, type: 2}
+  - {fileID: 11400000, guid: f980e09d76a8c464298aaa8a2c9b881f, type: 2}
+  - {fileID: 11400000, guid: 12902ebd31fd327438c138b535ea88ba, type: 2}
   roundSettings: {fileID: 11400000, guid: f980e09d76a8c464298aaa8a2c9b881f, type: 2}
   countdown: {fileID: 70111878}
   loadScreen: {fileID: 340195583}
@@ -31180,7 +31184,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 00:00
 --- !u!222 &1792738104
 CanvasRenderer:
   m_ObjectHideFlags: 0

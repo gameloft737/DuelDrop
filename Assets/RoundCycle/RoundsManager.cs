@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class RoundsManager : MonoBehaviour
 {
+    public RoundSettings[] allSettings;
     public static RoundsManager instance;
     public RoundSettings roundSettings;
     private PlayerMovement arrowKeyPlayer;
@@ -35,6 +36,8 @@ public class RoundsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }   
+        roundSettings = allSettings[PlayerPrefs.GetInt("modeIndex")];
+        Debug.Log(PlayerPrefs.GetInt("modeIndex") + "OOH!");
         rounds = new Round[roundSettings.rounds];
         for (int i = 0; i < rounds.Length; i++)
         {

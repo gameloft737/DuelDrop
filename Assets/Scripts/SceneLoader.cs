@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    private int sceneIndex = 0; // The name of the scene to load
-    
+    private int sceneIndex = 0;
+    private int modeIndex = 1;
     // Selected player prefabs
     public CharacterCycler WASDChararacters;
     public CharacterCycler arrowKeysCharacters;
@@ -23,11 +23,16 @@ public class SceneLoader : MonoBehaviour
     {
         PlayerPrefs.SetInt("selectedWASD",  WASDChararacters.currentIndex);
         PlayerPrefs.SetInt("selectedArrowKeys",  arrowKeysCharacters.currentIndex);
+        
+        PlayerPrefs.SetInt("modeIndex",  modeIndex);
         SceneManager.LoadScene(sceneNames[sceneIndex]);
     }
     public void SetScene(int newPosition){
         sceneImage.enabled = true;
         sceneIndex = newPosition;
         sceneImage.sprite = sceneIcons[sceneIndex];
+    }
+    public void SetMode(int newMode){
+        modeIndex = newMode;
     }
 }
