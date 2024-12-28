@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetManager: {fileID: 0}
   thisManager: {fileID: 0}
+  reduceCooldowns: 0
   baseOnParent: 1
   generalKnockback: 0
   cameraShake: 1
@@ -5005,7 +5006,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7922251121040759823, guid: 2ac6523f2aa4761409487161967daaf5, type: 3}
+  - {fileID: 2100000, guid: 0ebcf6913b80ab94fbd6135262ff0247, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
