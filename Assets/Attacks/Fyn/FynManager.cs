@@ -110,7 +110,8 @@ public class FynManager : WeaponManager
     {
         if (isShieldActive)
         {
-            if(knockupStrength < 5f){
+            if(knockbackStrength < 1f){
+                Debug.Log("HUH");
                 return;
             }
             // Reduce the knockback received by 50% and reflect the rest
