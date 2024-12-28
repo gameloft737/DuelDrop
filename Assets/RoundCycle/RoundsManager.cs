@@ -160,14 +160,12 @@ public class RoundsManager : MonoBehaviour
             PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedArrowKeys"));
             PlayerPrefs.SetInt("winnerColor", 0);
             string name = arrowKeyPlayer.name;
-            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 16, 16));
         }
         else
         {
             PlayerPrefs.SetInt("winner", PlayerPrefs.GetInt("selectedWASD"));
             string name = WASDPlayer.name;
             PlayerPrefs.SetInt("winnerColor", 1);
-            PlayerPrefs.SetString("winnerString", name.Remove(name.Length - 11, 11));
         }
 
         StartCoroutine (loadSceneAfterDelay(1));

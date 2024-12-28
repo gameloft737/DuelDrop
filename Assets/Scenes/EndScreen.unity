@@ -207,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 0}
+  m_AnchoredPosition: {x: -171.88, y: -30}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490108635
@@ -5765,6 +5765,12 @@ MonoBehaviour:
   - {fileID: 8021985596281141745, guid: c25abfa9e4a3c5746b6d0e7c0b204627, type: 3}
   - {fileID: 3140449040486678442, guid: 02247535994885a4b98e1021d8737dd8, type: 3}
   - {fileID: 7015494227135656846, guid: 025fcfbe2ffa0ec49b33413793c3d734, type: 3}
+  characterNames:
+  - Fyn
+  - Slasher
+  - Necro
+  - Mino
+  - Bart
   winnerText: {fileID: 490108635}
 --- !u!4 &1332960816
 Transform:
