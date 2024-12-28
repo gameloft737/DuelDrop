@@ -72,7 +72,7 @@ protected override void PerformAttack(AttackData attack)
             _playerMovement.Floor();    
             StartCoroutine(Healer(2.2f, attack));
             
-            healthSystem.Heal(attack.damage,1f);
+            healthSystem.Heal(attack.damage,0);
             
             healthSystem.isFrozen = true;
             AudioManager.instance.Play("BartSpecialAttack");
