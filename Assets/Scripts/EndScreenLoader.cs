@@ -11,6 +11,7 @@ public class EndScreenLoader : MonoBehaviour
     {
         GameObject character = characters[PlayerPrefs.GetInt("winner")];
         Instantiate(character, transform.position, Quaternion.identity, transform);
-        winnerText.text = PlayerPrefs.GetString("winnerString");
+        winnerText.text = PlayerPrefs.GetString("winnerString") + " WINS!";
+        winnerText.color = ( PlayerPrefs.GetInt("winnerColor") == 0) ? Color.red : Color.blue;
     }
 }

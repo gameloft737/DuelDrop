@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    public AudioMixerGroup mixerGroup;
     public Sound[] sounds;
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class AudioManager : MonoBehaviour
 
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
+            sound.source.outputAudioMixerGroup = mixerGroup;
         }
         
     }

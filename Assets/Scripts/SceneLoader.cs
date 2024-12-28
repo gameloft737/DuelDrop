@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     private int sceneIndex = 0;
-    private int modeIndex = 1;
+    [SerializeField]private int modeIndex = 1;
 
 
     // Selected player prefabs
@@ -33,6 +34,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadScene()
     {
+        StartCoroutine(RunLoad(0.5f));
+    }
+    private IEnumerator RunLoad(float duration){
+        yield return new WaitForSeconds(duration);
         if (sceneIndex < sceneNames.Length)
         {
             PlayerPrefs.SetInt("selectedWASD", WASDCharacters.currentIndex);
@@ -47,7 +52,6 @@ public class SceneLoader : MonoBehaviour
             Debug.LogError("Scene index out of range!");
         }
     }
-
 
     public void SetScene(int newPosition)
     {
