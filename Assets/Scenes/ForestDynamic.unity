@@ -24802,6 +24802,177 @@ RectTransform:
   m_AnchoredPosition: {x: 57, y: 250}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1361172552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1361172554}
+  - component: {fileID: 1361172553}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1361172553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361172552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3108ddcef2992ad4782a0b68026c30c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 24300002, guid: c77cfc590ff5fb44ea632279e8b89394, type: 2}
+  sounds:
+  - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
+    name: FynAttack
+    volume: 1
+    pitch: 0.74
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: a663a58e210a58f408d7f367e1ba3ce0, type: 3}
+    name: FynSpecialAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
+    name: FynUltimateAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: afe197c19643a0044a0a04424e6bbd68, type: 3}
+    name: SlasherAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 9f378f95d54ef3842a94d97c94c38b02, type: 3}
+    name: SlasherSpecialAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: a3b97701e287d3a4a8ec3b16c42df8e7, type: 3}
+    name: SlasherUltimateAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: bd785394bfb470340badbf34963a7341, type: 3}
+    name: Hit
+    volume: 0.6
+    pitch: 0.85
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 31c5a83dba70c46479c9b2f5085f7556, type: 3}
+    name: RocketFlyby
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6e30655d1db0ca0478d40d7befce3ee2, type: 3}
+    name: RocketWarning
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6cecd226879020f4082a2aeb1a9bdabd, type: 3}
+    name: BombTicking
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 430dc40cb61fb8444b9d344181d4f7d1, type: 3}
+    name: BombExplosion
+    volume: 1
+    pitch: 2
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 442716fda778ba94b833992ea5711a66, type: 3}
+    name: RocketHit
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: e76602f752c60b84180ae3e3b31ccd19, type: 3}
+    name: BartAttack
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: f10b03b2468ee0a4cb22af83f172f265, type: 3}
+    name: BartAttackHit
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 4417bb259e22e1e4ab3fb2a8314b18d2, type: 3}
+    name: BartUltimateAttack
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: a3fe6d57e607ffe4d9c7066a1fd95f97, type: 3}
+    name: BartUltimateAttackHit
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 66a6e431dffd9e340937555a12790aab, type: 3}
+    name: BartSpecialAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 3907b2b6aa216694cb2a3b56c6a58156, type: 3}
+    name: NecroAttack
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 1a3c16f2bf2263a44905714ff55f216e, type: 3}
+    name: NecroSpecialAttack
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: eef1e7ddccdbe2b4883c419dcd054487, type: 3}
+    name: NecroUltimateAttack
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 42f95281da37acc43bdbdc20f7d6606f, type: 3}
+    name: MinoAttack
+    volume: 0.781
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6d2de081c04ac864eb2ed6f6f562d44c, type: 3}
+    name: MinoSpecialAttack
+    volume: 0.582
+    pitch: 2
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 2f1d74f8ce50a064cac22455e95b1ce9, type: 3}
+    name: HealthDrop
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 8ffa6afad0bf5be44968cfa497421d82, type: 3}
+    name: PlatformFire
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6ceab5041f6523c4ba7dae1be8c3ce60, type: 3}
+    name: SpeedBox
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+--- !u!4 &1361172554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361172552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.6603056, y: 2.2282484, z: -0.77993345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369624018
 GameObject:
   m_ObjectHideFlags: 0
@@ -25664,177 +25835,6 @@ Transform:
   - {fileID: 1302190358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1543146258
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1543146259}
-  - component: {fileID: 1543146260}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1543146259
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543146258}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6603056, y: 2.2282484, z: -0.77993345}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1543146260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543146258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3108ddcef2992ad4782a0b68026c30c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 24300002, guid: c77cfc590ff5fb44ea632279e8b89394, type: 2}
-  sounds:
-  - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
-    name: FynAttack
-    volume: 1
-    pitch: 0.74
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: a663a58e210a58f408d7f367e1ba3ce0, type: 3}
-    name: FynSpecialAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: e9e951c34fe259c4fbaccdc8f8325d73, type: 3}
-    name: FynUltimateAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: afe197c19643a0044a0a04424e6bbd68, type: 3}
-    name: SlasherAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 9f378f95d54ef3842a94d97c94c38b02, type: 3}
-    name: SlasherSpecialAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: a3b97701e287d3a4a8ec3b16c42df8e7, type: 3}
-    name: SlasherUltimateAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: bd785394bfb470340badbf34963a7341, type: 3}
-    name: Hit
-    volume: 0.6
-    pitch: 0.85
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 31c5a83dba70c46479c9b2f5085f7556, type: 3}
-    name: RocketFlyby
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 6e30655d1db0ca0478d40d7befce3ee2, type: 3}
-    name: RocketWarning
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 6cecd226879020f4082a2aeb1a9bdabd, type: 3}
-    name: BombTicking
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 430dc40cb61fb8444b9d344181d4f7d1, type: 3}
-    name: BombExplosion
-    volume: 1
-    pitch: 2
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 442716fda778ba94b833992ea5711a66, type: 3}
-    name: RocketHit
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: e76602f752c60b84180ae3e3b31ccd19, type: 3}
-    name: BartAttack
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: f10b03b2468ee0a4cb22af83f172f265, type: 3}
-    name: BartAttackHit
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 4417bb259e22e1e4ab3fb2a8314b18d2, type: 3}
-    name: BartUltimateAttack
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: a3fe6d57e607ffe4d9c7066a1fd95f97, type: 3}
-    name: BartUltimateAttackHit
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 66a6e431dffd9e340937555a12790aab, type: 3}
-    name: BartSpecialAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 3907b2b6aa216694cb2a3b56c6a58156, type: 3}
-    name: NecroAttack
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 1a3c16f2bf2263a44905714ff55f216e, type: 3}
-    name: NecroSpecialAttack
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: eef1e7ddccdbe2b4883c419dcd054487, type: 3}
-    name: NecroUltimateAttack
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 42f95281da37acc43bdbdc20f7d6606f, type: 3}
-    name: MinoAttack
-    volume: 0.781
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: eef1e7ddccdbe2b4883c419dcd054487, type: 3}
-    name: MinoSpecialAttack
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 2f1d74f8ce50a064cac22455e95b1ce9, type: 3}
-    name: HealthDrop
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 8ffa6afad0bf5be44968cfa497421d82, type: 3}
-    name: PlatformFire
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
-  - audioClip: {fileID: 8300000, guid: 6ceab5041f6523c4ba7dae1be8c3ce60, type: 3}
-    name: SpeedBox
-    volume: 0.582
-    pitch: 1
-    source: {fileID: 0}
 --- !u!1 &1564653165
 GameObject:
   m_ObjectHideFlags: 0
@@ -38749,7 +38749,6 @@ SceneRoots:
   - {fileID: 1616571984}
   - {fileID: 881341773}
   - {fileID: 1564653167}
-  - {fileID: 1543146259}
   - {fileID: 1226720947}
   - {fileID: 1588334242}
   - {fileID: 718683598}
@@ -38761,3 +38760,4 @@ SceneRoots:
   - {fileID: 1845271177}
   - {fileID: 1099754749}
   - {fileID: 2122248057}
+  - {fileID: 1361172554}
