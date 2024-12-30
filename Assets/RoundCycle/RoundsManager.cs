@@ -88,6 +88,8 @@ public class RoundsManager : MonoBehaviour
             loadScreen.SetActive(true);
             EventCreation.instance.isFrozen = true;
             countdown.SetActive(true);
+            
+            AudioManager.instance.Play("Countdown");
             yield return new WaitForSeconds(4f);
             countdown.SetActive(false);
             EventCreation.instance.isFrozen = false;
@@ -145,10 +147,13 @@ public class RoundsManager : MonoBehaviour
             if (wasdWins >= majority || arrowKeysWins >= majority)
             {
                 EndGame(); // End game early if a player has won
+                
+                AudioManager.instance.Play("GameOver");
                 yield break; // Exit the coroutine
             }
         }
-
+        
+        AudioManager.instance.Play("GameOver");
         EndGame(); // End game if all rounds are completed without a majority winner
     }
 
