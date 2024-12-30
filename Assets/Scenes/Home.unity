@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: ed1387202b1349540a5d6464f0f27488, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5c80d49013691df48ac94280337e88ce, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -2643,10 +2643,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9266996, g: 0.8160377, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.67437774, g: 0.5449003, b: 0.745283, a: 1}
-    m_PressedColor: {r: 0.5173241, g: 0.36712354, b: 0.6226415, a: 1}
-    m_SelectedColor: {r: 0.5176471, g: 0.36862746, b: 0.62352943, a: 1}
+    m_NormalColor: {r: 0.5801887, g: 0.8867881, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.3726415, g: 0.755325, b: 1, a: 1}
+    m_PressedColor: {r: 0.33521718, g: 0.6432079, b: 0.8773585, a: 1}
+    m_SelectedColor: {r: 0.3037113, g: 0.5313834, b: 0.8584906, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.2
@@ -3045,7 +3045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -3296,7 +3296,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 61.6
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -4214,10 +4214,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9266996, g: 0.8160377, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.67437774, g: 0.5449003, b: 0.745283, a: 1}
-    m_PressedColor: {r: 0.5173241, g: 0.36712354, b: 0.6226415, a: 1}
-    m_SelectedColor: {r: 0.5176471, g: 0.36862746, b: 0.62352943, a: 1}
+    m_NormalColor: {r: 1, g: 0.5801887, b: 0.5801887, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.39215687, b: 0.39215687, a: 1}
+    m_PressedColor: {r: 1, g: 0.28627452, b: 0.28627452, a: 1}
+    m_SelectedColor: {r: 0.50980395, g: 0.23137255, b: 0.23137255, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.2
@@ -4506,7 +4506,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0b3654b08814724099f2a2c54c10190, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4537,7 +4537,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 32
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -4570,7 +4570,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1819171226
@@ -4953,10 +4953,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.9266996, g: 0.8160377, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.67437774, g: 0.5449003, b: 0.745283, a: 1}
-    m_PressedColor: {r: 0.5173241, g: 0.36712354, b: 0.6226415, a: 1}
-    m_SelectedColor: {r: 0.5176471, g: 0.36862746, b: 0.62352943, a: 1}
+    m_NormalColor: {r: 1, g: 0.5803922, b: 0.5803922, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.3915094, b: 0.3915094, a: 1}
+    m_PressedColor: {r: 1, g: 0.28773582, b: 0.28773582, a: 1}
+    m_SelectedColor: {r: 0.509434, g: 0.23309009, b: 0.23309009, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.2

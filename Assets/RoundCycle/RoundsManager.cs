@@ -123,6 +123,8 @@ public class RoundsManager : MonoBehaviour
             }
             PlayerSpawner.instance.TeleportPlayer(WASDPlayer.transform, arrowKeyPlayer.transform);
             animator.SetTrigger("end");
+
+            AudioManager.instance.Play("RoundEnd");
             sparkles.Play();
             roundEnd.text = RoundUI.GetColorName(round.winner);
 
