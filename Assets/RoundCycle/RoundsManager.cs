@@ -88,7 +88,6 @@ public class RoundsManager : MonoBehaviour
             loadScreen.SetActive(true);
             EventCreation.instance.isFrozen = true;
             countdown.SetActive(true);
-            
             AudioManager.instance.Play("Countdown");
             yield return new WaitForSeconds(4f);
             countdown.SetActive(false);
