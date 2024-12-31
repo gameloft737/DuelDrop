@@ -4,6 +4,8 @@ public class CharacterCycler : MonoBehaviour
 {
     public bool isLeftPlayer; // Set this true for the left player, false for the right player
     private Transform[] characters;
+    
+    public CharacterInfo[] infos;
     public int currentIndex;
 
     void Start()
@@ -35,6 +37,7 @@ public class CharacterCycler : MonoBehaviour
 
     void CycleCharacter(int direction)
     {
+        infos[currentIndex].SetFalse();
         // Hide the current character
         characters[currentIndex].gameObject.SetActive(false);
 
