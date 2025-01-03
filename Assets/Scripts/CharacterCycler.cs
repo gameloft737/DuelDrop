@@ -16,6 +16,7 @@ public class CharacterCycler : MonoBehaviour
         {
             characters[i] = transform.GetChild(i);
             characters[i].gameObject.SetActive(i == 0); // Set only the first character active
+            infos[i].gameObject.SetActive(i == 0);
         }
         currentIndex = 0;
     }
@@ -40,12 +41,13 @@ public class CharacterCycler : MonoBehaviour
         infos[currentIndex].SetFalse();
         // Hide the current character
         characters[currentIndex].gameObject.SetActive(false);
-
+        infos[currentIndex].gameObject.SetActive(false);
         // Update the index and wrap around
         currentIndex = (currentIndex + direction + characters.Length) % characters.Length;
 
         // Show the new character
         characters[currentIndex].gameObject.SetActive(true);
+        infos[currentIndex].gameObject.SetActive(true);
     }
     public void CycleRight(){
         CycleCharacter(1);
