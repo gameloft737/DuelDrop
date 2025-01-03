@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8087122659894754760}
   - component: {fileID: 5204071564766129676}
   m_Layer: 0
-  m_Name: Damage
+  m_Name: Combo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 500
+  m_text: 'Combo: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0b3654b08814724099f2a2c54c10190, type: 2}
   m_sharedMaterial: {fileID: 5365712508098666621, guid: a0b3654b08814724099f2a2c54c10190,
@@ -111,8 +111,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278201087
-  m_fontColor: {r: 1, g: 0.16355896, b: 0, a: 1}
+    rgba: 4278190884
+  m_fontColor: {r: 0.14150941, g: 0.012189778, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -129,13 +129,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 34
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ceedc0cbaabdf545bca6a739ee852f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.5
+  duration: 1
   offset: {x: 0, y: 0.8, z: -0.8}
   randomizeIntensity: {x: 0.5, y: 0.5, z: 0}
   randomRotationRange: 15

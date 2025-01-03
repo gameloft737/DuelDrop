@@ -57,6 +57,8 @@ MonoBehaviour:
   knockbackModifier: 1
   healthSystem: {fileID: 4278773503737732902}
   target: {fileID: 0}
+  isFrozen: 0
+  isTutorial: 0
   targetManager: {fileID: 0}
   swordParticles: {fileID: 8510851998644713491}
   arrows: {fileID: 1344055074053950063, guid: 4c2ddedaa75069f45bd292eb09f734b9, type: 3}
@@ -825,6 +827,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b045aa66-270f-4dc6-aaa0-e44c53234c3f
     m_ActionName: WASDPlayer/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eadc17cb-fc4f-498d-847d-eeac23631f7c
+    m_ActionName: Messages/WASDMovement
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d5bffe0-b635-4ccc-83c2-b4c1c934a9a6
+    m_ActionName: Messages/ArrowMovement
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: WASDPlayer
@@ -894,6 +904,9 @@ MonoBehaviour:
   isRight: 1
   isMoving: 0
   weight: 0.8
+  speedParticle: {fileID: 0}
+  ogSpeed: 0
+  ogAcceleration: 0
 --- !u!114 &4278773503737732902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,11 +919,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee718bb60aeb7f46a3f59daf10ba79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFrozen: 0
   maximumHealth: 100
   comboTimeWindow: 2
   damagePrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
     type: 3}
-  comboTextPrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
+  comboTextPrefab: {fileID: 3422892305146619340, guid: c4ae7dc4582cdc94f84dc65c06165411,
     type: 3}
   currentTag: 
   health: 0

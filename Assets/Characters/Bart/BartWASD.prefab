@@ -113,7 +113,6 @@ MonoBehaviour:
   isFrozen: 0
   isTutorial: 0
   targetManager: {fileID: 0}
-  lifeDrainTime: 4
   attackObj: {fileID: 6892256729021397544, guid: 5c6489796b4783a44a0437b405a9257c,
     type: 3}
   ultimateAttackObj: {fileID: 2537414465323652014, guid: 87bb79c63ce960e46b89adb0889bf17b,
@@ -438,10 +437,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFrozen: 0
   maximumHealth: 125
-  comboTimeWindow: 2
+  comboTimeWindow: 1.5
   damagePrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
     type: 3}
-  comboTextPrefab: {fileID: 3422892305146619340, guid: b6d033a74a58e0743a1b98eccf1da3ef,
+  comboTextPrefab: {fileID: 3422892305146619340, guid: c4ae7dc4582cdc94f84dc65c06165411,
     type: 3}
   currentTag: 
   health: 0
