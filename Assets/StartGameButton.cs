@@ -15,23 +15,16 @@ public class StartGameButton : MonoBehaviour
         {
             PlayerPrefs.SetInt("firstTime", 0);
             StartTutorial();
-            return;
         }
-        SceneManager.LoadScene(selectionName);
+        else{
+            SceneManager.LoadScene(selectionName);
+        }
     }
 
     // Method to start the tutorial
     public void StartTutorial()
     {
         SceneManager.LoadScene(tutorialName);
-    }
-
-    // Reset firstTime flag via the Inspector
-    [ContextMenu("Reset First Time")]
-    public void ResetFirstTime()
-    {
-        PlayerPrefs.SetInt("firstTime", 1);
-        Debug.Log("firstTime has been reset.");
     }
 }
     

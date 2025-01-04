@@ -1839,7 +1839,7 @@ MonoBehaviour:
   targetManager: {fileID: 0}
   rampageDuration: 7
   isRampage: 0
-  hornMoveSpeed: 5
+  hornMoveSpeed: 15
   hornPrefab: {fileID: 2541878378433692517, guid: 5e2bf8d79b5eb864b839634b5c092e45,
     type: 3}
 --- !u!1 &6426860478032021852
