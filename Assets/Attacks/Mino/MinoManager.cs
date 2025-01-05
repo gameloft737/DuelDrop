@@ -130,29 +130,23 @@ public class MinoManager : WeaponManager
         _playerMovement.animator.SetTrigger("ultimate");
         AudioManager.instance.Play("MinoUltimateAttack");
         isRampage = true;
-        _playerMovement.moveSpeed = _playerMovement.moveSpeed * 2;
-        _playerMovement.acceleration = _playerMovement.acceleration * 2;
+        _playerMovement.SetSpeedBoost(2, 6);
         
         StartCoroutine(RampageTime(attack));
     }
     private GameObject particleEffect;
     private IEnumerator RampageTime(AttackData attack)
     {
-         particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
+        particleEffect = Instantiate(attack.getParticle(0), transform.position, Quaternion.identity, transform);
         particleEffect.transform.localScale = Vector3.one;
         yield return new WaitForSeconds(rampageDuration);
         Destroy(particleEffect);
-        if(!isRampage){yield break;}
         isRampage = false;
-        _playerMovement.moveSpeed = _playerMovement.moveSpeed / 2;
-        _playerMovement.acceleration = _playerMovement.acceleration / 2;
     }
     protected override void RemoveEffects(){
         if(!isRampage){return;}
         Destroy(particleEffect);
         isRampage = false;
-        _playerMovement.moveSpeed = _playerMovement.moveSpeed / 2;
-        _playerMovement.acceleration = _playerMovement.acceleration / 2;
     }
 }
 

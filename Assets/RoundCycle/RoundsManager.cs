@@ -141,7 +141,9 @@ public class RoundsManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
             round.isActive = false;
             RoundUI.instance.SetUI(round.winner);
-            Debug.Log(arrowKeysWins+"and"+wasdWins);
+            
+            WASDManager.healthSystem.SetMaxHealth();
+            arrowKeyManager.healthSystem.SetMaxHealth();
             // Check if one player has reached the majority
             if (wasdWins >= majority || arrowKeysWins >= majority)
             {
