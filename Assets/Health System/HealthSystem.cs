@@ -128,6 +128,9 @@ public class HealthSystem : MonoBehaviour
         {
             Die();
         }
+        else if(health <= 0.25f * maximumHealth){
+            AudioManager.instance.Play("LowHealth");
+        }
     }
 
     private void ApplyHealing(float healAmount)

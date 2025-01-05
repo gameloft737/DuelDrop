@@ -293,12 +293,15 @@ public class WeaponManager : MonoBehaviour
             UIManager.instance.SetSlider(currentTag, "SpecialAttack", sliderValue);
             if(sliderValue <= 0.01){
                 UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", true);
+                AudioManager.instance.Play("SpecialCharged");
             }
         }
         else if (attack == ultimateAttack) {
             UIManager.instance.SetSlider(currentTag, "UltimateAttack", sliderValue);
             if(sliderValue <= 0.01){ 
                 UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", true);
+                
+                AudioManager.instance.Play("UltimateCharged");
             }
         }
 
