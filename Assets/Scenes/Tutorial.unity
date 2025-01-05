@@ -11617,6 +11617,7 @@ MonoBehaviour:
     type: 3}
   currentTag: 
   health: 0
+  height: 1
 --- !u!114 &4434077152502489036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12471,6 +12472,7 @@ MonoBehaviour:
     type: 3}
   currentTag: 
   health: 0
+  height: 1
 --- !u!114 &6719177391928190616
 MonoBehaviour:
   m_ObjectHideFlags: 0

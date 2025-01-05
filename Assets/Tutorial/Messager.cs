@@ -11,14 +11,18 @@ public class Messager : MonoBehaviour
     [SerializeField]private int currentIndex = 0;
     [SerializeField] private string sceneToLoad;
     private Message currentMessage;
-    public void Awake(){
+    public void Start(){
         next.Enable();
         next.performed += Next;
         currentMessage = messages[currentIndex];
+    if (SceneManager.GetActiveScene().name != "Tutorial") {
+        Destroy(gameObject);
     }
+    }
+
     public void Next(InputAction.CallbackContext context)
     {
-        if(context.performed){
+        if(context.performed && SceneManager.GetActiveScene().name == "Tutorial"){
             if(currentMessage.isComplete){
                 if(!NextMessage()){
                     SceneManager.LoadScene(sceneToLoad);
