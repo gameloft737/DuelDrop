@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a6ae92ecd408548b52fe71d6cc2fc1, type: 3}
-  m_Name: HealthDrop
+  m_Script: {fileID: 11500000, guid: d8858e5096dfadf46856988e10dcb0e1, type: 3}
+  m_Name: Platform Fade
   m_EditorClassIdentifier: 
-  eventName: HealthDrop
-  eventIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  eventPrefab: {fileID: 7859762394559403972, guid: eb22eeb2ca13ef843a34fa5e2611986f,
+  eventName: Platform Fade
+  eventIcon: {fileID: 21300000, guid: 107dfdd7783e73b419ad5ec709898efc, type: 3}
+  eventPrefab: {fileID: 2230428277246350983, guid: 10bf229419eff5840abc3f701593654e,
     type: 3}
-  spawnRadius: 32

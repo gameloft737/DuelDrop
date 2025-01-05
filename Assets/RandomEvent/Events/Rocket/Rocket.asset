@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Rocket
   m_EditorClassIdentifier: 
   eventName: Rocket
-  eventIcon: {fileID: 21300000, guid: c38e3ea7ac92c0f49be550202622dc5d, type: 3}
+  eventIcon: {fileID: 21300000, guid: 28d8ab17637e9fb4fb46cda5aead8ab7, type: 3}
   eventPrefab: {fileID: 2822375913630303653, guid: dad9560ab2c9e6c4b9aa191e8c7c3810,
     type: 3}

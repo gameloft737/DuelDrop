@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be5abe9e9f66a514fbbde7969a1735ad, type: 3}
-  m_Name: SpeedBoost
+  m_Name: Speed Box
   m_EditorClassIdentifier: 
   eventName: SpeedBoost
-  eventIcon: {fileID: 21300000, guid: c231945c1f55ab44d9ac52b925d94ab1, type: 3}
+  eventIcon: {fileID: 21300000, guid: 5ac874cb23ce24249962eb7c75fafc39, type: 3}
   eventPrefab: {fileID: 7859762394559403972, guid: 11387f6aa0bae64439ae4874508043d2,
     type: 3}
   spawnRadius: 16.5
