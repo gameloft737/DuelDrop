@@ -25,6 +25,7 @@ public class Messager : MonoBehaviour
         if(context.performed && SceneManager.GetActiveScene().name == "Tutorial"){
             if(currentMessage.isComplete){
                 if(!NextMessage()){
+                    Debug.Log("LOADING CHARACTER SELECT FROM: TUTORIAL");
                     SceneManager.LoadScene(sceneToLoad);
                 }
             } else {
