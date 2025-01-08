@@ -10260,6 +10260,21 @@ MonoBehaviour:
     volume: 0.582
     pitch: 1
     source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 6cc7f0cf31a917348b53bb4e27c3a1db, type: 3}
+    name: LowHealth
+    volume: 0.582
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 8ddb927cacd64214d9571ff9ba5127e0, type: 3}
+    name: SpecialCharged
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - audioClip: {fileID: 8300000, guid: 8ddb927cacd64214d9571ff9ba5127e0, type: 3}
+    name: UltimateCharged
+    volume: 1
+    pitch: 1.5
+    source: {fileID: 0}
 --- !u!4 &1219027146
 Transform:
   m_ObjectHideFlags: 0
