@@ -123,6 +123,8 @@ public class WeaponManager : MonoBehaviour
             StartCoroutine(TryPerformSpecialAttack(specialAttack));
             
             UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", false);
+            
+            isSpecialCharged = false;
         }
     }
 
@@ -133,6 +135,7 @@ public class WeaponManager : MonoBehaviour
             StartCoroutine(TryPerformUltimateAttack(ultimateAttack));
             
             UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", false);
+            isUltCharged = false;
         }
     }
 
@@ -279,7 +282,8 @@ public class WeaponManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(particleEffect);
     }
-
+    bool isUltCharged = false;
+    bool isSpecialCharged = false;
     private void UpdateSlider(AttackData attack)
     {
         float cooldown = attackCooldowns[attack];
@@ -293,15 +297,20 @@ public class WeaponManager : MonoBehaviour
             UIManager.instance.SetSlider(currentTag, "SpecialAttack", sliderValue);
             if(sliderValue <= 0.01){
                 UIManager.instance.AnimateSlider(currentTag, "SpecialAttack", "glowRed", true);
-                AudioManager.instance.Play("SpecialCharged");
+                if(!isSpecialCharged){
+                    AudioManager.instance.Play("SpecialCharged");
+                    isSpecialCharged = true;
+                }
             }
         }
         else if (attack == ultimateAttack) {
             UIManager.instance.SetSlider(currentTag, "UltimateAttack", sliderValue);
             if(sliderValue <= 0.01){ 
                 UIManager.instance.AnimateSlider(currentTag, "UltimateAttack", "glow", true);
-                
-                AudioManager.instance.Play("UltimateCharged");
+                if(!isUltCharged){
+                    AudioManager.instance.Play("UltimateCharged");
+                    isUltCharged = true;
+                }
             }
         }
 

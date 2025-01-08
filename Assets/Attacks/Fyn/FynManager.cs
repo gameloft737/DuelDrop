@@ -142,6 +142,7 @@ public class FynManager : WeaponManager
         
         MakeHit(attackPosition);
     }
+
     protected override void PerformUltimateAttack(AttackData attack)
     {
         if (target != null)
@@ -191,8 +192,14 @@ public class FynManager : WeaponManager
 
         while (Vector3.Distance(transform.position, targetPosition) > 1f) // Keep moving until close to target
         {
-            _playerMovement.gameObject.transform.position = Vector3.MoveTowards(_playerMovement.gameObject.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null; // Wait for the next frame
+             _playerMovement.rb.MovePosition(Vector3.MoveTowards(
+            _playerMovement.rb.position, 
+            targetPosition, 
+            moveSpeed * Time.fixedDeltaTime
+            ));
+
+            yield return new WaitForFixedUpdate(); // Match FixedUpdate frequency
+            
         }
 
         // Re-enable collisions after reaching the target

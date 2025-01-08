@@ -50,6 +50,7 @@ public class EventCreation : MonoBehaviour
         currentTimer = timeBetweenEvents;
         SelectRandomEvent();
         UpdateUI();
+        
     }
 
     void Update()
